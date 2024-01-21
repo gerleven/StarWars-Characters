@@ -1,8 +1,10 @@
 import { Outlet } from "react-router-dom";
 import "../App.css";
-import { Stack } from "@mui/material";
+import { Stack, Typography, useTheme } from "@mui/material";
+
 
 const RootPage = () => {
+    const theme = useTheme();
   return (
     <>
       <Stack
@@ -17,7 +19,7 @@ const RootPage = () => {
           justifyContent={"start"}
           alignItems={"strech"}
         >
-          <div>Banner!</div>
+          <div><Typography color={theme.palette.primary.main}>Banner!</Typography></div>
           <Outlet />
         </Stack>
       </Stack>
