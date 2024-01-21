@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import "../App.css";
 import { Stack, Typography, useTheme } from "@mui/material";
+import Banner from "../components/banner";
 
 
 const RootPage = () => {
@@ -17,9 +18,8 @@ const RootPage = () => {
           className="app-wrapper"
           direction={"column"}
           justifyContent={"start"}
-          alignItems={"strech"}
         >
-          <div><Typography color={theme.palette.primary.main}>Banner!</Typography></div>
+          <Banner/>
           <Outlet />
         </Stack>
       </Stack>
