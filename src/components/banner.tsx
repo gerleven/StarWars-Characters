@@ -20,7 +20,7 @@ export default function Banner() {
         justifyContent={"start"}
         sx={{ backgroundColor: theme.palette.primary.main }}
       >
-        {location.pathname != "/new" && (
+        {location.pathname != "/" && (
           <Form method="get" action="/" replace>
             <IconButton
               className="noFocusBorder"
