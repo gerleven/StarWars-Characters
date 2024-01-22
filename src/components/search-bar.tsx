@@ -2,7 +2,7 @@ import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import { CustomButtonPrimary } from "../utils/custom-buttons";
+import { CustomButtonPrimary } from "../lib/utils.tsx";
 import { Stack } from "@mui/material";
 import { Form } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";

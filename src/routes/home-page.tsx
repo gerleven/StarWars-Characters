@@ -2,8 +2,9 @@ import { Stack } from "@mui/material";
 import SearchBar from "../components/search-bar";
 import SearchResult from "../components/search-result";
 import { useEffect, useState } from "react";
-import { Character } from "../interfaces/global-interfaces";
-import { getFakeData } from "../helpers/fake-data";
+import { Character } from "../lib/definitions.tsx";
+import { getFakeData } from "../lib/placeholder-data.tsx";
+
 
 const HomePage = () => {
   const fakeData: Character[] = getFakeData();

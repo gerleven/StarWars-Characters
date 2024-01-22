@@ -1,6 +1,6 @@
 import { Paper, Stack, Typography, Card, CardActions, CardContent } from "@mui/material";
-import { Character } from "../interfaces/global-interfaces";
-import { CustomButtonPrimary } from "../utils/custom-buttons";
+import { CustomButtonPrimary } from "../lib/utils.tsx";
+import { Character } from "../lib/definitions.tsx";
 
 export default function CharacterCard({ character }: { character: Character }) {
   return (

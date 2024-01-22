@@ -1,8 +1,8 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Form, useRouteError } from "react-router-dom";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import { CustomButtonPrimary } from "../utils/custom-buttons";
-import { IError } from "../interfaces/global-interfaces";
+import { IError } from "../lib/definitions.tsx";
+import { CustomButtonPrimary } from "../lib/utils.tsx";
 
 export default function RootErrorPage() {
   
