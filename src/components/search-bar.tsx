@@ -37,13 +37,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
   },
 }));
 
-export default function SearchBar() {
+export default function SearchBar({ setInputSearch }: {setInputSearch: (value: string)=>void}) {
+  const handleSearch = (value: string): void => {
+    setInputSearch(value);
+  };
+
   return (
     <Box sx={{ flexGrow: 1, backgroundColor: theme.palette.grey[100] }}>
       <Stack
@@ -60,6 +61,9 @@ export default function SearchBar() {
           <StyledInputBase
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
+            onChange={(term) => {
+              handleSearch(term.target.value);
+            }}
           />
         </Search>
         <Form method="get" action="/new" replace>
