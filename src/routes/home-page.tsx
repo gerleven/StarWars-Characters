@@ -19,9 +19,10 @@ const HomePage = () => {
         justifyContent="flex-start"
         alignItems="stretch"
         spacing={1}
+        sx={{flexGrow: 1}}
       >
         <SearchBar setInputSearch={setInputSearch} />
-        <p>input search: {inputSearch}</p>
+        {/* <p>input search: {inputSearch}</p> */}
         <SearchResult characters={characters} />
       </Stack>
     </>

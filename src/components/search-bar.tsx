@@ -46,7 +46,7 @@ export default function SearchBar({ setInputSearch }: {setInputSearch: (value: s
   };
 
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: theme.palette.grey[100] }}>
+    <Box>
       <Stack
         direction="row"
         justifyContent="space-between"
