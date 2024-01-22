@@ -3,15 +3,39 @@ import SearchBar from "../components/search-bar";
 import SearchResult from "../components/search-result";
 import { useEffect, useState } from "react";
 import { Character } from "../lib/definitions.tsx";
-import { getFakeData } from "../lib/placeholder-data.tsx";
-
+import { fetchCharacters } from "../lib/data.tsx";
 
 const HomePage = () => {
-  const fakeData: Character[] = getFakeData();
-  const [characters, setCharacters] = useState<Character[]>(
-    fakeData as Character[]
-  );
+  const [characters, setCharacters] = useState<Character[]>([] as Character[]);
   const [inputSearch, setInputSearch] = useState<string>("");
+
+  useEffect(() => {
+    const charactersInit: Character[] = JSON.parse(
+      localStorage.getItem("characters") || "[]"
+    ) as Character[];
+    if (charactersInit.length == 0) {
+      callApi();
+    } else {
+      setCharacters(charactersInit);
+    }
+  }, []);
+
+  useEffect(() => {
+    //Filter list
+  }, [inputSearch]);
+
+  const callApi =()=>{
+    fetchCharacters().then((characterResults) => {
+      setCharacters(characterResults);
+      localStorage.setItem("characters", JSON.stringify(characterResults));
+    });
+  }
+  
+  const deleteCharacter = (character: Character) => {
+    const filteredList = characters.filter((c) => c != character);
+    setCharacters(filteredList);
+    localStorage.setItem("characters", JSON.stringify(filteredList));
+  };
 
   return (
     <>
@@ -23,8 +47,7 @@ const HomePage = () => {
         sx={{ flexGrow: 1 }}
       >
         <SearchBar setInputSearch={setInputSearch} />
-        {/* <p>input search: {inputSearch}</p> */}
-        <SearchResult characters={characters} />
+        <SearchResult characters={characters} deleteCharacter={deleteCharacter} callApi={callApi}/>
       </Stack>
     </>
   );

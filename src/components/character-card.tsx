@@ -2,7 +2,7 @@ import { Paper, Stack, Typography, Card, CardActions, CardContent } from "@mui/m
 import { CustomButtonPrimary } from "../lib/utils.tsx";
 import { Character } from "../lib/definitions.tsx";
 
-export default function CharacterCard({ character }: { character: Character }) {
+export default function CharacterCard({ character, deleteCharacter }: { character: Character, deleteCharacter: any }) {
   return (
     <>
     <Paper elevation={3}>
@@ -17,7 +17,7 @@ export default function CharacterCard({ character }: { character: Character }) {
           <Typography>Gender: {character.gender}</Typography>
         </CardContent>
         <CardActions>
-          <CustomButtonPrimary>Delete</CustomButtonPrimary>
+          <CustomButtonPrimary onClick={()=>deleteCharacter(character)}>Delete</CustomButtonPrimary>
         </CardActions>
           
         </Stack>

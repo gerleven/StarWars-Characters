@@ -5,9 +5,9 @@ import { CustomButtonPrimary } from "../lib/utils.tsx";
 import theme from "../theme/custom-theme.tsx";
 
 export default function SearchResult({
-  characters,
+  characters, deleteCharacter, callApi
 }: {
-  characters: Character[];
+  characters: Character[], deleteCharacter: any, callApi: any
 }) {
   return (
     <>
@@ -19,14 +19,14 @@ export default function SearchResult({
         padding={1}
         className={"overFlowYScroll"}
       >
-        {characters.length == 0 && <NoItemsToShow />}
-        {characters.length != 0 && <ListOfItems characters={characters} />}
+        {characters.length == 0 && <NoItemsToShow callApi={callApi}/>}
+        {characters.length != 0 && <ListOfItems characters={characters} deleteCharacter={deleteCharacter}/>}
       </Stack>
     </>
   );
 }
 
-const NoItemsToShow = () => {
+const NoItemsToShow = ({callApi}: any) => {
   return (
     <>
       <Paper elevation={3}>
@@ -34,7 +34,7 @@ const NoItemsToShow = () => {
           <Stack padding={2} spacing={1}>
             <Typography fontSize={20} fontWeight={500} >No Items to show</Typography>
             <Typography fontWeight={300} color={theme.palette.grey[600]}>Try to create a new Character or call API again</Typography>
-            <CustomButtonPrimary>Call API</CustomButtonPrimary>
+            <CustomButtonPrimary onClick={callApi}>Call API</CustomButtonPrimary>
           </Stack>
         </Box>
       </Paper>
@@ -42,8 +42,8 @@ const NoItemsToShow = () => {
   );
 };
 
-const ListOfItems = ({ characters }: { characters: Character[] }) => {
+const ListOfItems = ({ characters, deleteCharacter }: { characters: Character[], deleteCharacter: any }) => {
   return characters.map((character: Character, index: number) => {
-    return <CharacterCard key={index} character={character} />;
+    return <CharacterCard key={index} character={character} deleteCharacter={deleteCharacter}/>;
   });
 };
