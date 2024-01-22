@@ -34,6 +34,15 @@
   left: 50%;
   transform: translateX(-50%);
   height: 50px;
+  transition: scale 750ms ease-out;
+}
+.banner-logo :hover{
+  animation: 5s infinite ease-in-out anim-logo;
+}
+@keyframes anim-logo{
+  0%{transform: rotate(0deg); scale: 1;}
+  50%{transform: rotate(10deg); scale: 1.3}
+  100%{transform: rotate(0deg); scale: 1;}
 }
 
 .detailsPanel {
