@@ -1,11 +1,9 @@
 import { Outlet } from "react-router-dom";
 import "../App.css";
-import { Stack, Typography, useTheme } from "@mui/material";
+import { Stack } from "@mui/material";
 import Banner from "../components/banner";
 
-
 const RootPage = () => {
-    const theme = useTheme();
   return (
     <>
       <Stack
@@ -19,7 +17,7 @@ const RootPage = () => {
           direction={"column"}
           justifyContent={"start"}
         >
-          <Banner/>
+          <Banner />
           <Outlet />
         </Stack>
       </Stack>

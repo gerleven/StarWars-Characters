@@ -1,14 +1,20 @@
-import { CustomButtonPrimary, CustomButtonSecondary } from "../utils/custom-buttons";
-import { Form } from "react-router-dom";
+import { Stack } from "@mui/material";
+import SearchBar from "../components/search-bar";
+import SearchResult from "../components/search-result";
 
 const HomePage = () => {
   return (
     <>
-      <div>Home Page!</div>
-      <Form method="get" action="/new" replace>
-        <CustomButtonPrimary type="submit">New Character</CustomButtonPrimary>
-        <CustomButtonSecondary>New Character</CustomButtonSecondary>
-      </Form>
+      <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="stretch"
+        spacing={1}
+      >
+        <SearchBar/>
+        <SearchResult/>
+      </Stack>
+      
     </>
   );
 };
