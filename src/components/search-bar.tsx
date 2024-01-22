@@ -5,7 +5,7 @@ import InputBase from "@mui/material/InputBase";
 import { CustomButtonPrimary } from "../utils/custom-buttons";
 import { Stack } from "@mui/material";
 import { Form } from "react-router-dom";
-import theme from "../theme/custom-theme";
+import { useDebouncedCallback } from "use-debounce";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -41,9 +41,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar({ setInputSearch }: {setInputSearch: (value: string)=>void}) {
-  const handleSearch = (value: string): void => {
+  const updateSearchInput = (value: string): void => {
     setInputSearch(value);
   };
+
+  const handleSearch = useDebouncedCallback(updateSearchInput, 300); //Debounced to avoid update in every stroke 
 
   return (
     <Box>

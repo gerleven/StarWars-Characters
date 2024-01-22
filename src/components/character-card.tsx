@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography, Card, CardActions, CardContent } from "@mui/material";
+import { Paper, Stack, Typography, Card, CardActions, CardContent } from "@mui/material";
 import { Character } from "../interfaces/global-interfaces";
 import { CustomButtonPrimary } from "../utils/custom-buttons";
 
