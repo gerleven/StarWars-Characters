@@ -2,34 +2,26 @@ import { useState } from "react";
 import { Character, IMyContext } from "./definitions";
 
 const useMyContext = (): IMyContext => {
-  const [test, setTest] = useState<boolean>(false);
   const [characters, setCharacters] = useState<Character[]>([] as Character[]);
 
-  const resetCharacters = () => {
-    setCharacters([] as Character[]);
+  const deleteAll = () => {
+    updateCharacters([] as Character[]);
   };
   const updateCharacters = (characters: Character[]) => {
     setCharacters(characters);
+    localStorage.setItem("characters", JSON.stringify(characters));
   };
   const addNewCharacter = (character: Character) => {
-    setCharacters((prev) => ([character, ...prev]));
-    localStorage.setItem("characters", JSON.stringify([character, ...characters]));
+    updateCharacters([character, ...characters]);
   };
   const deleteCharacter = (character: Character) => {
     const filteredList = characters.filter((c) => c != character);
-    setCharacters(filteredList);
-    localStorage.setItem("characters", JSON.stringify(filteredList));
-  };
-
-  const turnTest = () => {
-    setTest((prev) => !prev);
+    updateCharacters(filteredList);
   };
 
   const contextDefaultValue = {
-    test,
     characters,
-    turnTest,
-    resetCharacters,
+    deleteAll,
     updateCharacters,
     addNewCharacter,
     deleteCharacter,

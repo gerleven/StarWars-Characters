@@ -3,8 +3,7 @@ import SearchResult from "../components/search-result";
 import { useContext, useEffect, useState } from "react";
 import { Character } from "../lib/definitions.tsx";
 import { fetchCharacters } from "../lib/data.tsx";
-import { Card, Paper, Stack } from "@mui/material";
-import ContentLoader from "react-content-loader";
+import { Stack } from "@mui/material";
 import { MyContext } from "./root-page.tsx";
 import { SkeletonLoader } from "../components/character-card.tsx";
 
@@ -16,7 +15,7 @@ const HomePage = () => {
   >([] as Character[]);
   const [inputSearch, setInputSearch] = useState<string>("");
 
-  const { characters, updateCharacters, deleteCharacter }: any =
+  const { characters, updateCharacters }: any =
     useContext(MyContext);
 
   useEffect(() => {
@@ -45,7 +44,6 @@ const HomePage = () => {
     setLoading(true);
     fetchCharacters().then((characterResults) => {
       updateCharacters(characterResults);
-      localStorage.setItem("characters", JSON.stringify(characterResults));
       setLoading(false);
     });
   };
@@ -61,7 +59,6 @@ const HomePage = () => {
         sx={{ height: "80vh" }}
       >
         <SearchBar setInputSearch={setInputSearch} />
-        {/* <CustomButtonPrimary onClick={turnTest}>Test</CustomButtonPrimary> */}
         {loading ? (
           <>
             <SkeletonLoader />

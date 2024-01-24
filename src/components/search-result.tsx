@@ -17,7 +17,7 @@ export default function SearchResult({
   inputSearch:string;
   filteredCharactersList: Character[]
 }) {
-  const { updateCharacters, deleteCharacter, characters }: any = useContext(MyContext);
+  const { deleteCharacter, characters }: any = useContext(MyContext);
   return (
     <>
       <Stack
