@@ -58,5 +58,4 @@
 .overFlowYScroll {
   overflow-y: auto;
   flex-grow: 1;
-  height: 80vh;
 }

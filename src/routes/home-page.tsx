@@ -3,11 +3,11 @@ import SearchResult from "../components/search-result";
 import { useEffect, useState } from "react";
 import { Character } from "../lib/definitions.tsx";
 import { fetchCharacters } from "../lib/data.tsx";
-import { Box, Paper, Stack, Typography } from "@mui/material";
-import { CustomButtonPrimary } from "../lib/utils.tsx";
-import theme from "../theme/custom-theme.tsx";
+import { Card, Paper, Stack } from "@mui/material";
+import ContentLoader from "react-content-loader";
 
 const HomePage = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [characters, setCharacters] = useState<Character[]>([] as Character[]);
   const [filteredCharactersList, setFilteredCharactersList] = useState<
     Character[]
@@ -30,12 +30,14 @@ const HomePage = () => {
       character.name.toLowerCase().includes(inputSearch.toLowerCase())
     );
     setFilteredCharactersList(newFilteredList);
-  }, [inputSearch,characters]);
+  }, [inputSearch, characters]);
 
   const callApi = () => {
+    setLoading(true);
     fetchCharacters().then((characterResults) => {
       setCharacters(characterResults);
       localStorage.setItem("characters", JSON.stringify(characterResults));
+      setLoading(false);
     });
   };
 
@@ -52,17 +54,22 @@ const HomePage = () => {
         justifyContent="flex-start"
         alignItems="stretch"
         spacing={1}
-        sx={{ flexGrow: 1 }}
+        className={"overFlowYScroll"}
+        sx={{height: "80vh"}}
       >
         <SearchBar setInputSearch={setInputSearch} />
-        {characters.length == 0 ? (
-          <NoItemsToShow callApi={callApi} />
+        {loading ? (
+          <>
+            <SkeletonLoader />
+          </>
         ) : (
-            <SearchResult
-              characters={inputSearch.length==0?characters:filteredCharactersList}
-              deleteCharacter={deleteCharacter}
-              callApi={callApi}
-            />
+          <SearchResult
+            characters={
+              inputSearch.length == 0 ? characters : filteredCharactersList
+            }
+            deleteCharacter={deleteCharacter}
+            callApi={callApi}
+          />
         )}
       </Stack>
     </>
@@ -71,24 +78,39 @@ const HomePage = () => {
 
 export default HomePage;
 
-const NoItemsToShow = ({ callApi }: any) => {
-  return (
-    <>
-      <Paper elevation={3}>
-        <Box>
-          <Stack padding={2} spacing={1}>
-            <Typography fontSize={20} fontWeight={500}>
-              No Items to show
-            </Typography>
-            <Typography fontWeight={300} color={theme.palette.grey[600]}>
-              Try to create a new Character or call API again
-            </Typography>
-            <CustomButtonPrimary onClick={callApi}>
-              Call API
-            </CustomButtonPrimary>
-          </Stack>
-        </Box>
-      </Paper>
-    </>
-  );
+const SkeletonLoader = () => {
+  const Skeleton =()=>(<Paper elevation={3}>
+    <Card>
+      <ContentLoader
+        speed={2}
+        width={"100%"}
+        height={161}
+        viewBox="0 0 452 161"
+        backgroundColor="#e8e8e8"
+        foregroundColor="#f4f4f4"
+        style={{padding: 5}}
+      >
+        <rect x="0" y="20" rx="9" ry="9" width="240" height="40" />
+        <rect x="0" y="70" rx="5" ry="5" width="150" height="20" />
+        <rect x="0" y="100" rx="5" ry="5" width="150" height="20" />
+        <rect x="0" y="130" rx="5" ry="5" width="150" height="20" />
+        <rect x="350" y="65" rx="9" ry="9" width="72" height="36" />
+      </ContentLoader>
+    </Card>
+  </Paper>);
+
+  return <Stack
+    direction="column"
+    justifyContent="flex-start"
+    alignItems="stretch"
+    spacing={1}
+    padding={1}
+    className={"overFlowYScroll"}
+  >
+   <Skeleton/> 
+   <Skeleton/> 
+   <Skeleton/> 
+   <Skeleton/> 
+   <Skeleton/> 
+  </Stack>
 };
