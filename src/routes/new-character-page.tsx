@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CustomButtonPrimary } from "../lib/utils";
 import HeightIcon from '@mui/icons-material/Height';
@@ -21,7 +21,7 @@ import { Character } from "../lib/definitions";
 
 const NewCharacterPage = () => {
   const { register, handleSubmit } = useForm();
-  const [data, setData] = useState({});
+  // const [data, setData] = useState({});
 
   const {addNewCharacter}: any = useContext(MyContext);
 

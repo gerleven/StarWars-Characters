@@ -13,28 +13,31 @@ import RootErrorPage from "./routes/root-error-page";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme/custom-theme";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootPage />,
-    errorElement: <RootErrorPage />,
-    children: [
-      {
-        errorElement: <ErrorPage />,
-        children: [
-          {
-            index: true,
-            element: <HomePage />,
-          },
-          {
-            path: "/new",
-            element: <NewCharacterPage />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <RootPage />,
+      errorElement: <RootErrorPage />,
+      children: [
+        {
+          errorElement: <ErrorPage />,
+          children: [
+            {
+              index: true,
+              element: <HomePage />,
+            },
+            {
+              path: "/new",
+              element: <NewCharacterPage />,
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  { basename: "/" }
+);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
