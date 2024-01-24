@@ -6,7 +6,7 @@ import { fetchCharacters } from "../lib/data.tsx";
 import { Card, Paper, Stack } from "@mui/material";
 import ContentLoader from "react-content-loader";
 import { MyContext } from "./root-page.tsx";
-import { CustomButtonPrimary } from "../lib/utils.tsx";
+// import { CustomButtonPrimary } from "../lib/utils.tsx";
 
 
 
@@ -18,12 +18,15 @@ const HomePage = () => {
   >([] as Character[]);
   const [inputSearch, setInputSearch] = useState<string>("");
 
-  const {test, turnTest}: any = useContext(MyContext);
+  const {test, turnTest}: any = useContext(MyContext); test; turnTest;
 
   useEffect(() => {
+    //Check for characters in the Local Storage
     const charactersInit: Character[] = JSON.parse(
       localStorage.getItem("characters") || "[]"
     ) as Character[];
+
+    //In case there is no local storage, call the API.
     if (charactersInit.length == 0) {
       callApi();
     } else {
@@ -31,6 +34,7 @@ const HomePage = () => {
     }
   }, []);
 
+  //Keep the filtered list of characters in sync when searching or deleting any characters
   useEffect(() => {
     const newFilteredList = characters.filter((character) =>
       character.name.toLowerCase().includes(inputSearch.toLowerCase())
@@ -64,9 +68,7 @@ const HomePage = () => {
         sx={{height: "80vh"}}
       >
         <SearchBar setInputSearch={setInputSearch} />
-        <CustomButtonPrimary onClick={turnTest}>Test</CustomButtonPrimary>
-        {test&&<p>Test on</p>}
-        {!test&&<p>Test off</p>}
+        {/* <CustomButtonPrimary onClick={turnTest}>Test</CustomButtonPrimary> */}
         {loading ? (
           <>
             <SkeletonLoader />
@@ -78,6 +80,7 @@ const HomePage = () => {
             }
             deleteCharacter={deleteCharacter}
             callApi={callApi}
+            loading={loading}
           />
         )}
       </Stack>

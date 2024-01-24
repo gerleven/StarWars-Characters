@@ -7,11 +7,13 @@ import theme from "../theme/custom-theme.tsx";
 export default function SearchResult({
   characters,
   deleteCharacter,
-  callApi
+  callApi,
+  loading
 }: {
   characters: Character[];
   deleteCharacter: any;
   callApi: any;
+  loading: boolean;
 }) {
   return (
     <>
@@ -24,9 +26,8 @@ export default function SearchResult({
         className={"overFlowYScroll"}
         sx={{height: "80vh"}}
       >
-        {characters.length == 0 ? (
-          <NoItemsToShow callApi={callApi} />
-        ) : characters.map((character: Character, index: number) => {
+        {((characters.length == 0) && (!loading))&&<NoItemsToShow callApi={callApi} />}
+        {characters.map((character: Character, index: number) => {
           return (
             <CharacterCard
               key={index}
