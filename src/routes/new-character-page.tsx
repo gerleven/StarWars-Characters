@@ -28,8 +28,13 @@ const NewCharacterPage = () => {
   const navigate = useNavigate();
   
   const onSubmit: SubmitHandler<any> = (data) => {
-    console.log(data)
-    addNewCharacter({name: "testin ad new character"} as Character);
+    let  newCharacter = {
+      name: data.name,
+      birth_year: data.birth_year,
+      gender: data.gender,
+      height: data.height,
+    } as Character;
+    addNewCharacter(newCharacter);
     navigate("/");
   }
 
@@ -49,7 +54,7 @@ const NewCharacterPage = () => {
               <Grid container padding={1} gap={3} direction={"column"}>
                 <Grid item>
                   <TextField
-                  defaultValue={"Luke"}
+                  defaultValue={"Anakin Skywalker"}
                     {...register("name")}
                     fullWidth
                     label="Name"
@@ -70,7 +75,7 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
-                  defaultValue={172}
+                  defaultValue={188}
                     {...register("height")}
                     fullWidth
                     label="Height"
@@ -94,7 +99,7 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
-                  defaultValue={"172bwa"}
+                  defaultValue={"41.9BBY"}
                     {...register("birth_year")}
                     fullWidth
                     label="Birth year"
