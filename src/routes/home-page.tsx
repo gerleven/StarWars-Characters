@@ -6,19 +6,21 @@ import { fetchCharacters } from "../lib/data.tsx";
 import { Card, Paper, Stack } from "@mui/material";
 import ContentLoader from "react-content-loader";
 import { MyContext } from "./root-page.tsx";
-// import { CustomButtonPrimary } from "../lib/utils.tsx";
 
 
 
 const HomePage = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [characters, setCharacters] = useState<Character[]>([] as Character[]);
+  // const [characters, setCharacters] = useState<Character[]>([] as Character[]);
   const [filteredCharactersList, setFilteredCharactersList] = useState<
     Character[]
   >([] as Character[]);
   const [inputSearch, setInputSearch] = useState<string>("");
 
-  const {test, turnTest}: any = useContext(MyContext); test; turnTest;
+  const {
+    characters,
+    updateCharacters,
+    deleteCharacter}: any = useContext(MyContext);
 
   useEffect(() => {
     //Check for characters in the Local Storage
@@ -30,13 +32,13 @@ const HomePage = () => {
     if (charactersInit.length == 0) {
       callApi();
     } else {
-      setCharacters(charactersInit);
+      updateCharacters(charactersInit);
     }
   }, []);
 
   //Keep the filtered list of characters in sync when searching or deleting any characters
   useEffect(() => {
-    const newFilteredList = characters.filter((character) =>
+    const newFilteredList = characters.filter((character: Character) =>
       character.name.toLowerCase().includes(inputSearch.toLowerCase())
     );
     setFilteredCharactersList(newFilteredList);
@@ -45,17 +47,12 @@ const HomePage = () => {
   const callApi = () => {
     setLoading(true);
     fetchCharacters().then((characterResults) => {
-      setCharacters(characterResults);
+      updateCharacters(characterResults);
       localStorage.setItem("characters", JSON.stringify(characterResults));
       setLoading(false);
     });
   };
 
-  const deleteCharacter = (character: Character) => {
-    const filteredList = characters.filter((c) => c != character);
-    setCharacters(filteredList);
-    localStorage.setItem("characters", JSON.stringify(filteredList));
-  };
 
   return (
     <>

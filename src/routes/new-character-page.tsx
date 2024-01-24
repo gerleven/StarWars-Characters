@@ -9,19 +9,28 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CustomButtonPrimary } from "../lib/utils";
 import HeightIcon from '@mui/icons-material/Height';
 import CakeIcon from '@mui/icons-material/Cake';
 import WcIcon from '@mui/icons-material/Wc';
+import { MyContext } from "./root-page";
+import { useNavigate } from "react-router-dom";
+import { Character } from "../lib/definitions";
 
 const NewCharacterPage = () => {
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState({});
+
+  const {addNewCharacter}: any = useContext(MyContext);
+
+  const navigate = useNavigate();
   
   const onSubmit: SubmitHandler<any> = (data) => {
     console.log(data)
+    addNewCharacter({name: "testin ad new character"} as Character);
+    navigate("/");
   }
 
   const genderOptions = [{value: "male", label: "Male"},{value: "female", label: "Female"},{value: "n/a", label: "Other"}];
