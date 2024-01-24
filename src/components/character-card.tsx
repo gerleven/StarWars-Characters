@@ -9,17 +9,15 @@ export default function CharacterCard({ character, deleteCharacter }: { characte
       <Card>
       
         <Stack direction={"row"} justifyContent={"space-between"} padding={1}>
-        <CardContent>
-          
-          <Typography variant="h4">{character.name}</Typography>
-          <Typography>Height: {character.height} cm</Typography>
-          <Typography>Birth year: {character.birth_year}</Typography>
-          <Typography>Gender: {character.gender}</Typography>
-        </CardContent>
-        <CardActions>
-          <CustomButtonPrimary onClick={()=>deleteCharacter(character)}>Delete</CustomButtonPrimary>
-        </CardActions>
-          
+          <CardContent>
+            <Typography variant="h4">{character.name}</Typography>
+            <Typography>Height: {character.height} cm</Typography>
+            <Typography>Birth year: {character.birth_year}</Typography>
+            <Typography>Gender: {character.gender}</Typography>
+          </CardContent>
+          <CardActions>
+            <CustomButtonPrimary onClick={()=>deleteCharacter(character)}>Delete</CustomButtonPrimary>
+          </CardActions>
         </Stack>
       </Card>
       
