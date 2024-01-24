@@ -30,7 +30,7 @@ const HomePage = () => {
       character.name.toLowerCase().includes(inputSearch.toLowerCase())
     );
     setFilteredCharactersList(newFilteredList);
-  }, [inputSearch]);
+  }, [inputSearch,characters]);
 
   const callApi = () => {
     fetchCharacters().then((characterResults) => {
