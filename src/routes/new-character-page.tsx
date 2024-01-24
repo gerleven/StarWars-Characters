@@ -1,15 +1,20 @@
 import { AccountCircle } from "@mui/icons-material";
 import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   Grid,
   InputAdornment,
   Paper,
+  Radio,
+  RadioGroup,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { CustomButtonPrimary } from "../lib/utils";
 import HeightIcon from '@mui/icons-material/Height';
 import CakeIcon from '@mui/icons-material/Cake';
@@ -18,6 +23,10 @@ import WcIcon from '@mui/icons-material/Wc';
 const NewCharacterPage = () => {
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState({});
+  
+  const onSubmit: SubmitHandler<any> = (data) => {
+    console.log(data)
+  }
 
   return (
     <Stack padding={2}>
@@ -28,13 +37,12 @@ const NewCharacterPage = () => {
           </Grid>
           <Grid item>
             <form
-              onSubmit={handleSubmit((data) => {
-                setData(data); alert(data.name);
-              })}
+              onSubmit={handleSubmit(onSubmit)}
             >
               <Grid container padding={1} gap={3} direction={"column"}>
                 <Grid item>
                   <TextField
+                  defaultValue={"Luke"}
                     {...register("name")}
                     fullWidth
                     label="Name"
@@ -55,6 +63,7 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
+                  defaultValue={172}
                     {...register("height")}
                     fullWidth
                     label="Height"
@@ -78,6 +87,7 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
+                  defaultValue={"172bwa"}
                     {...register("birth_year")}
                     fullWidth
                     label="Birth year"
@@ -98,6 +108,7 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
+                  defaultValue={"Male"}
                     {...register("gender")}
                     fullWidth
                     label="Gender"
@@ -115,6 +126,19 @@ const NewCharacterPage = () => {
                       ),
                     }}
                   />
+                  <FormControl>
+                    <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+                    <RadioGroup
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      defaultValue="female"
+                      name="radio-buttons-group"
+                    >
+                      <FormControlLabel value="female" control={<Radio />} label="Female" />
+                      <FormControlLabel value="male" control={<Radio />} label="Male" />
+                      <FormControlLabel value="other" control={<Radio />} label="Other" />
+                    </RadioGroup>
+                  </FormControl>
+
                 </Grid>
                 <Grid item>
                   <CustomButtonPrimary fullWidth type="submit">
