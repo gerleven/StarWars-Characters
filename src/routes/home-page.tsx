@@ -1,10 +1,14 @@
 import SearchBar from "../components/search-bar";
 import SearchResult from "../components/search-result";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Character } from "../lib/definitions.tsx";
 import { fetchCharacters } from "../lib/data.tsx";
 import { Card, Paper, Stack } from "@mui/material";
 import ContentLoader from "react-content-loader";
+import { MyContext } from "./root-page.tsx";
+import { CustomButtonPrimary } from "../lib/utils.tsx";
+
+
 
 const HomePage = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -13,6 +17,8 @@ const HomePage = () => {
     Character[]
   >([] as Character[]);
   const [inputSearch, setInputSearch] = useState<string>("");
+
+  const {test, turnTest}: any = useContext(MyContext);
 
   useEffect(() => {
     const charactersInit: Character[] = JSON.parse(
@@ -58,6 +64,9 @@ const HomePage = () => {
         sx={{height: "80vh"}}
       >
         <SearchBar setInputSearch={setInputSearch} />
+        <CustomButtonPrimary onClick={turnTest}>Test</CustomButtonPrimary>
+        {test&&<p>Test on</p>}
+        {!test&&<p>Test off</p>}
         {loading ? (
           <>
             <SkeletonLoader />

@@ -2,25 +2,33 @@ import { Outlet } from "react-router-dom";
 import "../App.css";
 import { Stack } from "@mui/material";
 import Banner from "../components/banner";
+import { IMyContext } from "../lib/definitions";
+import { createContext } from "react";
+import useMyContext from "../lib/context";
+
+export const MyContext = createContext<IMyContext>({} as IMyContext);
 
 const RootPage = () => {
+  const contextDefaultValue = useMyContext(); // --> This Custom Hook provide the context default values object
   return (
     <>
-      <Stack
-        className="fullscreen"
-        direction={"column"}
-        justifyContent={"start"}
-        alignItems={"center"}
-      >
+      <MyContext.Provider value={contextDefaultValue}>
         <Stack
-          className="app-wrapper"
+          className="fullscreen"
           direction={"column"}
           justifyContent={"start"}
+          alignItems={"center"}
         >
-          <Banner />
-          <Outlet />
+          <Stack
+            className="app-wrapper"
+            direction={"column"}
+            justifyContent={"start"}
+          >
+            <Banner />
+            <Outlet />
+          </Stack>
         </Stack>
-      </Stack>
+      </MyContext.Provider>
     </>
   );
 };

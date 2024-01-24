@@ -28,3 +28,8 @@ export interface IError {
     "edited": string,
     "url": string,
   }
+
+  export interface IMyContext{
+    test: boolean,
+    turnTest: ()=>void
+  }
