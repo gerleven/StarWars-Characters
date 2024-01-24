@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import CssBaseline from "@mui/material/CssBaseline";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 
 import HomePage from "./routes/home-page";
 import NewCharacterPage from "./routes/new-character-page";
@@ -13,7 +13,7 @@ import RootErrorPage from "./routes/root-error-page";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme/custom-theme";
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   [
     {
       path: "/",
