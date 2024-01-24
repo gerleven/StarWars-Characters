@@ -51,7 +51,7 @@ const NoItemsToShow = ({ callApi }: any) => {
               No Items to show
             </Typography>
             <Typography fontWeight={300} color={theme.palette.grey[600]}>
-              Try to create a new Character or call API again
+              Try to create a new Character or call API again.
             </Typography>
             <CustomButtonPrimary onClick={callApi}>
               Call API
