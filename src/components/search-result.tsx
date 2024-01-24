@@ -3,18 +3,21 @@ import { Character } from "../lib/definitions.tsx";
 import CharacterCard from "./character-card";
 import { CustomButtonPrimary } from "../lib/utils.tsx";
 import theme from "../theme/custom-theme.tsx";
+import { useContext } from "react";
+import { MyContext } from "../routes/root-page.tsx";
 
 export default function SearchResult({
-  characters,
-  deleteCharacter,
   callApi,
-  loading
+  loading,
+  inputSearch,
+  filteredCharactersList
 }: {
-  characters: Character[];
-  deleteCharacter: any;
   callApi: any;
   loading: boolean;
+  inputSearch:string;
+  filteredCharactersList: Character[]
 }) {
+  const { updateCharacters, deleteCharacter, characters }: any = useContext(MyContext);
   return (
     <>
       <Stack
@@ -27,7 +30,7 @@ export default function SearchResult({
         sx={{height: "80vh"}}
       >
         {((characters.length == 0) && (!loading))&&<NoItemsToShow callApi={callApi} />}
-        {characters.map((character: Character, index: number) => {
+        {(inputSearch.length == 0 ? characters : filteredCharactersList).map((character: Character, index: number) => {
           return (
             <CharacterCard
               key={index}
