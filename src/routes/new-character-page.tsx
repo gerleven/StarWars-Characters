@@ -1,13 +1,9 @@
 import { AccountCircle } from "@mui/icons-material";
 import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
   Grid,
   InputAdornment,
+  MenuItem,
   Paper,
-  Radio,
-  RadioGroup,
   Stack,
   TextField,
   Typography,
@@ -27,6 +23,8 @@ const NewCharacterPage = () => {
   const onSubmit: SubmitHandler<any> = (data) => {
     console.log(data)
   }
+
+  const genderOptions = [{value: "male", label: "Male"},{value: "female", label: "Female"},{value: "n/a", label: "Other"}];
 
   return (
     <Stack padding={2}>
@@ -107,37 +105,28 @@ const NewCharacterPage = () => {
                   />
                 </Grid>
                 <Grid item>
-                  <TextField
-                  defaultValue={"Male"}
-                    {...register("gender")}
-                    fullWidth
-                    label="Gender"
-                    id="Gender-input"
-                    type="text"
-                    error={false}
-                    disabled={true}
-                    required={true}
-                    helperText="Enter gender"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <WcIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <FormControl>
-                    <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-                    <RadioGroup
-                      aria-labelledby="demo-radio-buttons-group-label"
-                      defaultValue="female"
-                      name="radio-buttons-group"
-                    >
-                      <FormControlLabel value="female" control={<Radio />} label="Female" />
-                      <FormControlLabel value="male" control={<Radio />} label="Male" />
-                      <FormControlLabel value="other" control={<Radio />} label="Other" />
-                    </RadioGroup>
-                  </FormControl>
+                <TextField
+                  defaultValue="male"
+                  {...register("gender")}
+                  fullWidth
+                  id="Gender-input"
+                  select
+                  label="Gender"
+                  helperText="Select Gender"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <WcIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                >
+                  {genderOptions.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
 
                 </Grid>
                 <Grid item>
