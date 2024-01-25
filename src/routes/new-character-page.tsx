@@ -11,10 +11,10 @@ import {
 
 import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { CustomButtonPrimary } from "../lib/utils";
-import HeightIcon from '@mui/icons-material/Height';
-import CakeIcon from '@mui/icons-material/Cake';
-import WcIcon from '@mui/icons-material/Wc';
+import { CustomButtonPrimary, CustomButtonSecondary } from "../lib/utils";
+import HeightIcon from "@mui/icons-material/Height";
+import CakeIcon from "@mui/icons-material/Cake";
+import WcIcon from "@mui/icons-material/Wc";
 import { MyContext } from "./root-page";
 import { useNavigate } from "react-router-dom";
 import { Character } from "../lib/definitions";
@@ -23,12 +23,12 @@ const NewCharacterPage = () => {
   const { register, handleSubmit } = useForm();
   // const [data, setData] = useState({});
 
-  const {addNewCharacter}: any = useContext(MyContext);
+  const { addNewCharacter }: any = useContext(MyContext);
 
   const navigate = useNavigate();
-  
+
   const onSubmit: SubmitHandler<any> = (data) => {
-    let  newCharacter = {
+    let newCharacter = {
       name: data.name,
       birth_year: data.birth_year,
       gender: data.gender,
@@ -36,9 +36,13 @@ const NewCharacterPage = () => {
     } as Character;
     addNewCharacter(newCharacter);
     navigate("/");
-  }
+  };
 
-  const genderOptions = [{value: "male", label: "Male"},{value: "female", label: "Female"},{value: "n/a", label: "Other"}];
+  const genderOptions = [
+    { value: "male", label: "Male" },
+    { value: "female", label: "Female" },
+    { value: "n/a", label: "Other" },
+  ];
 
   return (
     <Stack padding={2}>
@@ -48,13 +52,11 @@ const NewCharacterPage = () => {
             <Typography variant="h4">Create a new Character!</Typography>
           </Grid>
           <Grid item>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-            >
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container padding={1} gap={3} direction={"column"}>
                 <Grid item>
                   <TextField
-                  defaultValue={"Anakin Skywalker"}
+                    defaultValue={"Anakin Skywalker"}
                     {...register("name")}
                     fullWidth
                     label="Name"
@@ -75,7 +77,7 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
-                  defaultValue={188}
+                    defaultValue={188}
                     {...register("height")}
                     fullWidth
                     label="Height"
@@ -99,7 +101,7 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
-                  defaultValue={"41.9BBY"}
+                    defaultValue={"41.9BBY"}
                     {...register("birth_year")}
                     fullWidth
                     label="Birth year"
@@ -119,34 +121,46 @@ const NewCharacterPage = () => {
                   />
                 </Grid>
                 <Grid item>
-                <TextField
-                  defaultValue="male"
-                  {...register("gender")}
-                  fullWidth
-                  id="Gender-input"
-                  select
-                  label="Gender"
-                  helperText="Select Gender"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <WcIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                >
-                  {genderOptions.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-
+                  <TextField
+                    defaultValue="male"
+                    {...register("gender")}
+                    fullWidth
+                    id="Gender-input"
+                    select
+                    label="Gender"
+                    helperText="Select Gender"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <WcIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  >
+                    {genderOptions.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 </Grid>
-                <Grid item>
-                  <CustomButtonPrimary fullWidth type="submit">
-                    Create
-                  </CustomButtonPrimary>
+                <Grid item container columns={2} spacing={1} direction={"row"}>
+                  <Grid item xs={1}>
+                    <CustomButtonSecondary fullWidth disabled>
+                      Clear
+                    </CustomButtonSecondary>
+                  </Grid>
+                  <Grid item xs={1}>
+                    <CustomButtonSecondary fullWidth disabled>
+                      Load Random
+                    </CustomButtonSecondary>
+                  </Grid>
+
+                  <Grid item xs={2}>
+                    <CustomButtonPrimary fullWidth type="submit">
+                      Create
+                    </CustomButtonPrimary>
+                  </Grid>
                 </Grid>
               </Grid>
             </form>

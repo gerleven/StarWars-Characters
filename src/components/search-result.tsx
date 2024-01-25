@@ -10,16 +10,24 @@ export default function SearchResult({
   callApi,
   loading,
   inputSearch,
-  filteredCharactersList
+  filteredCharactersList,
 }: {
   callApi: any;
   loading: boolean;
-  inputSearch:string;
-  filteredCharactersList: Character[]
+  inputSearch: string;
+  filteredCharactersList: Character[];
 }) {
   const { deleteCharacter, characters }: any = useContext(MyContext);
   return (
     <>
+      <Stack style={{padding: "0 1vw"}}>
+        {
+          <Typography>
+            {`Results (${filteredCharactersList.length} de ${characters.length})`}
+            :
+          </Typography>
+        }
+      </Stack>
       <Stack
         direction="column"
         justifyContent="flex-start"
@@ -27,18 +35,22 @@ export default function SearchResult({
         spacing={1}
         padding={1}
         className={"overFlowYScroll"}
-        sx={{height: "80vh"}}
+        sx={{ height: "80vh" }}
       >
-        {((characters.length == 0) && (!loading))&&<NoItemsToShow callApi={callApi} />}
-        {(inputSearch.length == 0 ? characters : filteredCharactersList).map((character: Character, index: number) => {
-          return (
-            <CharacterCard
-              key={index}
-              character={character}
-              deleteCharacter={deleteCharacter}
-            />
-          );
-        })}
+        {characters.length == 0 && !loading && (
+          <NoItemsToShow callApi={callApi} />
+        )}
+        {(inputSearch.length == 0 ? characters : filteredCharactersList).map(
+          (character: Character, index: number) => {
+            return (
+              <CharacterCard
+                key={index}
+                character={character}
+                deleteCharacter={deleteCharacter}
+              />
+            );
+          }
+        )}
       </Stack>
     </>
   );
