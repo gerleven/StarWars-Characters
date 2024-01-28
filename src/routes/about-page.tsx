@@ -1,10 +1,8 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Form, useRouteError } from "react-router-dom";
-import { IError } from "../lib/definitions.tsx";
+import { Form } from "react-router-dom";
 import { CustomButtonPrimary } from "../lib/utils.tsx";
 
 export default function AboutPage() {
-  const error: IError = useRouteError() as IError;
   return (
     <>
       <Stack direction="column" alignItems={"center"} justifyContent={"center"}>

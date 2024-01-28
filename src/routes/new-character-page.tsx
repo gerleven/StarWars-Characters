@@ -23,12 +23,12 @@ const NewCharacterPage = () => {
   const { register, handleSubmit } = useForm();
   // const [data, setData] = useState({});
 
-  const { addNewCharacter }: any = useContext(MyContext);
+  const { addNewCharacter } = useContext(MyContext);
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<any> = (data) => {
-    let newCharacter = {
+  const onSubmit = (data) => {
+    const newCharacter = {
       name: data.name,
       birth_year: data.birth_year,
       gender: data.gender,
