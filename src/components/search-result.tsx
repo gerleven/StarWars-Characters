@@ -1,5 +1,5 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
-import { Character } from "../lib/definitions.tsx";
+import { Character, IMyContext } from "../lib/definitions.tsx";
 import CharacterCard from "./character-card";
 import { CustomButtonPrimary } from "../lib/utils.tsx";
 import theme from "../theme/custom-theme.tsx";
@@ -7,20 +7,17 @@ import { useContext } from "react";
 import { MyContext } from "../routes/root-page.tsx";
 
 export default function SearchResult({
-  callApi,
-  loading,
   inputSearch,
   filteredCharactersList,
 }: {
-  callApi: any;
-  loading: boolean;
   inputSearch: string;
   filteredCharactersList: Character[];
 }) {
-  const { deleteCharacter, characters }: any = useContext(MyContext);
+  const { characters, loading, resetList, deleteCharacter }: IMyContext =
+    useContext(MyContext);
   return (
     <>
-      <Stack style={{padding: "0 1vw"}}>
+      <Stack style={{ padding: "0 1vw" }}>
         {
           <Typography>
             {`Search Results (${filteredCharactersList.length} de ${characters.length}):`}
@@ -37,7 +34,7 @@ export default function SearchResult({
         sx={{ height: "80vh" }}
       >
         {characters.length == 0 && !loading && (
-          <NoItemsToShow callApi={callApi} />
+          <NoItemsToShow resetList={resetList} />
         )}
         {(inputSearch.length == 0 ? characters : filteredCharactersList).map(
           (character: Character, index: number) => {
@@ -55,7 +52,7 @@ export default function SearchResult({
   );
 }
 
-const NoItemsToShow = ({ callApi }: any) => {
+const NoItemsToShow = ({ resetList }: any) => {
   return (
     <>
       <Paper elevation={3}>
@@ -67,7 +64,7 @@ const NoItemsToShow = ({ callApi }: any) => {
             <Typography fontWeight={300} color={theme.palette.grey[600]}>
               Try to create a new Character or reset default list.
             </Typography>
-            <CustomButtonPrimary onClick={callApi}>
+            <CustomButtonPrimary onClick={resetList}>
               Reset List
             </CustomButtonPrimary>
           </Stack>

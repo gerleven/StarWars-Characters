@@ -12,7 +12,7 @@ const HomePage = () => {
   >([] as Character[]);
   const [inputSearch, setInputSearch] = useState<string>("");
 
-  const { characters, loading, updateCharacters, callApi }: IMyContext =
+  const { characters, loading, updateCharacters, resetList }: IMyContext =
     useContext(MyContext);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const HomePage = () => {
 
     //In case there is no local storage, call the API.
     if (charactersInit.length == 0) {
-      callApi();
+      resetList();
     } else {
       updateCharacters(charactersInit);
     }
@@ -54,8 +54,6 @@ const HomePage = () => {
           </>
         ) : (
           <SearchResult
-            callApi={callApi}
-            loading={loading}
             inputSearch={inputSearch}
             filteredCharactersList={filteredCharactersList}
           />

@@ -28,7 +28,7 @@ export default function TopMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { deleteAll }: IMyContext = useContext(MyContext);
+  const { deleteAll, resetList, undoDeleteCharacter }: IMyContext = useContext(MyContext);
 
   const location = useLocation();
 
@@ -40,14 +40,16 @@ export default function TopMenu() {
   };
 
   const handleResetList = () => {
-    alert("handleResetList");
+    resetList();
+    handleClose();
   };
   const handleDeleteAll = () => {
     deleteAll();
     handleClose();
   };
   const handleUndoDelete = () => {
-    alert("handleUndoDelete");
+    undoDeleteCharacter();
+    handleClose();
   };
   const handleAbout = () => {
     alert("handleAbout");
