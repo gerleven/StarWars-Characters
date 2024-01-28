@@ -9,10 +9,19 @@ let theme = createTheme({
   },
   components: {
     MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true,
+      defaultProps: { 
+        disableTouchRipple: false
       },
-      styleOverrides: {},
+      styleOverrides: {
+        root:{
+          '&:focus': {
+            outline: 'none',
+          },
+          "&:hover": {
+            filter: "brightness(0.95)", //hover effect in the operations rows 
+          },
+        }
+      },
     },
   },
   typography: {},

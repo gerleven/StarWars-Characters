@@ -30,9 +30,9 @@
 }
 
 .banner-logo{
-  position: absolute;
+  /* position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); */
   height: 50px;
   transition: scale 750ms ease-out;
 }

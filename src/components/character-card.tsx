@@ -6,7 +6,7 @@ import ContentLoader from "react-content-loader";
 export default function CharacterCard({ character, deleteCharacter }: { character: Character, deleteCharacter: any }) {
   return (
     <>
-    <Paper elevation={3}>
+    <Paper elevation={2}>
       <Card>
       
         <Stack direction={"row"} justifyContent={"space-between"} padding={1}>
