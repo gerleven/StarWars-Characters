@@ -16,7 +16,7 @@ import UndoIcon from "@mui/icons-material/Undo";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import InfoIcon from "@mui/icons-material/Info";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IMyContext } from "../lib/definitions";
 import { MyContext } from "../routes/root-page";
 import { useContext } from "react";
@@ -31,6 +31,7 @@ export default function TopMenu() {
   const { deleteAll, resetList, undoDeleteCharacter }: IMyContext = useContext(MyContext);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -52,7 +53,8 @@ export default function TopMenu() {
     handleClose();
   };
   const handleAbout = () => {
-    alert("handleAbout");
+    navigate("/about");
+    handleClose();
   };
 
   return (
