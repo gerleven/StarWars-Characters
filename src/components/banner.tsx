@@ -3,14 +3,19 @@ import logo from "../assets/r2d2.png";
 
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, ButtonBase, Grid, useTheme } from "@mui/material";
 
-import { useLocation, Form } from "react-router-dom";
+import { useLocation, Form, useNavigate } from "react-router-dom";
 import TopMenu from "./menu";
 
 export default function Banner() {
   const theme = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleClickLogo = () => {
+    navigate(location.pathname == "/" ? "/about" : "/");
+  };
 
   return (
     <>
@@ -20,7 +25,7 @@ export default function Banner() {
         direction="row"
         alignItems={"center"}
         justifyContent={"space-between"}
-        sx={{ backgroundColor: theme.palette.primary.main}}
+        sx={{ backgroundColor: theme.palette.primary.main }}
       >
         <Grid item xs={1}>
           {location.pathname != "/" && (
@@ -40,12 +45,16 @@ export default function Banner() {
           )}
         </Grid>
         <Grid item xs={1}>
-          <Box className="banner-logo">
+          <ButtonBase
+            className="banner-logo"
+            onClick={handleClickLogo}
+            disableRipple
+          >
             <img src={logo} alt="Star Wars-Logo" style={{ width: "50px" }} />
-          </Box>
+          </ButtonBase>
         </Grid>
-        <Grid item xs={1} sx={{marginRight: 1}}>
-          <TopMenu/>
+        <Grid item xs={1} sx={{ marginRight: 1 }}>
+          <TopMenu />
         </Grid>
       </Grid>
     </>
