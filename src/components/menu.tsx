@@ -28,7 +28,12 @@ export default function TopMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { deleteAll, resetList, undoDeleteCharacter }: IMyContext = useContext(MyContext);
+  const {
+    deleteAll,
+    resetList,
+    undoDeleteCharacter,
+    charactersDeleted,
+  }: IMyContext = useContext(MyContext);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -65,7 +70,7 @@ export default function TopMenu() {
         aria-controls={open ? "long-menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
-        onClick={handleClick}
+        onClick={handleClick}        
       >
         <MoreVertIcon
           sx={{
@@ -121,13 +126,18 @@ export default function TopMenu() {
             <ListItemText sx={{ mr: 2 }}>Delete all</ListItemText>
           </MenuItem>
           <MenuItem
-            disabled={location.pathname != "/"}
+            disabled={location.pathname != "/" || charactersDeleted.length == 0}
             onClick={handleUndoDelete}
           >
             <ListItemIcon>
               <UndoIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText sx={{ mr: 2 }}>Undo delete</ListItemText>
+            <ListItemText
+              sx={{ mr: 2 }}
+            >{`Undo delete (${charactersDeleted.length})`}</ListItemText>
+            {/* <Typography variant="body2" color="text.secondary">
+              ⌘+Z
+            </Typography> */}
           </MenuItem>
           <Divider />
           <MenuItem onClick={handleAbout}>

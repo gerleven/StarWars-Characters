@@ -31,7 +31,6 @@ const useMyContext = (): IMyContext => {
     updateCharacters(filteredList);
   };
   const undoDeleteCharacter = () => {
-    console.log(charactersDeleted)
     const index = charactersDeleted.length-1;
     if (index == -1) return;
     const characterToRestore: Character = charactersDeleted[index];
