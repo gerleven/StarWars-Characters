@@ -14,7 +14,7 @@ export default function Banner() {
   const navigate = useNavigate();
 
   const handleClickLogo = () => {
-    navigate(location.pathname == "/" ? "/about" : "/");
+    navigate((location.pathname == "/" ? "/about" : "/"), {replace: true});
   };
 
   return (

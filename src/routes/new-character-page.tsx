@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import { useContext } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { CustomButtonPrimary, CustomButtonSecondary } from "../lib/utils";
 import HeightIcon from "@mui/icons-material/Height";
 import CakeIcon from "@mui/icons-material/Cake";
@@ -27,7 +27,7 @@ const NewCharacterPage = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     const newCharacter = {
       name: data.name,
       birth_year: data.birth_year,
