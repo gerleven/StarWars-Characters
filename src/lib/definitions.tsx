@@ -31,6 +31,8 @@ export interface IError {
 
   export interface IMyContext{
     characters: Character[];
+    loading: boolean;
+    callApi: ()=>void;
     deleteAll: ()=>void;
     updateCharacters: (characters: Character[])=>void;
     addNewCharacter: (characters: Character)=>void;

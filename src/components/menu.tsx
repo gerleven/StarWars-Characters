@@ -17,6 +17,9 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import InfoIcon from "@mui/icons-material/Info";
 import { useLocation } from "react-router-dom";
+import { IMyContext } from "../lib/definitions";
+import { MyContext } from "../routes/root-page";
+import { useContext } from "react";
 
 const ITEM_HEIGHT = 48;
 
@@ -24,6 +27,8 @@ export default function TopMenu() {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const { deleteAll }: IMyContext = useContext(MyContext);
 
   const location = useLocation();
 
@@ -38,7 +43,8 @@ export default function TopMenu() {
     alert("handleResetList");
   };
   const handleDeleteAll = () => {
-    alert("handleDeleteAll");
+    deleteAll();
+    handleClose();
   };
   const handleUndoDelete = () => {
     alert("handleUndoDelete");

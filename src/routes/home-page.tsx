@@ -1,21 +1,18 @@
 import SearchBar from "../components/search-bar";
 import SearchResult from "../components/search-result";
 import { useContext, useEffect, useState } from "react";
-import { Character } from "../lib/definitions.tsx";
-import { fetchCharacters } from "../lib/data.tsx";
+import { Character, IMyContext } from "../lib/definitions.tsx";
 import { Stack } from "@mui/material";
 import { MyContext } from "./root-page.tsx";
 import { SkeletonLoader } from "../components/character-card.tsx";
 
 const HomePage = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  // const [characters, setCharacters] = useState<Character[]>([] as Character[]);
   const [filteredCharactersList, setFilteredCharactersList] = useState<
     Character[]
   >([] as Character[]);
   const [inputSearch, setInputSearch] = useState<string>("");
 
-  const { characters, updateCharacters }: any =
+  const { characters, loading, updateCharacters, callApi }: IMyContext =
     useContext(MyContext);
 
   useEffect(() => {
@@ -39,14 +36,6 @@ const HomePage = () => {
     );
     setFilteredCharactersList(newFilteredList);
   }, [inputSearch, characters]);
-
-  const callApi = () => {
-    setLoading(true);
-    fetchCharacters().then((characterResults) => {
-      updateCharacters(characterResults);
-      setLoading(false);
-    });
-  };
 
   return (
     <>
