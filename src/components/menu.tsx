@@ -16,6 +16,7 @@ import UndoIcon from "@mui/icons-material/Undo";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import InfoIcon from "@mui/icons-material/Info";
+import { useLocation } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 
@@ -23,11 +24,27 @@ export default function TopMenu() {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const location = useLocation();
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleResetList = () => {
+    alert("handleResetList");
+  };
+  const handleDeleteAll = () => {
+    alert("handleDeleteAll");
+  };
+  const handleUndoDelete = () => {
+    alert("handleUndoDelete");
+  };
+  const handleAbout = () => {
+    alert("handleAbout");
   };
 
   return (
@@ -75,26 +92,35 @@ export default function TopMenu() {
         }}
       >
         <MenuList>
-          <MenuItem>
+          <MenuItem
+            disabled={location.pathname != "/"}
+            onClick={handleResetList}
+          >
             <ListItemIcon>
               <AutorenewIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText sx={{ mr: 2 }}>Reset list</ListItemText>
           </MenuItem>
-          <MenuItem>
+          <MenuItem
+            disabled={location.pathname != "/"}
+            onClick={handleDeleteAll}
+          >
             <ListItemIcon>
               <DeleteSweepIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText sx={{ mr: 2 }}>Delete all</ListItemText>
           </MenuItem>
-          <MenuItem>
+          <MenuItem
+            disabled={location.pathname != "/"}
+            onClick={handleUndoDelete}
+          >
             <ListItemIcon>
               <UndoIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText sx={{ mr: 2 }}>Undo delete</ListItemText>
           </MenuItem>
           <Divider />
-          <MenuItem>
+          <MenuItem onClick={handleAbout}>
             <ListItemIcon>
               <InfoIcon fontSize="small" />
             </ListItemIcon>
