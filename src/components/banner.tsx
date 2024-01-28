@@ -6,7 +6,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Box, Grid, useTheme } from "@mui/material";
 
 import { useLocation, Form } from "react-router-dom";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import TopMenu from "./menu";
 
 export default function Banner() {
   const theme = useTheme();
@@ -45,15 +45,7 @@ export default function Banner() {
           </Box>
         </Grid>
         <Grid item xs={1} sx={{marginRight: 1}}>
-          <IconButton>
-            <MoreVertIcon
-              sx={{
-                height: "32px",
-                width: "32px",
-                color: theme.palette.common.white,
-              }}
-            />
-          </IconButton>
+          <TopMenu/>
         </Grid>
       </Grid>
     </>

@@ -23,8 +23,7 @@ export default function SearchResult({
       <Stack style={{padding: "0 1vw"}}>
         {
           <Typography>
-            {`Results (${filteredCharactersList.length} de ${characters.length})`}
-            :
+            {`Search Results (${filteredCharactersList.length} de ${characters.length}):`}
           </Typography>
         }
       </Stack>
