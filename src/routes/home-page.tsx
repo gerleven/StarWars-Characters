@@ -47,7 +47,7 @@ const HomePage = () => {
         className={"overFlowYScroll"}
         sx={{ height: "80vh" }}
       >
-        <SearchBar setInputSearch={setInputSearch} />
+        <SearchBar inputSearch={inputSearch} setInputSearch={setInputSearch} />
         {loading ? (
           <>
             <SkeletonLoader />
