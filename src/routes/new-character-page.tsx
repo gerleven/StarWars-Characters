@@ -56,7 +56,6 @@ const NewCharacterPage = () => {
               <Grid container padding={1} gap={3} direction={"column"}>
                 <Grid item>
                   <TextField
-                    defaultValue={"Anakin Skywalker"}
                     {...register("name")}
                     fullWidth
                     label="Name"
@@ -77,7 +76,6 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
-                    defaultValue={188}
                     {...register("height")}
                     fullWidth
                     label="Height"
@@ -101,7 +99,6 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
-                    defaultValue={"41.9BBY"}
                     {...register("birth_year")}
                     fullWidth
                     label="Birth year"
@@ -122,7 +119,6 @@ const NewCharacterPage = () => {
                 </Grid>
                 <Grid item>
                   <TextField
-                    defaultValue="male"
                     {...register("gender")}
                     fullWidth
                     id="Gender-input"
@@ -145,12 +141,12 @@ const NewCharacterPage = () => {
                   </TextField>
                 </Grid>
                 <Grid item container columns={2} spacing={1} direction={"row"}>
-                  <Grid item xs={1}>
+                  <Grid item xs={1} display={"none"}>
                     <CustomButtonSecondary fullWidth disabled>
                       Clear
                     </CustomButtonSecondary>
                   </Grid>
-                  <Grid item xs={1}>
+                  <Grid item xs={1} display={"none"}>
                     <CustomButtonSecondary fullWidth disabled>
                       Load Random
                     </CustomButtonSecondary>
