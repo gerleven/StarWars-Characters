@@ -49,7 +49,7 @@ export default function Banner() {
             className="banner-logo"
             onClick={handleClickLogo}
             disableRipple
-          >
+            >
             <img src={logo} alt="Star Wars-Logo" style={{ width: "50px" }} />
           </ButtonBase>
         </Grid>

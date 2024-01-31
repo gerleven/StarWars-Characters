@@ -18,7 +18,7 @@ const theme = createTheme({
             outline: 'none',
           },
           "&:hover": {
-            filter: "brightness(0.95)", //hover effect in the operations rows 
+            filter: "brightness(0.95)",
           },
         }
       },
