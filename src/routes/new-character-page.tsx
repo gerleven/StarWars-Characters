@@ -120,6 +120,7 @@ const NewCharacterPage = () => {
                 <Grid item>
                   <TextField
                     {...register("gender")}
+                    defaultValue={""}
                     fullWidth
                     id="Gender-input"
                     select
