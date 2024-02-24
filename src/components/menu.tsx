@@ -20,6 +20,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { IMyContext } from "../lib/definitions";
 import { MyContext } from "../routes/root-page";
 import { useContext } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 const ITEM_HEIGHT = 48;
 
@@ -27,6 +28,11 @@ export default function TopMenu() {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+//This allows you to delete multiple times before the menu closes.
+  const debouncedClose = useDebouncedCallback(() => {
+    handleClose();
+  }, 500);
 
   const {
     deleteAll,
@@ -55,7 +61,7 @@ export default function TopMenu() {
   };
   const handleUndoDelete = () => {
     undoDeleteCharacter();
-    handleClose();
+    debouncedClose();
   };
   const handleAbout = () => {
     navigate("/about");
@@ -70,7 +76,7 @@ export default function TopMenu() {
         aria-controls={open ? "long-menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
-        onClick={handleClick}        
+        onClick={handleClick}
       >
         <MoreVertIcon
           sx={{
