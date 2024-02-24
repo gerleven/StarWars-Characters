@@ -21,6 +21,7 @@ import { IMyContext } from "../lib/definitions";
 import { MyContext } from "../routes/root-page";
 import { useContext } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import SortIcon from "@mui/icons-material/Sort";
 
 const ITEM_HEIGHT = 48;
 
@@ -29,7 +30,7 @@ export default function TopMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-//This allows you to delete multiple times before the menu closes.
+  //This allows you to delete multiple times before the menu closes.
   const debouncedClose = useDebouncedCallback(() => {
     handleClose();
   }, 500);
@@ -39,6 +40,7 @@ export default function TopMenu() {
     resetList,
     undoDeleteCharacter,
     charactersDeleted,
+    sortCharacters,
   }: IMyContext = useContext(MyContext);
 
   const location = useLocation();
@@ -65,6 +67,10 @@ export default function TopMenu() {
   };
   const handleAbout = () => {
     navigate("/about");
+    handleClose();
+  };
+  const handleSortList = () => {
+    sortCharacters();
     handleClose();
   };
 
@@ -98,7 +104,7 @@ export default function TopMenu() {
         slotProps={{
           paper: {
             style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
+              maxHeight: ITEM_HEIGHT * 5.5,
               //   width: "20ch",
             },
           },
@@ -146,6 +152,12 @@ export default function TopMenu() {
             </Typography> */}
           </MenuItem>
           <Divider />
+          <MenuItem onClick={handleSortList} disabled={true}>
+            <ListItemIcon>
+              <SortIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText sx={{ mr: 2 }}>Sort List</ListItemText>
+          </MenuItem>
           <MenuItem onClick={handleAbout}>
             <ListItemIcon>
               <InfoIcon fontSize="small" />

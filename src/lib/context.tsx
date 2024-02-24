@@ -4,7 +4,9 @@ import { fetchCharacters } from "./data";
 
 const useMyContext = (): IMyContext => {
   const [characters, setCharacters] = useState<Character[]>([] as Character[]);
-  const [charactersDeleted, setCharactersDeleted] = useState<Character[]>([] as Character[]);
+  const [charactersDeleted, setCharactersDeleted] = useState<Character[]>(
+    [] as Character[]
+  );
   const [loading, setLoading] = useState<boolean>(false);
 
   const resetList = () => {
@@ -16,7 +18,13 @@ const useMyContext = (): IMyContext => {
     });
   };
   const deleteAll = () => {
+    setCharactersDeleted((prev) => [...prev, ...characters]);
     updateCharacters([] as Character[]);
+  };
+  const sortCharacters = () => {
+    const orderedList = characters.sort((a, b) => a.name.localeCompare(b.name));
+    updateCharacters(orderedList);
+    //no esta actualizando la lista renderizada
   };
   const updateCharacters = (characters: Character[]) => {
     setCharacters(characters);
@@ -26,16 +34,19 @@ const useMyContext = (): IMyContext => {
     updateCharacters([character, ...characters]);
   };
   const deleteCharacter = (character: Character) => {
-    setCharactersDeleted((prev)=>([...prev, character]));
+    setCharactersDeleted((prev) => [...prev, character]);
     const filteredList = characters.filter((c) => c != character);
     updateCharacters(filteredList);
   };
   const undoDeleteCharacter = () => {
-    const index = charactersDeleted.length-1;
+    const index = charactersDeleted.length - 1;
     if (index == -1) return;
     const characterToRestore: Character = charactersDeleted[index];
     addNewCharacter(characterToRestore);
-    const newCharactersToDeleteList = charactersDeleted.slice(0,charactersDeleted.length-1);
+    const newCharactersToDeleteList = charactersDeleted.slice(
+      0,
+      charactersDeleted.length - 1
+    );
     setCharactersDeleted(newCharactersToDeleteList);
   };
 
@@ -49,6 +60,7 @@ const useMyContext = (): IMyContext => {
     addNewCharacter,
     deleteCharacter,
     undoDeleteCharacter,
+    sortCharacters,
   };
   return contextDefaultValue;
 };
