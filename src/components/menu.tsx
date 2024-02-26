@@ -152,7 +152,7 @@ export default function TopMenu() {
             </Typography> */}
           </MenuItem>
           <Divider />
-          <MenuItem onClick={handleSortList} disabled={true}>
+          <MenuItem onClick={handleSortList}>
             <ListItemIcon>
               <SortIcon fontSize="small" />
             </ListItemIcon>

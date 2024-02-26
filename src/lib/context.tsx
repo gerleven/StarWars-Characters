@@ -23,8 +23,7 @@ const useMyContext = (): IMyContext => {
   };
   const sortCharacters = () => {
     const orderedList = characters.sort((a, b) => a.name.localeCompare(b.name));
-    updateCharacters(orderedList);
-    //no esta actualizando la lista renderizada
+    updateCharacters([...orderedList]);
   };
   const updateCharacters = (characters: Character[]) => {
     setCharacters(characters);
