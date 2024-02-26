@@ -33,12 +33,11 @@ export interface IMyContext {
   characters: Character[];
   loading: boolean;
   charactersDeleted: Character[];
-  resetList: () => void;
-  deleteAll: () => void;
   updateCharacters: (characters: Character[]) => void;
+  resetList: () => void;
   addNewCharacter: (characters: Character) => void;
   deleteCharacter: (characters: Character) => void;
+  deleteAll: () => void;
   undoDeleteCharacter: () => void;
   sortCharacters: ()=> void;
-  
 }

@@ -9,6 +9,11 @@ const useMyContext = (): IMyContext => {
   );
   const [loading, setLoading] = useState<boolean>(false);
 
+  const updateCharacters = (characters: Character[]) => {
+    setCharacters([...characters]);
+    localStorage.setItem("characters", JSON.stringify(characters));
+  };
+
   const resetList = () => {
     setLoading(true);
     fetchCharacters().then((characterResults) => {
@@ -17,18 +22,7 @@ const useMyContext = (): IMyContext => {
       setLoading(false);
     });
   };
-  const deleteAll = () => {
-    setCharactersDeleted((prev) => [...prev, ...characters]);
-    updateCharacters([] as Character[]);
-  };
-  const sortCharacters = () => {
-    const orderedList = characters.sort((a, b) => a.name.localeCompare(b.name));
-    updateCharacters([...orderedList]);
-  };
-  const updateCharacters = (characters: Character[]) => {
-    setCharacters(characters);
-    localStorage.setItem("characters", JSON.stringify(characters));
-  };
+
   const addNewCharacter = (character: Character) => {
     updateCharacters([character, ...characters]);
   };
@@ -36,6 +30,10 @@ const useMyContext = (): IMyContext => {
     setCharactersDeleted((prev) => [...prev, character]);
     const filteredList = characters.filter((c) => c != character);
     updateCharacters(filteredList);
+  };
+  const deleteAll = () => {
+    setCharactersDeleted((prev) => [...prev, ...characters]);
+    updateCharacters([] as Character[]);
   };
   const undoDeleteCharacter = () => {
     const index = charactersDeleted.length - 1;
@@ -45,19 +43,23 @@ const useMyContext = (): IMyContext => {
     const newCharactersToDeleteList = charactersDeleted.slice(
       0,
       charactersDeleted.length - 1
-    );
-    setCharactersDeleted(newCharactersToDeleteList);
-  };
-
-  const contextDefaultValue = {
+      );
+      setCharactersDeleted(newCharactersToDeleteList);
+    };
+    const sortCharacters = () => {
+      const orderedList = characters.sort((a, b) => a.name.localeCompare(b.name));
+      updateCharacters(orderedList);
+    };
+    
+    const contextDefaultValue = {
     characters,
     loading,
     charactersDeleted,
-    resetList,
-    deleteAll,
     updateCharacters,
+    resetList,
     addNewCharacter,
     deleteCharacter,
+    deleteAll,
     undoDeleteCharacter,
     sortCharacters,
   };
