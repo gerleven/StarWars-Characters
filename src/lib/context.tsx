@@ -9,9 +9,9 @@ const useMyContext = (): IMyContext => {
   );
   const [loading, setLoading] = useState<boolean>(false);
 
-  const updateCharacters = (characters: Character[]) => {
-    setCharacters([...characters]);
-    localStorage.setItem("characters", JSON.stringify(characters));
+  const updateCharacters = (newCharacters: Character[] = characters) => {
+    setCharacters([...newCharacters]);
+    localStorage.setItem("characters", JSON.stringify(newCharacters));
   };
 
   const resetList = () => {
@@ -46,12 +46,12 @@ const useMyContext = (): IMyContext => {
       );
       setCharactersDeleted(newCharactersToDeleteList);
     };
-    const sortCharacters = () => {
-      const orderedList = characters.sort((a, b) => a.name.localeCompare(b.name));
-      updateCharacters(orderedList);
-    };
-    
-    const contextDefaultValue = {
+  const sortCharacters = () => {
+    characters.sort((a, b) => a.name.localeCompare(b.name));
+    updateCharacters();
+  };
+  
+  const contextDefaultValue = {
     characters,
     loading,
     charactersDeleted,
