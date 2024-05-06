@@ -14,7 +14,7 @@
 
 .fullscreen {
   background-color: hsl(0, 0%, 98%);
-  height: 100vh;
+  height: 100dvh;
   width: 100vw;
 }
 .app-wrapper {
