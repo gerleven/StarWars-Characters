@@ -152,7 +152,10 @@ export default function TopMenu() {
             </Typography> */}
           </MenuItem>
           <Divider />
-          <MenuItem onClick={handleSortList}>
+          <MenuItem
+            disabled={location.pathname != "/"}
+            onClick={handleSortList}
+          >
             <ListItemIcon>
               <SortIcon fontSize="small" />
             </ListItemIcon>
