@@ -5,6 +5,7 @@ import { Character, IMyContext } from "../lib/definitions.tsx";
 import { Stack } from "@mui/material";
 import { MyContext } from "./root-page.tsx";
 import { SkeletonLoader } from "../components/character-card.tsx";
+import CounterBox from "../components/counterbox.tsx";
 
 const HomePage = () => {
   const [filteredCharactersList, setFilteredCharactersList] = useState<
@@ -47,6 +48,7 @@ const HomePage = () => {
         className={"overFlowYScroll"}
         sx={{ height: "80vh" }}
       >
+        <CounterBox/>
         <SearchBar inputSearch={inputSearch} setInputSearch={setInputSearch} />
         {loading ? (
           <>
