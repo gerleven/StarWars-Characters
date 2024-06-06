@@ -3,7 +3,10 @@ import { CustomButtonPrimary } from "../lib/utils.tsx";
 import { Character } from "../lib/definitions.tsx";
 import ContentLoader from "react-content-loader";
 
-export default function CharacterCard({ character, deleteCharacter }: { character: Character, deleteCharacter: any }) {
+interface ICharacterCard{ character: Character, deleteCharacter?: any, addCharacter?: any }
+
+
+export default function CharacterCard({ character, deleteCharacter, addCharacter }: ICharacterCard) {
   return (
     <>
     <Paper elevation={2}>
@@ -16,9 +19,12 @@ export default function CharacterCard({ character, deleteCharacter }: { characte
             <Typography>Birth year: {character.birth_year}</Typography>
             <Typography>Gender: {character.gender}</Typography>
           </CardContent>
-          <CardActions>
+          {deleteCharacter&&<CardActions>
             <CustomButtonPrimary onClick={()=>deleteCharacter(character)}>Delete</CustomButtonPrimary>
-          </CardActions>
+          </CardActions>}
+          {addCharacter&&<CardActions>
+            <CustomButtonPrimary onClick={()=>addCharacter(character)}>Add</CustomButtonPrimary>
+          </CardActions>}
         </Stack>
       </Card>
       

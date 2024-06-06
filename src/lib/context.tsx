@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Character, IMyContext } from "./definitions";
-import { fetchCharacters } from "./data";
+import { starwarsService } from "../api/starwars-service";
 
 const useMyContext = (): IMyContext => {
   const [characters, setCharacters] = useState<Character[]>([] as Character[]);
@@ -16,7 +16,7 @@ const useMyContext = (): IMyContext => {
 
   const resetList = () => {
     setLoading(true);
-    fetchCharacters().then((characterResults) => {
+    starwarsService.getCharactersPaginated().then((characterResults) => {
       updateCharacters(characterResults);
       setCharactersDeleted([] as Character[]);
       setLoading(false);
@@ -43,14 +43,14 @@ const useMyContext = (): IMyContext => {
     const newCharactersToDeleteList = charactersDeleted.slice(
       0,
       charactersDeleted.length - 1
-      );
-      setCharactersDeleted(newCharactersToDeleteList);
-    };
+    );
+    setCharactersDeleted(newCharactersToDeleteList);
+  };
   const sortCharacters = () => {
     characters.sort((a, b) => a.name.localeCompare(b.name));
     updateCharacters();
   };
-  
+
   const contextDefaultValue = {
     characters,
     loading,
