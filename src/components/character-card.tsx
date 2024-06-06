@@ -3,7 +3,7 @@ import { CustomButtonPrimary } from "../lib/utils.tsx";
 import { Character } from "../lib/definitions.tsx";
 import ContentLoader from "react-content-loader";
 
-interface ICharacterCard{ character: Character, deleteCharacter?: any, addCharacter?: any }
+interface ICharacterCard{ character: Character, deleteCharacter?: (character: Character)=>void, addCharacter?: (character: Character)=>void }
 
 
 export default function CharacterCard({ character, deleteCharacter, addCharacter }: ICharacterCard) {

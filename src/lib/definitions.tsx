@@ -1,6 +1,6 @@
 export interface IError {
-  statusText: any;
-  message: any;
+  statusText: string;
+  message: string;
 }
 
 export interface CharactersApiResponse {
