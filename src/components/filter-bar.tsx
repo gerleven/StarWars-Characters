@@ -1,6 +1,6 @@
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import SearchIcon from "@mui/icons-material/Search";
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import InputBase from "@mui/material/InputBase";
 import { Stack } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -30,7 +30,7 @@ export default function FilterBar({ setInputFilter, inputFilter }: IFilterBar) {
       >
         <Search>
           <SearchIconWrapper>
-            <SearchIcon />
+            <FilterAltOutlinedIcon />
           </SearchIconWrapper>
           <StyledInputBase
             placeholder="Filter your favorite list…"

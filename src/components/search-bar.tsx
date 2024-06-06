@@ -79,7 +79,7 @@ export default function SearchBar({ setInputSearch, inputSearch }: ISearchBar) {
           sx={{ paddingX: 2 }}
           onClick={handleSearchCharacter}
         >
-          <SearchIcon />
+          {/* <SearchIcon /> */}
           Search
         </CustomButtonPrimary>
       </Stack>
