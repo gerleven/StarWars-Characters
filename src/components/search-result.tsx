@@ -5,38 +5,50 @@ import { CustomButtonPrimary } from "../lib/utils.tsx";
 import theme from "../theme/custom-theme.tsx";
 import { useContext } from "react";
 import { MyContext } from "../routes/root-page.tsx";
+import { Form } from "react-router-dom";
+
+interface ISearchResult {
+  inputFilter: string;
+  filteredCharactersList: Character[];
+}
 
 export default function SearchResult({
-  inputSearch,
+  inputFilter,
   filteredCharactersList,
-}: {
-  inputSearch: string;
-  filteredCharactersList: Character[];
-}) {
+}: ISearchResult) {
   const { characters, loading, resetList, deleteCharacter }: IMyContext =
     useContext(MyContext);
   return (
     <>
-      <Stack style={{ padding: "0 1vw" }}>
-        {
-          <Typography>
-            {`Search Results (${filteredCharactersList.length} de ${characters.length}):`}
-          </Typography>
-        }
+      <Stack
+        direction={"row"}
+        justifyContent={"space-between"}
+        alignItems={"end"}
+      >
+        <Box>
+          {inputFilter && (
+            <Typography>
+              {`Filtered results (${filteredCharactersList.length} de ${characters.length}):`}
+            </Typography>
+          )}
+        </Box>
+        <Form method="get" action="/new" replace>
+          <CustomButtonPrimary type="submit">New</CustomButtonPrimary>
+        </Form>
       </Stack>
       <Stack
         direction="column"
         justifyContent="flex-start"
         alignItems="stretch"
         spacing={1}
-        padding={1}
+        paddingY={1}
         className={"overFlowYScroll"}
         sx={{ height: "80vh" }}
       >
         {characters.length == 0 && !loading && (
           <NoItemsToShow resetList={resetList} />
         )}
-        {(inputSearch.length == 0 ? characters : filteredCharactersList).map(
+        {(inputFilter.length == 0 ? characters : filteredCharactersList).map(
           (character: Character, index: number) => {
             return (
               <CharacterCard
