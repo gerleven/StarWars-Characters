@@ -1,35 +1,25 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
-import { Character, IMyContext } from "../lib/definitions.tsx";
-import CharacterCard from "./character-card";
-import { CustomButtonPrimary } from "../lib/utils.tsx";
-import theme from "../theme/custom-theme.tsx";
-import { useContext } from "react";
-import { MyContext } from "../routes/root-page.tsx";
-import { Form } from "react-router-dom";
+import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Character, IMyContext } from '../lib/definitions.tsx';
+import CharacterCard from './character-card';
+import { CustomButtonPrimary } from '../lib/utils.tsx';
+import theme from '../theme/custom-theme.tsx';
+import { useContext } from 'react';
+import { MyContext } from '../routes/root-page.tsx';
+import { Form } from 'react-router-dom';
 
 interface ISearchResult {
   inputFilter: string;
   filteredCharactersList: Character[];
 }
 
-export default function SearchResult({
-  inputFilter,
-  filteredCharactersList,
-}: ISearchResult) {
-  const { characters, loading, resetList, deleteCharacter }: IMyContext =
-    useContext(MyContext);
+export default function SearchResult({ inputFilter, filteredCharactersList }: ISearchResult) {
+  const { characters, loading, resetList, deleteCharacter }: IMyContext = useContext(MyContext);
   return (
     <>
-      <Stack
-        direction={"row"}
-        justifyContent={"space-between"}
-        alignItems={"end"}
-      >
+      <Stack direction={'row'} justifyContent={'space-between'} alignItems={'end'}>
         <Box>
           {inputFilter && (
-            <Typography>
-              {`Filtered results (${filteredCharactersList.length} de ${characters.length}):`}
-            </Typography>
+            <Typography>{`Filtered results (${filteredCharactersList.length} de ${characters.length}):`}</Typography>
           )}
         </Box>
         <Form method="get" action="/new" replace>
@@ -42,29 +32,19 @@ export default function SearchResult({
         alignItems="stretch"
         spacing={1}
         paddingY={1}
-        className={"overFlowYScroll"}
-        sx={{ height: "80vh" }}
+        className={'overFlowYScroll'}
+        sx={{ height: '80vh' }}
       >
-        {characters.length == 0 && !loading && (
-          <NoItemsToShow resetList={resetList} />
-        )}
-        {(inputFilter.length == 0 ? characters : filteredCharactersList).map(
-          (character: Character, index: number) => {
-            return (
-              <CharacterCard
-                key={index}
-                character={character}
-                deleteCharacter={deleteCharacter}
-              />
-            );
-          }
-        )}
+        {characters.length == 0 && !loading && <NoItemsToShow resetList={resetList} />}
+        {(inputFilter.length == 0 ? characters : filteredCharactersList).map((character: Character, index: number) => {
+          return <CharacterCard key={index} character={character} deleteCharacter={deleteCharacter} />;
+        })}
       </Stack>
     </>
   );
 }
 
-const NoItemsToShow = ({ resetList }: {resetList: ()=>void}) => {
+const NoItemsToShow = ({ resetList }: { resetList: () => void }) => {
   return (
     <>
       <Paper elevation={3}>
@@ -76,9 +56,7 @@ const NoItemsToShow = ({ resetList }: {resetList: ()=>void}) => {
             <Typography fontWeight={300} color={theme.palette.grey[600]}>
               Try to create a new Character or reset default list.
             </Typography>
-            <CustomButtonPrimary onClick={resetList}>
-              Reset List
-            </CustomButtonPrimary>
+            <CustomButtonPrimary onClick={resetList}>Reset List</CustomButtonPrimary>
           </Stack>
         </Box>
       </Paper>

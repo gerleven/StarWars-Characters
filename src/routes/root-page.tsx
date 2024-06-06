@@ -1,10 +1,10 @@
-import { Outlet } from "react-router-dom";
-import "../App.css";
-import { Stack } from "@mui/material";
-import Banner from "../components/banner";
-import { IMyContext } from "../lib/definitions";
-import { createContext } from "react";
-import useMyContext from "../lib/context";
+import { Outlet } from 'react-router-dom';
+import '../App.css';
+import { Stack } from '@mui/material';
+import Banner from '../components/banner';
+import { IMyContext } from '../lib/definitions';
+import { createContext } from 'react';
+import useMyContext from '../lib/context';
 
 export const MyContext = createContext<IMyContext>({} as IMyContext);
 
@@ -13,17 +13,8 @@ const RootPage = () => {
   return (
     <>
       <MyContext.Provider value={contextDefaultValue}>
-        <Stack
-          className="fullscreen"
-          direction={"column"}
-          justifyContent={"start"}
-          alignItems={"center"}
-        >
-          <Stack
-            className="app-wrapper"
-            direction={"column"}
-            justifyContent={"start"}
-          >
+        <Stack className="fullscreen" direction={'column'} justifyContent={'start'} alignItems={'center'}>
+          <Stack className="app-wrapper" direction={'column'} justifyContent={'start'}>
             <Banner />
             <Outlet />
           </Stack>

@@ -1,17 +1,15 @@
-import { useState } from "react";
-import { Character, IMyContext } from "./definitions";
-import { starwarsService } from "../api/starwars-service";
+import { useState } from 'react';
+import { Character, IMyContext } from './definitions';
+import { starwarsService } from '../api/starwars-service';
 
 const useMyContext = (): IMyContext => {
   const [characters, setCharacters] = useState<Character[]>([] as Character[]);
-  const [charactersDeleted, setCharactersDeleted] = useState<Character[]>(
-    [] as Character[]
-  );
+  const [charactersDeleted, setCharactersDeleted] = useState<Character[]>([] as Character[]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const updateCharacters = (newCharacters: Character[] = characters) => {
     setCharacters([...newCharacters]);
-    localStorage.setItem("characters", JSON.stringify(newCharacters));
+    localStorage.setItem('characters', JSON.stringify(newCharacters));
   };
 
   const resetList = () => {
@@ -40,10 +38,7 @@ const useMyContext = (): IMyContext => {
     if (index == -1) return;
     const characterToRestore: Character = charactersDeleted[index];
     addNewCharacter(characterToRestore);
-    const newCharactersToDeleteList = charactersDeleted.slice(
-      0,
-      charactersDeleted.length - 1
-    );
+    const newCharactersToDeleteList = charactersDeleted.slice(0, charactersDeleted.length - 1);
     setCharactersDeleted(newCharactersToDeleteList);
   };
   const sortCharacters = () => {
@@ -61,7 +56,7 @@ const useMyContext = (): IMyContext => {
     deleteCharacter,
     deleteAll,
     undoDeleteCharacter,
-    sortCharacters,
+    sortCharacters
   };
   return contextDefaultValue;
 };

@@ -1,27 +1,20 @@
-import * as React from "react";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Fade from "@mui/material/Fade";
-import {
-  Box,
-  Divider,
-  ListItemIcon,
-  ListItemText,
-  MenuList,
-  useTheme,
-} from "@mui/material";
-import UndoIcon from "@mui/icons-material/Undo";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
-import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
-import InfoIcon from "@mui/icons-material/Info";
-import { useLocation, useNavigate } from "react-router-dom";
-import { IMyContext } from "../lib/definitions";
-import { MyContext } from "../routes/root-page";
-import { useContext } from "react";
-import { useDebouncedCallback } from "use-debounce";
-import SortIcon from "@mui/icons-material/Sort";
+import * as React from 'react';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Fade from '@mui/material/Fade';
+import { Box, Divider, ListItemIcon, ListItemText, MenuList, useTheme } from '@mui/material';
+import UndoIcon from '@mui/icons-material/Undo';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
+import InfoIcon from '@mui/icons-material/Info';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { IMyContext } from '../lib/definitions';
+import { MyContext } from '../routes/root-page';
+import { useContext } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
+import SortIcon from '@mui/icons-material/Sort';
 
 const ITEM_HEIGHT = 48;
 
@@ -35,13 +28,8 @@ export default function TopMenu() {
     handleClose();
   }, 500);
 
-  const {
-    deleteAll,
-    resetList,
-    undoDeleteCharacter,
-    charactersDeleted,
-    sortCharacters,
-  }: IMyContext = useContext(MyContext);
+  const { deleteAll, resetList, undoDeleteCharacter, charactersDeleted, sortCharacters }: IMyContext =
+    useContext(MyContext);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -66,7 +54,7 @@ export default function TopMenu() {
     debouncedClose();
   };
   const handleAbout = () => {
-    navigate("/about");
+    navigate('/about');
     handleClose();
   };
   const handleSortList = () => {
@@ -79,23 +67,23 @@ export default function TopMenu() {
       <IconButton
         aria-label="more"
         id="long-button"
-        aria-controls={open ? "long-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
+        aria-controls={open ? 'long-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleClick}
       >
         <MoreVertIcon
           sx={{
-            height: "32px",
-            width: "32px",
-            color: theme.palette.common.white,
+            height: '32px',
+            width: '32px',
+            color: theme.palette.common.white
           }}
         />
       </IconButton>
       <Menu
         id="long-menu"
         MenuListProps={{
-          "aria-labelledby": "long-button",
+          'aria-labelledby': 'long-button'
         }}
         anchorEl={anchorEl}
         open={open}
@@ -104,58 +92,44 @@ export default function TopMenu() {
         slotProps={{
           paper: {
             style: {
-              maxHeight: ITEM_HEIGHT * 5.5,
+              maxHeight: ITEM_HEIGHT * 5.5
               //   width: "20ch",
-            },
-          },
+            }
+          }
         }}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
+          vertical: 'bottom',
+          horizontal: 'right'
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right'
         }}
       >
         <MenuList>
-          <MenuItem
-            disabled={location.pathname != "/"}
-            onClick={handleResetList}
-          >
+          <MenuItem disabled={location.pathname != '/'} onClick={handleResetList}>
             <ListItemIcon>
               <AutorenewIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText sx={{ mr: 2 }}>Reset list</ListItemText>
           </MenuItem>
-          <MenuItem
-            disabled={location.pathname != "/"}
-            onClick={handleDeleteAll}
-          >
+          <MenuItem disabled={location.pathname != '/'} onClick={handleDeleteAll}>
             <ListItemIcon>
               <DeleteSweepIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText sx={{ mr: 2 }}>Delete all</ListItemText>
           </MenuItem>
-          <MenuItem
-            disabled={location.pathname != "/" || charactersDeleted.length == 0}
-            onClick={handleUndoDelete}
-          >
+          <MenuItem disabled={location.pathname != '/' || charactersDeleted.length == 0} onClick={handleUndoDelete}>
             <ListItemIcon>
               <UndoIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText
-              sx={{ mr: 2 }}
-            >{`Undo delete (${charactersDeleted.length})`}</ListItemText>
+            <ListItemText sx={{ mr: 2 }}>{`Undo delete (${charactersDeleted.length})`}</ListItemText>
             {/* <Typography variant="body2" color="text.secondary">
               ⌘+Z
             </Typography> */}
           </MenuItem>
           <Divider />
-          <MenuItem
-            disabled={location.pathname != "/"}
-            onClick={handleSortList}
-          >
+          <MenuItem disabled={location.pathname != '/'} onClick={handleSortList}>
             <ListItemIcon>
               <SortIcon fontSize="small" />
             </ListItemIcon>

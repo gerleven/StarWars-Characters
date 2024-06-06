@@ -39,5 +39,5 @@ export interface IMyContext {
   deleteCharacter: (characters: Character) => void;
   deleteAll: () => void;
   undoDeleteCharacter: () => void;
-  sortCharacters: ()=> void;
+  sortCharacters: () => void;
 }

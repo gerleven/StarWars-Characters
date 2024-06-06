@@ -1,23 +1,15 @@
-import { AccountCircle } from "@mui/icons-material";
-import {
-  Grid,
-  InputAdornment,
-  MenuItem,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { AccountCircle } from '@mui/icons-material';
+import { Grid, InputAdornment, MenuItem, Paper, Stack, TextField, Typography } from '@mui/material';
 
-import { useContext } from "react";
-import { useForm } from "react-hook-form";
-import { CustomButtonPrimary, CustomButtonSecondary } from "../lib/utils";
-import HeightIcon from "@mui/icons-material/Height";
-import CakeIcon from "@mui/icons-material/Cake";
-import WcIcon from "@mui/icons-material/Wc";
-import { MyContext } from "./root-page";
-import { useNavigate } from "react-router-dom";
-import { Character } from "../lib/definitions";
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { CustomButtonPrimary, CustomButtonSecondary } from '../lib/utils';
+import HeightIcon from '@mui/icons-material/Height';
+import CakeIcon from '@mui/icons-material/Cake';
+import WcIcon from '@mui/icons-material/Wc';
+import { MyContext } from './root-page';
+import { useNavigate } from 'react-router-dom';
+import { Character } from '../lib/definitions';
 
 const NewCharacterPage = () => {
   const { register, handleSubmit } = useForm();
@@ -32,31 +24,31 @@ const NewCharacterPage = () => {
       name: data.name,
       birth_year: data.birth_year,
       gender: data.gender,
-      height: data.height,
+      height: data.height
     } as Character;
     addNewCharacter(newCharacter);
-    navigate("/");
+    navigate('/');
   };
 
   const genderOptions = [
-    { value: "male", label: "Male" },
-    { value: "female", label: "Female" },
-    { value: "n/a", label: "Other" },
+    { value: 'male', label: 'Male' },
+    { value: 'female', label: 'Female' },
+    { value: 'n/a', label: 'Other' }
   ];
 
   return (
     <Stack padding={2}>
       <Paper elevation={3}>
-        <Grid container padding={3} gap={4} direction={"column"}>
+        <Grid container padding={3} gap={4} direction={'column'}>
           <Grid item>
             <Typography variant="h4">Create a new Character!</Typography>
           </Grid>
           <Grid item>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Grid container padding={1} gap={3} direction={"column"}>
+              <Grid container padding={1} gap={3} direction={'column'}>
                 <Grid item>
                   <TextField
-                    {...register("name")}
+                    {...register('name')}
                     fullWidth
                     label="Name"
                     id="Name-input"
@@ -70,13 +62,13 @@ const NewCharacterPage = () => {
                         <InputAdornment position="start">
                           <AccountCircle />
                         </InputAdornment>
-                      ),
+                      )
                     }}
                   />
                 </Grid>
                 <Grid item>
                   <TextField
-                    {...register("height")}
+                    {...register('height')}
                     fullWidth
                     label="Height"
                     id="Height-input"
@@ -86,20 +78,18 @@ const NewCharacterPage = () => {
                     required={true}
                     helperText="Enter a height"
                     InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="start">Cm.</InputAdornment>
-                      ),
+                      endAdornment: <InputAdornment position="start">Cm.</InputAdornment>,
                       startAdornment: (
                         <InputAdornment position="start">
                           <HeightIcon />
                         </InputAdornment>
-                      ),
+                      )
                     }}
                   />
                 </Grid>
                 <Grid item>
                   <TextField
-                    {...register("birth_year")}
+                    {...register('birth_year')}
                     fullWidth
                     label="Birth year"
                     id="Birth-input"
@@ -113,14 +103,14 @@ const NewCharacterPage = () => {
                         <InputAdornment position="start">
                           <CakeIcon />
                         </InputAdornment>
-                      ),
+                      )
                     }}
                   />
                 </Grid>
                 <Grid item>
                   <TextField
-                    {...register("gender")}
-                    defaultValue={""}
+                    {...register('gender')}
+                    defaultValue={''}
                     fullWidth
                     id="Gender-input"
                     select
@@ -131,7 +121,7 @@ const NewCharacterPage = () => {
                         <InputAdornment position="start">
                           <WcIcon />
                         </InputAdornment>
-                      ),
+                      )
                     }}
                   >
                     {genderOptions.map((option) => (
@@ -141,13 +131,13 @@ const NewCharacterPage = () => {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item container columns={2} spacing={1} direction={"row"}>
-                  <Grid item xs={1} display={"none"}>
+                <Grid item container columns={2} spacing={1} direction={'row'}>
+                  <Grid item xs={1} display={'none'}>
                     <CustomButtonSecondary fullWidth disabled>
                       Clear
                     </CustomButtonSecondary>
                   </Grid>
-                  <Grid item xs={1} display={"none"}>
+                  <Grid item xs={1} display={'none'}>
                     <CustomButtonSecondary fullWidth disabled>
                       Load Random
                     </CustomButtonSecondary>
