@@ -13,8 +13,8 @@ export default function CharacterCard({ character, deleteCharacter, addCharacter
       <Card>
       
         <Stack direction={"row"} justifyContent={"space-between"} padding={1}>
-          <CardContent>
-            <Typography variant="h4">{character.name}</Typography>
+          <CardContent sx={{width: "70%"}}>
+            <Typography fontSize={25} noWrap>{character.name}</Typography>
             <Typography>Height: {character.height} cm</Typography>
             <Typography>Birth year: {character.birth_year}</Typography>
             <Typography>Gender: {character.gender}</Typography>
