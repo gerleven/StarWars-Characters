@@ -3,10 +3,11 @@ import logo from '../assets/r2d2.png';
 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { ButtonBase, Grid, useTheme } from '@mui/material';
+import { Box, ButtonBase, Grid, Tooltip, useTheme } from '@mui/material';
 
 import { useLocation, Form, useNavigate } from 'react-router-dom';
 import TopMenu from './menu';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
 export default function Banner() {
   const theme = useTheme();
@@ -15,6 +16,9 @@ export default function Banner() {
 
   const handleClickLogo = () => {
     navigate(location.pathname == '/' ? '/about' : '/', { replace: true });
+  };
+  const handleClickFavorites = () => {
+    navigate('/favorites');
   };
 
   return (
@@ -49,8 +53,21 @@ export default function Banner() {
             <img src={logo} alt="Star Wars-Logo" style={{ width: '50px' }} />
           </ButtonBase>
         </Grid>
-        <Grid item xs={1} sx={{ marginRight: 1 }}>
-          <TopMenu />
+        <Grid container item xs={2} sx={{ marginRight: 1 }}>
+          <Grid item alignContent={"center"}>
+            <Box sx={{width: "30px"}}>
+              {location.pathname != '/favorites' && (
+                <Tooltip title="Go to Favorites" placement="bottom">
+                <ButtonBase className="banner-logo" onClick={handleClickFavorites} disableRipple>
+                  <StarRoundedIcon color='secondary'/>
+                </ButtonBase>
+              </Tooltip>
+              )}
+            </Box>
+          </Grid>
+          <Grid item>
+            <TopMenu />
+          </Grid>
         </Grid>
       </Grid>
     </>

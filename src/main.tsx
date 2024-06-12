@@ -13,6 +13,7 @@ import RootErrorPage from './routes/root-error-page';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme/custom-theme';
 import AboutPage from './routes/about-page';
+import FavoritePage from './routes/favorie-page';
 
 const router = createHashRouter(
   [
@@ -29,13 +30,17 @@ const router = createHashRouter(
               element: <HomePage />
             },
             {
+              path: '/favorites',
+              element: <FavoritePage />
+            },
+            {
               path: '/new',
               element: <NewCharacterPage />
             },
             {
               path: '/about',
               element: <AboutPage />
-            }
+            },
           ]
         }
       ]

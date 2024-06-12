@@ -107,19 +107,19 @@ export default function TopMenu() {
         }}
       >
         <MenuList>
-          <MenuItem disabled={location.pathname != '/'} onClick={handleResetList}>
+          <MenuItem disabled={location.pathname != '/favorites'} onClick={handleResetList}>
             <ListItemIcon>
               <AutorenewIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText sx={{ mr: 2 }}>Reset list</ListItemText>
           </MenuItem>
-          <MenuItem disabled={location.pathname != '/'} onClick={handleDeleteAll}>
+          <MenuItem disabled={location.pathname != '/favorites'} onClick={handleDeleteAll}>
             <ListItemIcon>
               <DeleteSweepIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText sx={{ mr: 2 }}>Delete all</ListItemText>
           </MenuItem>
-          <MenuItem disabled={location.pathname != '/' || charactersDeleted.length == 0} onClick={handleUndoDelete}>
+          <MenuItem disabled={location.pathname != '/favorites' || charactersDeleted.length == 0} onClick={handleUndoDelete}>
             <ListItemIcon>
               <UndoIcon fontSize="small" />
             </ListItemIcon>
@@ -129,7 +129,7 @@ export default function TopMenu() {
             </Typography> */}
           </MenuItem>
           <Divider />
-          <MenuItem disabled={location.pathname != '/'} onClick={handleSortList}>
+          <MenuItem disabled={location.pathname != '/favorites'} onClick={handleSortList}>
             <ListItemIcon>
               <SortIcon fontSize="small" />
             </ListItemIcon>

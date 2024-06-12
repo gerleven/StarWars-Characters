@@ -1,16 +1,14 @@
-import SearchBar from '../components/search-bar';
-import SearchResult from '../components/search-result';
 import { useContext, useEffect, useState } from 'react';
 import { Character, IMyContext } from '../lib/definitions.tsx';
 import { Stack, Typography } from '@mui/material';
 import { MyContext } from './root-page.tsx';
 import { SkeletonLoader } from '../components/character-card.tsx';
 import FilterBar from '../components/filter-bar.tsx';
+import FavoriteList from '../components/favorite-list.tsx';
 
-const HomePage = () => {
+const FavoritePage = () => {
   const [filteredCharactersList, setFilteredCharactersList] = useState<Character[]>([] as Character[]);
   const [inputFilter, setInputFilter] = useState<string>('');
-  const [inputSearch, setInputSearch] = useState<string>('');
 
   const { characters, loading, updateCharacters, resetList }: IMyContext = useContext(MyContext);
 
@@ -46,24 +44,14 @@ const HomePage = () => {
         padding={2}
       >
         <Typography textAlign={'left'} fontSize={24} fontWeight={'500'}>
-          Search a Starwars character:
-        </Typography>
-        <SearchBar inputSearch={inputSearch} setInputSearch={setInputSearch} />
-        {/* <br></br>
-        <Typography textAlign={'left'} fontSize={24} fontWeight={'500'}>
           Your Favorite List:
         </Typography>
         <FilterBar inputFilter={inputFilter} setInputFilter={setInputFilter} />
-        {loading ? (
-          <>
-            <SkeletonLoader />
-          </>
-        ) : (
-          <SearchResult inputFilter={inputFilter} filteredCharactersList={filteredCharactersList} />
-        )} */}
+        {loading ? <SkeletonLoader /> :  <FavoriteList inputFilter={inputFilter} filteredCharactersList={filteredCharactersList} />
+        }
       </Stack>
     </>
   );
 };
 
-export default HomePage;
+export default FavoritePage;
