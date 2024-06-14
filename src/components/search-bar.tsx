@@ -6,20 +6,13 @@ import { CustomButtonPrimary } from '../lib/utils.tsx';
 import { Stack } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
-import { starwarsService } from '../api/starwars-service.tsx';
 import { useContext, useState } from 'react';
-import { Character } from '../lib/definitions.tsx';
-import CharacterCard from './character-card.tsx';
 import { MyContext } from '../routes/root-page.tsx';
 
-interface ISearchBar {
-  setInputSearch: (value: string) => void;
-  inputSearch: string;
-}
 
-export default function SearchBar({ setInputSearch, inputSearch }: ISearchBar) {
-  const [characterSearch, setCharacterSearch] = useState<Character>();
-  const { addNewCharacter } = useContext(MyContext);
+export default function SearchBar() {
+  const { searchCharacter } = useContext(MyContext);
+  const [inputSearch, setInputSearch] = useState<string>('');
 
   const updateSearchInput = (value: string): void => {
     setInputSearch(value);
@@ -28,24 +21,9 @@ export default function SearchBar({ setInputSearch, inputSearch }: ISearchBar) {
   const handleClearSearchInput = () => {
     setInputSearch('');
   };
-  const handleAddNewCharacter = (character: Character) => {
-    addNewCharacter(character);
-    setCharacterSearch(undefined);
-  };
   const handleSearchCharacter = () => {
     if (inputSearch) {
-      starwarsService.searchCharacter(inputSearch).then((characters) => {
-        const firstCharacter: Character = characters[0] as Character;
-        const newCharacterSearched: Character = {
-          name: firstCharacter.name,
-          height: firstCharacter.height,
-          birth_year: firstCharacter.birth_year,
-          gender: firstCharacter.gender
-        } as Character;
-        setCharacterSearch(newCharacterSearched);
-      });
-    } else {
-      setCharacterSearch(undefined);
+      searchCharacter(inputSearch); 
     }
   };
 
@@ -70,24 +48,10 @@ export default function SearchBar({ setInputSearch, inputSearch }: ISearchBar) {
             </IconButton>
           )}
         </Search>
-        <CustomButtonPrimary sx={{ paddingX: 2 }} onClick={handleSearchCharacter}>
-          {/* <SearchIcon /> */}
+        <CustomButtonPrimary disabled={inputSearch==""} sx={{ paddingX: 2 }} onClick={handleSearchCharacter}>
           Search
         </CustomButtonPrimary>
       </Stack>
-      {characterSearch && (
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="stretch"
-          spacing={1}
-          paddingY={1}
-          className={'overFlowYScroll'}
-          sx={{ height: '20vh' }}
-        >
-          <CharacterCard character={characterSearch} addCharacter={handleAddNewCharacter} />
-        </Stack>
-      )}
     </Box>
   );
 }

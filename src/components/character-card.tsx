@@ -40,7 +40,7 @@ export default function CharacterCard({ character, deleteCharacter, addCharacter
   );
 }
 
-export const SkeletonLoader = () => {
+export const SkeletonLoader = ({amount=5}: {amount?: number}) => {
   const Skeleton = () => (
     <Paper elevation={3}>
       <Card>
@@ -72,11 +72,9 @@ export const SkeletonLoader = () => {
       padding={1}
       className={'overFlowYScroll'}
     >
-      <Skeleton />
-      <Skeleton />
-      <Skeleton />
-      <Skeleton />
-      <Skeleton />
+      {Array.from({ length: amount }, (_, index) => (
+        <Skeleton key={index} />
+      ))}
     </Stack>
   );
 };

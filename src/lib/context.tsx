@@ -4,6 +4,7 @@ import { starwarsService } from '../api/starwars-service';
 
 const useMyContext = (): IMyContext => {
   const [characters, setCharacters] = useState<Character[]>([] as Character[]);
+  const [charactersSearchResult, setCharactersSearchResult] = useState<Character[]>([] as Character[]);
   const [charactersDeleted, setCharactersDeleted] = useState<Character[]>([] as Character[]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -17,9 +18,18 @@ const useMyContext = (): IMyContext => {
     starwarsService.getCharactersPaginated().then((characterResults) => {
       updateCharacters(characterResults);
       setCharactersDeleted([] as Character[]);
-      setLoading(false);
-    });
+    }).finally(()=>{setLoading(false);});
   };
+  
+  const searchCharacter = (q: string) => {
+    setLoading(true);
+    starwarsService.searchCharacter(q).then((characters) => {
+      setCharactersSearchResult(characters);
+    }).finally(()=>{setLoading(false);});
+  };
+  const clearSearchCharactersList = ()=>{
+    setCharactersSearchResult([] as Character[]);
+  }
 
   const addNewCharacter = (character: Character) => {
     updateCharacters([character, ...characters]);
@@ -48,15 +58,18 @@ const useMyContext = (): IMyContext => {
 
   const contextDefaultValue = {
     characters,
+    charactersSearchResult,
     loading,
     charactersDeleted,
     updateCharacters,
     resetList,
+    searchCharacter,
     addNewCharacter,
     deleteCharacter,
     deleteAll,
     undoDeleteCharacter,
-    sortCharacters
+    sortCharacters,
+    clearSearchCharactersList
   };
   return contextDefaultValue;
 };

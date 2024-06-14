@@ -14,12 +14,13 @@ interface ISearchResult {
 
 export default function FavoriteList({ inputFilter, filteredCharactersList }: ISearchResult) {
   const { characters, loading, resetList, deleteCharacter }: IMyContext = useContext(MyContext);
+
   return (
     <>
       <Stack direction={'row'} justifyContent={'space-between'} alignItems={'end'}>
         <Box>
           {inputFilter && (
-            <Typography>{`Filtered results (${filteredCharactersList.length} de ${characters.length}):`}</Typography>
+            <Typography>{`Filtered results (${filteredCharactersList.length} of ${characters.length}):`}</Typography>
           )}
         </Box>
         <Form method="get" action="/new" replace>

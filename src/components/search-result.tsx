@@ -5,26 +5,24 @@ import { CustomButtonPrimary } from '../lib/utils.tsx';
 import theme from '../theme/custom-theme.tsx';
 import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
-import { Form } from 'react-router-dom';
 
-interface ISearchResult {
-  inputFilter: string;
-  filteredCharactersList: Character[];
-}
+export default function SearchResult() {
+  const { charactersSearchResult, clearSearchCharactersList }: IMyContext = useContext(MyContext);
 
-export default function SearchResult({ inputFilter, filteredCharactersList }: ISearchResult) {
-  const { characters, loading, resetList, deleteCharacter }: IMyContext = useContext(MyContext);
+  const handleClearSearhResult=()=>{
+    clearSearchCharactersList();
+  };
+
   return (
     <>
       <Stack direction={'row'} justifyContent={'space-between'} alignItems={'end'}>
         <Box>
-          {inputFilter && (
-            <Typography>{`Filtered results (${filteredCharactersList.length} de ${characters.length}):`}</Typography>
+          {charactersSearchResult && (
+            <Typography>{`Search results (${charactersSearchResult.length}):`}</Typography>
           )}
         </Box>
-        <Form method="get" action="/new" replace>
-          <CustomButtonPrimary type="submit">New</CustomButtonPrimary>
-        </Form>
+        <CustomButtonPrimary onClick={handleClearSearhResult}>Clear</CustomButtonPrimary>
+        
       </Stack>
       <Stack
         direction="column"
@@ -35,16 +33,16 @@ export default function SearchResult({ inputFilter, filteredCharactersList }: IS
         className={'overFlowYScroll'}
         sx={{ height: '80vh' }}
       >
-        {characters.length == 0 && !loading && <NoItemsToShow resetList={resetList} />}
-        {(inputFilter.length == 0 ? characters : filteredCharactersList).map((character: Character, index: number) => {
-          return <CharacterCard key={index} character={character} deleteCharacter={deleteCharacter} />;
-        })}
+        {(charactersSearchResult.length == 0) ? <NoItemsToShow/> : <>{charactersSearchResult.map((character: Character, index: number) => {
+          return <CharacterCard key={index} character={character}/>;
+        })}</>}
+        
       </Stack>
     </>
   );
 }
 
-const NoItemsToShow = ({ resetList }: { resetList: () => void }) => {
+const NoItemsToShow = () => {
   return (
     <>
       <Paper elevation={3}>
@@ -54,9 +52,8 @@ const NoItemsToShow = ({ resetList }: { resetList: () => void }) => {
               No Items to show
             </Typography>
             <Typography fontWeight={300} color={theme.palette.grey[600]}>
-              Try to create a new Character or reset default list.
+              Try to enter another input.
             </Typography>
-            <CustomButtonPrimary onClick={resetList}>Reset List</CustomButtonPrimary>
           </Stack>
         </Box>
       </Paper>

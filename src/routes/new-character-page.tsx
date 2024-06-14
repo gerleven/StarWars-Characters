@@ -27,7 +27,7 @@ const NewCharacterPage = () => {
       height: data.height
     } as Character;
     addNewCharacter(newCharacter);
-    navigate('/');
+    navigate('/favorites');
   };
 
   const genderOptions = [
@@ -145,7 +145,7 @@ const NewCharacterPage = () => {
 
                   <Grid item xs={2}>
                     <CustomButtonPrimary fullWidth type="submit">
-                      Create
+                      Add to Favorites
                     </CustomButtonPrimary>
                   </Grid>
                 </Grid>
