@@ -1,13 +1,13 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { Character, IMyContext } from '../lib/definitions.tsx';
-import CharacterCard from './character-card';
+import CharacterCard, { SkeletonLoader } from './character-card';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
 import theme from '../theme/custom-theme.tsx';
 import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
 
 export default function SearchResult() {
-  const { charactersSearchResult, clearSearchCharactersList }: IMyContext = useContext(MyContext);
+  const { charactersSearchResult, clearSearchCharactersList, addNewCharacter, loading }: IMyContext = useContext(MyContext);
 
   const handleClearSearhResult=()=>{
     clearSearchCharactersList();
@@ -24,6 +24,7 @@ export default function SearchResult() {
         <CustomButtonPrimary onClick={handleClearSearhResult}>Clear</CustomButtonPrimary>
         
       </Stack>
+      {loading ? <SkeletonLoader amount={1}/> :  <>
       <Stack
         direction="column"
         justifyContent="flex-start"
@@ -33,11 +34,11 @@ export default function SearchResult() {
         className={'overFlowYScroll'}
         sx={{ height: '80vh' }}
       >
-        {(charactersSearchResult.length == 0) ? <NoItemsToShow/> : <>{charactersSearchResult.map((character: Character, index: number) => {
-          return <CharacterCard key={index} character={character}/>;
-        })}</>}
+        {(charactersSearchResult.length == 0) ? <NoItemsToShow/> : <>{charactersSearchResult.map((character: Character, index: number) => (<CharacterCard key={index} character={character} addCharacter={addNewCharacter}/>))}</>}
         
       </Stack>
+      </>}
+      
     </>
   );
 }

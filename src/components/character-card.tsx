@@ -1,7 +1,9 @@
 import { Paper, Stack, Typography, Card, CardActions, CardContent } from '@mui/material';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
-import { Character } from '../lib/definitions.tsx';
+import { Character, IMyContext } from '../lib/definitions.tsx';
 import ContentLoader from 'react-content-loader';
+import { useContext } from 'react';
+import { MyContext } from '../routes/root-page.tsx';
 
 interface ICharacterCard {
   character: Character;
@@ -10,6 +12,8 @@ interface ICharacterCard {
 }
 
 export default function CharacterCard({ character, deleteCharacter, addCharacter }: ICharacterCard) {
+  const { characters }: IMyContext = useContext(MyContext);
+  
   return (
     <>
       <Paper elevation={2}>
@@ -30,7 +34,7 @@ export default function CharacterCard({ character, deleteCharacter, addCharacter
             )}
             {addCharacter && (
               <CardActions>
-                <CustomButtonPrimary onClick={() => addCharacter(character)}>Add</CustomButtonPrimary>
+                <CustomButtonPrimary disabled={characters.find(c=>c.name == character.name)!=undefined} onClick={()=>{addCharacter(character)}}>Add To Favs</CustomButtonPrimary>
               </CardActions>
             )}
           </Stack>

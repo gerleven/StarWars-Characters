@@ -4,10 +4,9 @@ import { useContext, useEffect } from 'react';
 import { Character, IMyContext } from '../lib/definitions.tsx';
 import { Stack, Typography } from '@mui/material';
 import { MyContext } from './root-page.tsx';
-import { SkeletonLoader } from '../components/character-card.tsx';
 
 const HomePage = () => {
-  const { loading, updateCharacters, resetList }: IMyContext = useContext(MyContext);
+  const { updateCharacters, resetList }: IMyContext = useContext(MyContext);
 
   useEffect(() => {
     //Check for characters in the Local Storage
@@ -36,7 +35,8 @@ const HomePage = () => {
           Search a Starwars character:
         </Typography>
         <SearchBar />
-        {loading ? <SkeletonLoader amount={1}/> :  <SearchResult />}
+        <br></br>
+        <SearchResult />
         
       </Stack>
     </>
