@@ -23,9 +23,6 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
             <Typography>{`Filtered results (${filteredCharactersList.length} of ${characters.length}):`}</Typography>
           )}
         </Box>
-        <Form method="get" action="/new" replace>
-          <CustomButtonPrimary type="submit">New</CustomButtonPrimary>
-        </Form>
       </Stack>
       <Stack
         direction="column"
@@ -41,6 +38,13 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
           return <CharacterCard key={index} character={character} deleteCharacter={deleteCharacter} />;
         })}
       </Stack>
+      <br></br>
+      <Stack>
+        <Form method="get" action="/new" replace>
+          <CustomButtonPrimary type="submit" fullWidth>New</CustomButtonPrimary>
+        </Form>
+      </Stack>
+        
     </>
   );
 }

@@ -15,7 +15,7 @@ export default function Banner() {
   const navigate = useNavigate();
 
   const handleClickLogo = () => {
-    navigate(location.pathname == '/' ? '/about' : '/', { replace: true });
+    navigate('/', { replace: true });
   };
   const handleClickFavorites = () => {
     navigate('/favorites');
@@ -33,7 +33,7 @@ export default function Banner() {
       >
         <Grid item xs={1}>
           {location.pathname != '/' && (
-            <Form method="get" action="/" replace>
+            <Form method="get" action={location.pathname == '/new' ? '/favorites' : '/'} replace>
               <IconButton
                 type="submit" // <-- here i'm using React Router Data API to navigate instead of using a traditional handle with a navigate("/list")
               >
