@@ -19,7 +19,7 @@ export default function CharacterCard({ character, deleteCharacter, addCharacter
       <Paper elevation={2}>
         <Card>
           <Stack direction={'row'} justifyContent={'space-between'} padding={1}>
-            <CardContent sx={{ width: '70%' }}>
+            <CardContent sx={{ width: '60%' }}>
               <Typography fontSize={25} noWrap>
                 {character.name}
               </Typography>

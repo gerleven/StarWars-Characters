@@ -32,7 +32,7 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
         justifyContent="flex-start"
         alignItems="stretch"
         spacing={1}
-        paddingY={1}
+        padding={1}
         className={'overFlowYScroll'}
         sx={{ height: '80vh' }}
       >

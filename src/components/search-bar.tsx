@@ -30,24 +30,24 @@ export default function SearchBar() {
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search for a Star Wars character…"
-            inputProps={{ 'aria-label': 'search' }}
-            value={inputSearch}
-            onChange={(term) => {
-              updateSearchInput(term.target.value);
-            }}
-          />
-          {inputSearch && (
-            <IconButton onClick={handleClearSearchInput}>
-              <ClearIcon />
-            </IconButton>
-          )}
-        </Search>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search for a Star Wars character…"
+              inputProps={{ 'aria-label': 'search' }}
+              value={inputSearch}
+              onChange={(term) => {
+                updateSearchInput(term.target.value);
+              }}
+            />
+            {inputSearch && (
+              <IconButton onClick={handleClearSearchInput}>
+                <ClearIcon />
+              </IconButton>
+            )}
+          </Search>
         <CustomButtonPrimary disabled={inputSearch==""} sx={{ paddingX: 2 }} onClick={handleSearchCharacter}>
           Search
         </CustomButtonPrimary>
@@ -80,7 +80,8 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
-  width: '80%',
+  width: '85%',
+  boxShadow: "1px 1px 2px 1px #dbdbdb",
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
