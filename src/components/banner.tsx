@@ -3,7 +3,7 @@ import logo from '../assets/r2d2.png';
 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, ButtonBase, Grid, Tooltip, useTheme } from '@mui/material';
+import { Box, ButtonBase, Grid, Stack, Tooltip, useTheme } from '@mui/material';
 
 import { useLocation, Form, useNavigate } from 'react-router-dom';
 import TopMenu from './menu';
@@ -31,7 +31,7 @@ export default function Banner() {
         justifyContent={'space-between'}
         sx={{ backgroundColor: theme.palette.primary.main }}
       >
-        <Grid item xs={1}>
+        <Grid item xs={3}>
           {location.pathname != '/' && (
             <Form method="get" action={location.pathname == '/new' ? '/favorites' : '/'} replace>
               <IconButton
@@ -48,10 +48,12 @@ export default function Banner() {
             </Form>
           )}
         </Grid>
-        <Grid item xs={1}>
-          <ButtonBase className="banner-logo" onClick={handleClickLogo} disableRipple>
-            <img src={logo} alt="Star Wars-Logo" style={{ width: '50px' }} />
-          </ButtonBase>
+        <Grid item xs={3}>
+          <Stack>
+            <ButtonBase className="banner-logo" onClick={handleClickLogo} disableRipple >
+              <img src={logo} alt="Star Wars-Logo" style={{ width: '50px' }} />
+            </ButtonBase>
+          </Stack>
         </Grid>
         <Grid container item xs={3}>
           <Grid item alignContent={'center'}>
