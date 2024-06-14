@@ -53,19 +53,19 @@ export default function Banner() {
             <img src={logo} alt="Star Wars-Logo" style={{ width: '50px' }} />
           </ButtonBase>
         </Grid>
-        <Grid container item xs={2} sx={{ marginRight: 1 }}>
-          <Grid item alignContent={"center"}>
-            <Box sx={{width: "30px"}}>
+        <Grid container item xs={3}>
+          <Grid item alignContent={'center'}>
+            <Box sx={{ width: '30px' }}>
               {location.pathname != '/favorites' && (
                 <Tooltip title="Go to Favorites" placement="bottom">
-                <ButtonBase className="banner-logo" onClick={handleClickFavorites} disableRipple>
-                  <StarRoundedIcon color='secondary'/>
-                </ButtonBase>
-              </Tooltip>
+                  <ButtonBase className="banner-logo" onClick={handleClickFavorites} disableRipple>
+                    <StarRoundedIcon color="secondary" />
+                  </ButtonBase>
+                </Tooltip>
               )}
             </Box>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ marginRight: 1 }}>
             <TopMenu />
           </Grid>
         </Grid>
