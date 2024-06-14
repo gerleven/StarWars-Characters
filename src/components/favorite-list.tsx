@@ -39,7 +39,7 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
         })}
       </Stack>
       <br></br>
-      <Stack>
+      <Stack sx={{pb: "15px"}}>
         <Form method="get" action="/new" replace>
           <CustomButtonPrimary type="submit" fullWidth>New</CustomButtonPrimary>
         </Form>
