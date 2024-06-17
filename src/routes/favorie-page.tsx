@@ -10,19 +10,7 @@ const FavoritePage = () => {
   const [filteredCharactersList, setFilteredCharactersList] = useState<Character[]>([] as Character[]);
   const [inputFilter, setInputFilter] = useState<string>('');
 
-  const { characters, loading, updateCharacters, resetList }: IMyContext = useContext(MyContext);
-
-  useEffect(() => {
-    //Check for characters in the Local Storage
-    const charactersInit: Character[] = JSON.parse(localStorage.getItem('characters') || '[]') as Character[];
-
-    //In case there is no local storage, call the API.
-    if (charactersInit.length == 0) {
-      resetList();
-    } else {
-      updateCharacters(charactersInit);
-    }
-  }, []);
+  const { characters, loading }: IMyContext = useContext(MyContext);
 
   //Keep the filtered list of characters in sync when searching or deleting any characters
   useEffect(() => {

@@ -3,7 +3,9 @@ import { Character, IMyContext } from './definitions';
 import { starwarsService } from '../api/starwars-service';
 
 const useMyContext = (): IMyContext => {
-  const [characters, setCharacters] = useState<Character[]>([] as Character[]);
+  const [characters, setCharacters] = useState<Character[]>(
+    JSON.parse(localStorage.getItem('characters') || '[]') as Character[]
+  );
   const [charactersSearchResult, setCharactersSearchResult] = useState<Character[]>([] as Character[]);
   const [charactersDeleted, setCharactersDeleted] = useState<Character[]>([] as Character[]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -15,8 +17,10 @@ const useMyContext = (): IMyContext => {
 
   const resetList = () => {
     setLoading(true);
+    const randomPage = Math.floor(Math.random() * 9) + 1;
+    console.log(randomPage);
     starwarsService
-      .getCharactersPaginated()
+      .getCharactersPaginated(randomPage)
       .then((characterResults) => {
         updateCharacters(characterResults);
         setCharactersDeleted([] as Character[]);

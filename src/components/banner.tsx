@@ -55,7 +55,7 @@ export default function Banner() {
             </ButtonBase>
           </Stack>
         </Grid>
-        <Grid container item xs={3}>
+        <Grid container item xs={3} justifyContent={"end"}>
           <Grid item alignContent={'center'}>
             <Box sx={{ width: '30px' }}>
               {location.pathname != '/favorites' && (

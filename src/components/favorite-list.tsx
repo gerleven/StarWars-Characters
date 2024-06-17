@@ -13,15 +13,13 @@ interface ISearchResult {
 }
 
 export default function FavoriteList({ inputFilter, filteredCharactersList }: ISearchResult) {
-  const { characters, loading, resetList }: IMyContext = useContext(MyContext);
+  const { characters, loading }: IMyContext = useContext(MyContext);
 
   return (
     <>
       <Stack direction={'row'} justifyContent={'space-between'} alignItems={'end'}>
         <Box>
-          {inputFilter && (
-            <Typography>{`Filtered results (${filteredCharactersList.length} of ${characters.length}):`}</Typography>
-          )}
+          <Typography>{`Filtered results (${filteredCharactersList.length} of ${characters.length}):`}</Typography>
         </Box>
       </Stack>
       <Stack
@@ -33,7 +31,7 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
         sx={{ height: '80vh' }}
         margin={-3}
       >
-        {characters.length == 0 && !loading && <NoItemsToShow resetList={resetList} />}
+        {characters.length == 0 && !loading && <NoItemsToShow />}
         {(inputFilter.length == 0 ? characters : filteredCharactersList).map((character: Character, index: number) => (
           <CharacterCard key={index} character={character} isFavorite={true} />
         ))}
@@ -50,7 +48,8 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
   );
 }
 
-const NoItemsToShow = ({ resetList }: { resetList: () => void }) => {
+const NoItemsToShow = () => {
+  const { resetList }: IMyContext = useContext(MyContext);
   return (
     <Box>
       <Paper elevation={3} sx={{ margin: '3px' }}>
@@ -62,7 +61,7 @@ const NoItemsToShow = ({ resetList }: { resetList: () => void }) => {
             <Typography fontWeight={300} color={theme.palette.grey[600]}>
               Try to create a new Character or reset default list.
             </Typography>
-            <CustomButtonPrimary onClick={resetList}>Reset List</CustomButtonPrimary>
+            <CustomButtonPrimary onClick={resetList}>Load 10 random Characters</CustomButtonPrimary>
           </Stack>
         </Box>
       </Paper>
