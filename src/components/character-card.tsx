@@ -1,9 +1,10 @@
-import { Paper, Stack, Typography, Card, CardActions, CardContent, Box } from '@mui/material';
+import { Paper, Stack, Typography, Card, CardActions, CardContent, Box, ButtonBase } from '@mui/material';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
 import { Character, IMyContext } from '../lib/definitions.tsx';
 import ContentLoader from 'react-content-loader';
 import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
 
 interface ICharacterCard {
   character: Character;
@@ -14,6 +15,8 @@ interface ICharacterCard {
 
 export default function CharacterCard({ character, isFavorite }: ICharacterCard) {
   const { characters, deleteCharacter, addNewCharacter }: IMyContext = useContext(MyContext);
+
+  const isAdded = characters.find((c) => c.name == character.name) != undefined;
 
   return (
     <Box>
@@ -33,14 +36,17 @@ export default function CharacterCard({ character, isFavorite }: ICharacterCard)
               {isFavorite ? (
                 <CustomButtonPrimary onClick={() => deleteCharacter(character)}>Delete</CustomButtonPrimary>
               ) : (
-                <CustomButtonPrimary
-                  disabled={characters.find((c) => c.name == character.name) != undefined}
+                <ButtonBase
+                  disableRipple
                   onClick={() => {
                     addNewCharacter(character);
                   }}
+                  disabled={isAdded}
                 >
-                  Add To Favs
-                </CustomButtonPrimary>
+                  <CustomButtonPrimary>
+                    <StarRoundedIcon color={isAdded ? 'disabled' : 'secondary'} />
+                  </CustomButtonPrimary>
+                </ButtonBase>
               )}
             </CardActions>
           </Stack>
