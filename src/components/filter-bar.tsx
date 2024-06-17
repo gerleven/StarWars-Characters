@@ -31,6 +31,7 @@ export default function FilterBar({ setInputFilter, inputFilter }: IFilterBar) {
             placeholder="Filter your favorite list…"
             inputProps={{ 'aria-label': 'search' }}
             value={inputFilter}
+            onKeyDown={(key)=>{(key.code == "Escape") && handleClearSearchInput()}}
             onChange={(term) => {
               updateSearchInput(term.target.value);
             }}

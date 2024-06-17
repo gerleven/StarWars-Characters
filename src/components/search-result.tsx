@@ -19,7 +19,6 @@ export default function SearchResult() {
         <Box>
           {charactersSearchResult && <Typography>{`Search results (${charactersSearchResult.length}):`}</Typography>}
         </Box>
-        <CustomButtonPrimary onClick={handleClearSearhResult}>Clear</CustomButtonPrimary>
       </Stack>
       {loading ? (
         <SkeletonLoader amount={1} />
@@ -46,13 +45,16 @@ export default function SearchResult() {
           </Stack>
         </>
       )}
+      <CustomButtonPrimary onClick={handleClearSearhResult} disabled={charactersSearchResult.length == 0}>
+        Clear
+      </CustomButtonPrimary>
     </>
   );
 }
 
 const NoItemsToShow = () => {
   return (
-    <>
+    <Box>
       <Paper elevation={3} sx={{ margin: '3px' }}>
         <Stack padding={2} spacing={1}>
           <Typography fontSize={20} fontWeight={500}>
@@ -63,6 +65,6 @@ const NoItemsToShow = () => {
           </Typography>
         </Stack>
       </Paper>
-    </>
+    </Box>
   );
 };
