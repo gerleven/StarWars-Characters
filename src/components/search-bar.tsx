@@ -48,7 +48,7 @@ export default function SearchBar() {
             </IconButton>
           )}
         </Search>
-        <CustomButtonPrimary disabled={inputSearch == ''} sx={{ paddingX: 2 }} onClick={handleSearchCharacter}>
+        <CustomButtonPrimary sx={{ paddingX: 2 }} onClick={handleSearchCharacter}>
           Search
         </CustomButtonPrimary>
       </Stack>
