@@ -35,12 +35,12 @@ export interface IMyContext {
   charactersDeleted: Character[];
   updateCharacters: (characters: Character[]) => void;
   resetList: () => void;
-  searchCharacter: (q: string)=>void;
+  searchCharacter: (q: string) => void;
   charactersSearchResult: Character[];
   addNewCharacter: (characters: Character) => void;
   deleteCharacter: (characters: Character) => void;
   deleteAll: () => void;
   undoDeleteCharacter: () => void;
   sortCharacters: () => void;
-  clearSearchCharactersList: ()=>void;
+  clearSearchCharactersList: () => void;
 }

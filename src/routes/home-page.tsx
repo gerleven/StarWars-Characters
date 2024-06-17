@@ -37,7 +37,6 @@ const HomePage = () => {
         <SearchBar />
         <br></br>
         <SearchResult />
-        
       </Stack>
     </>
   );

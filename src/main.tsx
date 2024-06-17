@@ -40,7 +40,7 @@ const router = createHashRouter(
             {
               path: '/about',
               element: <AboutPage />
-            },
+            }
           ]
         }
       ]

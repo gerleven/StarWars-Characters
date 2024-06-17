@@ -30,15 +30,13 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
         alignItems="stretch"
         spacing={1}
         className={'overFlowYScroll'}
-        sx={{ height: '80vh'}}
+        sx={{ height: '80vh' }}
         margin={-3}
       >
-        
         {characters.length == 0 && !loading && <NoItemsToShow resetList={resetList} />}
         {(inputFilter.length == 0 ? characters : filteredCharactersList).map((character: Character, index: number) => (
-          <CharacterCard key={index} character={character} isFavorite={true}/>
+          <CharacterCard key={index} character={character} isFavorite={true} />
         ))}
-        
       </Stack>
       <br></br>
       <Stack sx={{ pb: '15px' }}>
@@ -55,7 +53,7 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
 const NoItemsToShow = ({ resetList }: { resetList: () => void }) => {
   return (
     <Box>
-      <Paper elevation={3} sx={{margin: "3px"}}>
+      <Paper elevation={3} sx={{ margin: '3px' }}>
         <Box>
           <Stack padding={2} spacing={1}>
             <Typography fontSize={20} fontWeight={500}>

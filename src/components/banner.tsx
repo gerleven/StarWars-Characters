@@ -50,7 +50,7 @@ export default function Banner() {
         </Grid>
         <Grid item xs={3}>
           <Stack>
-            <ButtonBase className="banner-logo" onClick={handleClickLogo} disableRipple >
+            <ButtonBase className="banner-logo" onClick={handleClickLogo} disableRipple>
               <img src={logo} alt="Star Wars-Logo" style={{ width: '50px' }} />
             </ButtonBase>
           </Stack>

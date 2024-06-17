@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import { useContext, useState } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
 
-
 export default function SearchBar() {
   const { searchCharacter } = useContext(MyContext);
   const [inputSearch, setInputSearch] = useState<string>('');
@@ -23,32 +22,32 @@ export default function SearchBar() {
   };
   const handleSearchCharacter = () => {
     if (inputSearch) {
-      searchCharacter(inputSearch); 
+      searchCharacter(inputSearch);
     }
   };
 
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={1}>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search for a Star Wars character…"
-              inputProps={{ 'aria-label': 'search' }}
-              value={inputSearch}
-              onChange={(term) => {
-                updateSearchInput(term.target.value);
-              }}
-            />
-            {inputSearch && (
-              <IconButton onClick={handleClearSearchInput}>
-                <ClearIcon />
-              </IconButton>
-            )}
-          </Search>
-        <CustomButtonPrimary disabled={inputSearch==""} sx={{ paddingX: 2 }} onClick={handleSearchCharacter}>
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search for a Star Wars character…"
+            inputProps={{ 'aria-label': 'search' }}
+            value={inputSearch}
+            onChange={(term) => {
+              updateSearchInput(term.target.value);
+            }}
+          />
+          {inputSearch && (
+            <IconButton onClick={handleClearSearchInput}>
+              <ClearIcon />
+            </IconButton>
+          )}
+        </Search>
+        <CustomButtonPrimary disabled={inputSearch == ''} sx={{ paddingX: 2 }} onClick={handleSearchCharacter}>
           Search
         </CustomButtonPrimary>
       </Stack>
@@ -81,7 +80,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   width: '80%',
-  boxShadow: "1px 1px 2px 1px #dbdbdb",
+  boxShadow: '1px 1px 2px 1px #dbdbdb',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon

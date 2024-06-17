@@ -119,7 +119,10 @@ export default function TopMenu() {
             </ListItemIcon>
             <ListItemText sx={{ mr: 2 }}>Delete all</ListItemText>
           </MenuItem>
-          <MenuItem disabled={location.pathname != '/favorites' || charactersDeleted.length == 0} onClick={handleUndoDelete}>
+          <MenuItem
+            disabled={location.pathname != '/favorites' || charactersDeleted.length == 0}
+            onClick={handleUndoDelete}
+          >
             <ListItemIcon>
               <UndoIcon fontSize="small" />
             </ListItemIcon>

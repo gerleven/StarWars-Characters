@@ -47,8 +47,11 @@ const FavoritePage = () => {
           Your Favorite List:
         </Typography>
         <FilterBar inputFilter={inputFilter} setInputFilter={setInputFilter} />
-        {loading ? <SkeletonLoader /> :  <FavoriteList inputFilter={inputFilter} filteredCharactersList={filteredCharactersList} />
-        }
+        {loading ? (
+          <SkeletonLoader />
+        ) : (
+          <FavoriteList inputFilter={inputFilter} filteredCharactersList={filteredCharactersList} />
+        )}
       </Stack>
     </>
   );

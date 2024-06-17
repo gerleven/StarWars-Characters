@@ -15,21 +15,31 @@ const useMyContext = (): IMyContext => {
 
   const resetList = () => {
     setLoading(true);
-    starwarsService.getCharactersPaginated().then((characterResults) => {
-      updateCharacters(characterResults);
-      setCharactersDeleted([] as Character[]);
-    }).finally(()=>{setLoading(false);});
+    starwarsService
+      .getCharactersPaginated()
+      .then((characterResults) => {
+        updateCharacters(characterResults);
+        setCharactersDeleted([] as Character[]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
-  
+
   const searchCharacter = (q: string) => {
     setLoading(true);
-    starwarsService.searchCharacter(q).then((characters) => {
-      setCharactersSearchResult(characters);
-    }).finally(()=>{setLoading(false);});
+    starwarsService
+      .searchCharacter(q)
+      .then((characters) => {
+        setCharactersSearchResult(characters);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
-  const clearSearchCharactersList = ()=>{
+  const clearSearchCharactersList = () => {
     setCharactersSearchResult([] as Character[]);
-  }
+  };
 
   const addNewCharacter = (character: Character) => {
     updateCharacters([character, ...characters]);
