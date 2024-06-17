@@ -50,12 +50,13 @@ const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.4),
+  boxShadow: '1px 1px 2px 1px #dbdbdb',
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.7)
   },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%'
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -71,7 +72,6 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   width: '80%',
-  boxShadow: '1px 1px 2px 1px #dbdbdb',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon

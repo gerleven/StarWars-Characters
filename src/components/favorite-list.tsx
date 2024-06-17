@@ -51,20 +51,18 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
 const NoItemsToShow = () => {
   const { resetList }: IMyContext = useContext(MyContext);
   return (
-    <Box>
       <Paper elevation={3} sx={{ margin: '3px' }}>
-        <Box>
-          <Stack padding={2} spacing={1}>
-            <Typography fontSize={20} fontWeight={500}>
-              No Items to show
-            </Typography>
-            <Typography fontWeight={300} color={theme.palette.grey[600]}>
-              Try to create a new Character or reset default list.
-            </Typography>
-            <CustomButtonPrimary onClick={resetList}>Load 10 random Characters</CustomButtonPrimary>
-          </Stack>
-        </Box>
-      </Paper>
-    </Box>
+      <Box>
+        <Stack padding={2} spacing={1}>
+          <Typography fontSize={20} fontWeight={500}>
+            No Items to show
+          </Typography>
+          <Typography fontWeight={300} color={theme.palette.grey[600]}>
+            Try to create a new Character or reset default list.
+          </Typography>
+          <CustomButtonPrimary onClick={resetList}>Load 10 random Characters</CustomButtonPrimary>
+        </Stack>
+      </Box>
+    </Paper>
   );
 };

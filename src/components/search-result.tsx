@@ -34,17 +34,15 @@ export default function SearchResult() {
             sx={{ height: '80vh' }}
             margin={-3}
           >
-            <Box margin={3}>
-              {charactersSearchResult.length == 0 ? (
-                <NoItemsToShow />
-              ) : (
-                <>
-                  {charactersSearchResult.map((character: Character, index: number) => (
-                    <CharacterCard key={index} character={character} isFavorite={false} />
-                  ))}
-                </>
-              )}
-            </Box>
+            {charactersSearchResult.length == 0 ? (
+              <NoItemsToShow />
+            ) : (
+              <>
+                {charactersSearchResult.map((character: Character, index: number) => (
+                  <CharacterCard key={index} character={character} isFavorite={false} />
+                ))}
+              </>
+            )}
           </Stack>
         </>
       )}
