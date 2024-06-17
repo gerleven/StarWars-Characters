@@ -52,7 +52,7 @@ const NoItemsToShow = () => {
   const { resetList }: IMyContext = useContext(MyContext);
   return (
     <Box>
-      <Paper elevation={3} sx={{ margin: '3px' }}>
+      <Paper elevation={2} sx={{ margin: '3px' }}>
         <Stack padding={2} spacing={1}>
           <Typography fontSize={20} fontWeight={500}>
             No Items to show

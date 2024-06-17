@@ -20,62 +20,58 @@ export default function CharacterCard({ character, isFavorite }: ICharacterCard)
 
   return (
     <Box>
-      <Paper elevation={2} sx={{ margin: '3px' }}>
-        <Card>
-          <Stack direction={'row'} justifyContent={'space-between'} padding={1}>
-            <CardContent sx={{ width: '60%' }}>
-              <Typography fontSize={25} noWrap>
-                {character.name}
-              </Typography>
-              <Typography>Height: {character.height} cm</Typography>
-              <Typography>Birth year: {character.birth_year}</Typography>
-              <Typography>Gender: {character.gender}</Typography>
-            </CardContent>
+      <Card elevation={2} sx={{ margin: '3px' }}>
+        <Stack direction={'row'} justifyContent={'space-between'} padding={1}>
+          <CardContent sx={{ width: '60%' }}>
+            <Typography fontSize={25} noWrap>
+              {character.name}
+            </Typography>
+            <Typography>Height: {character.height} cm</Typography>
+            <Typography>Birth year: {character.birth_year}</Typography>
+            <Typography>Gender: {character.gender}</Typography>
+          </CardContent>
 
-            <CardActions>
-              {isFavorite ? (
-                <CustomButtonPrimary onClick={() => deleteCharacter(character)}>Delete</CustomButtonPrimary>
-              ) : (
-                <ButtonBase
-                  disableRipple
-                  onClick={() => {
-                    addNewCharacter(character);
-                  }}
-                  disabled={isAdded}
-                >
-                  <CustomButtonPrimary>
-                    <StarRoundedIcon color={isAdded ? 'disabled' : 'secondary'} />
-                  </CustomButtonPrimary>
-                </ButtonBase>
-              )}
-            </CardActions>
-          </Stack>
-        </Card>
-      </Paper>
+          <CardActions>
+            {isFavorite ? (
+              <CustomButtonPrimary onClick={() => deleteCharacter(character)}>Delete</CustomButtonPrimary>
+            ) : (
+              <ButtonBase
+                disableRipple
+                onClick={() => {
+                  addNewCharacter(character);
+                }}
+                disabled={isAdded}
+              >
+                <CustomButtonPrimary>
+                  <StarRoundedIcon color={isAdded ? 'disabled' : 'secondary'} />
+                </CustomButtonPrimary>
+              </ButtonBase>
+            )}
+          </CardActions>
+        </Stack>
+      </Card>
     </Box>
   );
 }
 
 export const SkeletonLoader = ({ amount = 5 }: { amount?: number }) => {
   const Skeleton = () => (
-    <Paper elevation={3} sx={{ margin: '3px' }}>
-      <Card>
-        <ContentLoader
-          speed={2}
-          width={'100%'}
-          height={161}
-          viewBox="0 0 452 161"
-          backgroundColor="#e8e8e8"
-          foregroundColor="#f4f4f4"
-          style={{ padding: 5 }}
-        >
-          <rect x="0" y="20" rx="9" ry="9" width="240" height="40" />
-          <rect x="0" y="70" rx="5" ry="5" width="150" height="20" />
-          <rect x="0" y="100" rx="5" ry="5" width="150" height="20" />
-          <rect x="0" y="130" rx="5" ry="5" width="150" height="20" />
-          <rect x="350" y="65" rx="9" ry="9" width="72" height="36" />
-        </ContentLoader>
-      </Card>
+    <Paper elevation={2} sx={{ margin: '3px' }}>
+      <ContentLoader
+        speed={2}
+        width={'100%'}
+        height={161}
+        viewBox="0 0 452 161"
+        backgroundColor="#e8e8e8"
+        foregroundColor="#f4f4f4"
+        style={{ padding: 5 }}
+      >
+        <rect x="0" y="20" rx="9" ry="9" width="240" height="40" />
+        <rect x="0" y="70" rx="5" ry="5" width="150" height="20" />
+        <rect x="0" y="100" rx="5" ry="5" width="150" height="20" />
+        <rect x="0" y="130" rx="5" ry="5" width="150" height="20" />
+        <rect x="350" y="65" rx="9" ry="9" width="72" height="36" />
+      </ContentLoader>
     </Paper>
   );
 
