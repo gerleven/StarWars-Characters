@@ -37,7 +37,7 @@ export default function SearchBar() {
             placeholder="Search for a Star Wars character…"
             inputProps={{ 'aria-label': 'search' }}
             value={inputSearch}
-            onKeyDown={(key)=>{(key.code == "Enter") && handleSearchCharacter()}}
+            onKeyDown={(key)=>{(key.code == "Enter") && handleSearchCharacter(); (key.code == "Escape") && handleClearSearchInput()}}
             onChange={(term) => {
               updateSearchInput(term.target.value);
             }}
