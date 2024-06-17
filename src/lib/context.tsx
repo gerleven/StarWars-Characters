@@ -41,6 +41,18 @@ const useMyContext = (): IMyContext => {
         setLoading(false);
       });
   };
+  const searchRandomCharacter = () => {
+    setLoading(true);
+    const randomPage = Math.floor(Math.random() * 9) + 1;
+    starwarsService
+    .getCharactersPaginated(randomPage)
+      .then((characters) => {
+        setCharactersSearchResult(characters);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   const clearSearchCharactersList = () => {
     setCharactersSearchResult([] as Character[]);
   };
@@ -83,7 +95,8 @@ const useMyContext = (): IMyContext => {
     deleteAll,
     undoDeleteCharacter,
     sortCharacters,
-    clearSearchCharactersList
+    clearSearchCharactersList,
+    searchRandomCharacter
   };
   return contextDefaultValue;
 };

@@ -43,4 +43,5 @@ export interface IMyContext {
   undoDeleteCharacter: () => void;
   sortCharacters: () => void;
   clearSearchCharactersList: () => void;
+  searchRandomCharacter: ()=> void;
 }
