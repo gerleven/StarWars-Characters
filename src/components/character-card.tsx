@@ -1,4 +1,4 @@
-import { Paper, Stack, Typography, Card, CardActions, CardContent } from '@mui/material';
+import { Paper, Stack, Typography, Card, CardActions, CardContent, Box } from '@mui/material';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
 import { Character, IMyContext } from '../lib/definitions.tsx';
 import ContentLoader from 'react-content-loader';
@@ -9,14 +9,15 @@ interface ICharacterCard {
   character: Character;
   deleteCharacter?: (character: Character) => void;
   addCharacter?: (character: Character) => void;
+  isFavorite: boolean;
 }
 
-export default function CharacterCard({ character, deleteCharacter, addCharacter }: ICharacterCard) {
-  const { characters }: IMyContext = useContext(MyContext);
+export default function CharacterCard({ character, isFavorite }: ICharacterCard) {
+  const { characters, deleteCharacter, addNewCharacter }: IMyContext = useContext(MyContext);
   
   return (
-    <>
-      <Paper elevation={2}>
+    <Box>
+      <Paper elevation={2} sx={{margin: "3px"}}>
         <Card>
           <Stack direction={'row'} justifyContent={'space-between'} padding={1}>
             <CardContent sx={{ width: '60%' }}>
@@ -27,26 +28,25 @@ export default function CharacterCard({ character, deleteCharacter, addCharacter
               <Typography>Birth year: {character.birth_year}</Typography>
               <Typography>Gender: {character.gender}</Typography>
             </CardContent>
-            {deleteCharacter && (
-              <CardActions>
-                <CustomButtonPrimary onClick={() => deleteCharacter(character)}>Delete</CustomButtonPrimary>
-              </CardActions>
-            )}
-            {addCharacter && (
-              <CardActions>
-                <CustomButtonPrimary disabled={characters.find(c=>c.name == character.name)!=undefined} onClick={()=>{addCharacter(character)}}>Add To Favs</CustomButtonPrimary>
-              </CardActions>
-            )}
+            
+            <CardActions>
+              {isFavorite ? 
+              <CustomButtonPrimary onClick={() => deleteCharacter(character)}>Delete</CustomButtonPrimary>
+              :
+              <CustomButtonPrimary disabled={characters.find(c=>c.name == character.name)!=undefined} onClick={()=>{addNewCharacter(character)}}>Add To Favs</CustomButtonPrimary>
+              }
+            </CardActions>
           </Stack>
         </Card>
       </Paper>
-    </>
+    </Box>
   );
 }
 
 export const SkeletonLoader = ({amount=5}: {amount?: number}) => {
   const Skeleton = () => (
-    <Paper elevation={3}>
+    <Box>
+    <Paper elevation={3} sx={{margin: "3px"}}>
       <Card>
         <ContentLoader
           speed={2}
@@ -65,6 +65,7 @@ export const SkeletonLoader = ({amount=5}: {amount?: number}) => {
         </ContentLoader>
       </Card>
     </Paper>
+    </Box>
   );
 
   return (

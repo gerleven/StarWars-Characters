@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
 
 export default function SearchResult() {
-  const { charactersSearchResult, clearSearchCharactersList, addNewCharacter, loading }: IMyContext = useContext(MyContext);
+  const { charactersSearchResult, clearSearchCharactersList, loading }: IMyContext = useContext(MyContext);
 
   const handleClearSearhResult=()=>{
     clearSearchCharactersList();
@@ -30,12 +30,13 @@ export default function SearchResult() {
         justifyContent="flex-start"
         alignItems="stretch"
         spacing={1}
-        padding={1}
         className={'overFlowYScroll'}
         sx={{ height: '80vh' }}
+        margin={-3}
       >
-        {(charactersSearchResult.length == 0) ? <NoItemsToShow/> : <>{charactersSearchResult.map((character: Character, index: number) => (<CharacterCard key={index} character={character} addCharacter={addNewCharacter}/>))}</>}
-        
+        <Box margin={3}>
+        {(charactersSearchResult.length == 0) ? <NoItemsToShow/> : <>{charactersSearchResult.map((character: Character, index: number) => (<CharacterCard key={index} character={character} isFavorite={false}/>))}</>}
+        </Box>
       </Stack>
       </>}
       
@@ -46,8 +47,8 @@ export default function SearchResult() {
 const NoItemsToShow = () => {
   return (
     <>
-      <Paper elevation={3}>
-        <Box>
+        
+      <Paper elevation={3} sx={{margin: "3px"}}>
           <Stack padding={2} spacing={1}>
             <Typography fontSize={20} fontWeight={500}>
               No Items to show
@@ -56,8 +57,8 @@ const NoItemsToShow = () => {
               Try to enter another input.
             </Typography>
           </Stack>
-        </Box>
       </Paper>
+        
     </>
   );
 };

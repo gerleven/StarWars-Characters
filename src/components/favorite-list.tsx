@@ -13,7 +13,7 @@ interface ISearchResult {
 }
 
 export default function FavoriteList({ inputFilter, filteredCharactersList }: ISearchResult) {
-  const { characters, loading, resetList, deleteCharacter }: IMyContext = useContext(MyContext);
+  const { characters, loading, resetList }: IMyContext = useContext(MyContext);
 
   return (
     <>
@@ -29,30 +29,33 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
         justifyContent="flex-start"
         alignItems="stretch"
         spacing={1}
-        padding={1}
         className={'overFlowYScroll'}
-        sx={{ height: '80vh' }}
+        sx={{ height: '80vh'}}
+        margin={-3}
       >
+        
         {characters.length == 0 && !loading && <NoItemsToShow resetList={resetList} />}
-        {(inputFilter.length == 0 ? characters : filteredCharactersList).map((character: Character, index: number) => {
-          return <CharacterCard key={index} character={character} deleteCharacter={deleteCharacter} />;
-        })}
+        {(inputFilter.length == 0 ? characters : filteredCharactersList).map((character: Character, index: number) => (
+          <CharacterCard key={index} character={character} isFavorite={true}/>
+        ))}
+        
       </Stack>
       <br></br>
-      <Stack sx={{pb: "15px"}}>
+      <Stack sx={{ pb: '15px' }}>
         <Form method="get" action="/new" replace>
-          <CustomButtonPrimary type="submit" fullWidth>New</CustomButtonPrimary>
+          <CustomButtonPrimary type="submit" fullWidth>
+            New
+          </CustomButtonPrimary>
         </Form>
       </Stack>
-        
     </>
   );
 }
 
 const NoItemsToShow = ({ resetList }: { resetList: () => void }) => {
   return (
-    <>
-      <Paper elevation={3}>
+    <Box>
+      <Paper elevation={3} sx={{margin: "3px"}}>
         <Box>
           <Stack padding={2} spacing={1}>
             <Typography fontSize={20} fontWeight={500}>
@@ -65,6 +68,6 @@ const NoItemsToShow = ({ resetList }: { resetList: () => void }) => {
           </Stack>
         </Box>
       </Paper>
-    </>
+    </Box>
   );
 };
