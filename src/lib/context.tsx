@@ -4,6 +4,7 @@ import { starwarsService } from '../api/starwars-service';
 
 const useMyContext = (): IMyContext => {
   const [charactersSearchResult, setCharactersSearchResult] = useState<Character[]>([] as Character[]);
+  const [charactersPaginated, setCharactersPaginated] = useState<Character[]>([] as Character[]);
 
   const [favoriteCharacters, setFavoriteCharacters] = useState<Character[]>(
     JSON.parse(localStorage.getItem('favoriteCharacters') || '[]') as Character[]
@@ -11,7 +12,7 @@ const useMyContext = (): IMyContext => {
   const [favoriteCharactersDeleted, setFavoriteCharactersDeleted] = useState<Character[]>([] as Character[]);
 
   const [loading, setLoading] = useState<boolean>(false);
-  
+
   //FUNCTIONS
   //Search functions
   const searchCharacter = (q: string) => {
@@ -25,18 +26,18 @@ const useMyContext = (): IMyContext => {
         setLoading(false);
       });
   };
-  const searchRandomCharacter = () => {
+  const getCharactersPaginated = (pageNumber: number = 1) => {
     setLoading(true);
-    const randomPage = Math.floor(Math.random() * 9) + 1;
     starwarsService
-      .getCharactersPaginated(randomPage)
+      .getCharactersPaginated(pageNumber)
       .then((characters) => {
-        setCharactersSearchResult(characters);
+        setCharactersPaginated(characters);
       })
       .finally(() => {
         setLoading(false);
       });
   };
+
   const clearSearchCharactersList = () => {
     setCharactersSearchResult([] as Character[]);
   };
@@ -72,9 +73,9 @@ const useMyContext = (): IMyContext => {
     updateFavoriteCharacters();
   };
 
-  const resetFavoriteList = () => {
+  const getRandomFavoriteList = () => {
     setLoading(true);
-    const randomPage = Math.floor(Math.random() * 9) + 1;
+    const randomPage = Math.floor(Math.random() * 8) + 1;
     console.log(randomPage);
     starwarsService
       .getCharactersPaginated(randomPage)
@@ -89,19 +90,20 @@ const useMyContext = (): IMyContext => {
 
   const contextDefaultValue = {
     loading,
+    charactersPaginated,
     charactersSearchResult,
     favoriteCharacters,
     favoriteCharactersDeleted,
-    updateFavoriteCharacters,
-    resetFavoriteList,
+    getCharactersPaginated,
     searchCharacter,
+    clearSearchCharactersList,
+    updateFavoriteCharacters,
+    getRandomFavoriteList,
     addNewFavoriteCharacter,
     deleteFavoriteCharacter,
     deleteAllFavorites,
     undoDeleteFavorite,
-    sortFavoriteCharacters,
-    clearSearchCharactersList,
-    searchRandomCharacter
+    sortFavoriteCharacters
   };
 
   return contextDefaultValue;
@@ -111,17 +113,18 @@ export default useMyContext;
 
 export interface IMyContext {
   loading: boolean;
+  charactersPaginated: Character[];
   charactersSearchResult: Character[];
   favoriteCharacters: Character[];
   favoriteCharactersDeleted: Character[];
-  updateFavoriteCharacters: (characters: Character[]) => void;
-  resetFavoriteList: () => void;
+  getCharactersPaginated: () => void;
   searchCharacter: (q: string) => void;
+  clearSearchCharactersList: () => void;
+  updateFavoriteCharacters: (characters: Character[]) => void;
+  getRandomFavoriteList: () => void;
   addNewFavoriteCharacter: (characters: Character) => void;
   deleteFavoriteCharacter: (characters: Character) => void;
   deleteAllFavorites: () => void;
   undoDeleteFavorite: () => void;
   sortFavoriteCharacters: () => void;
-  clearSearchCharactersList: () => void;
-  searchRandomCharacter: ()=> void;
 }

@@ -10,7 +10,7 @@ import { useContext, useState } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
 
 export default function SearchBar() {
-  const { searchCharacter, searchRandomCharacter } = useContext(MyContext);
+  const { searchCharacter } = useContext(MyContext);
   const [inputSearch, setInputSearch] = useState<string>('');
 
   const updateSearchInput = (value: string): void => {
@@ -23,8 +23,6 @@ export default function SearchBar() {
   const handleSearchCharacter = () => {
     if (inputSearch) {
       searchCharacter(inputSearch);
-    } else {
-      searchRandomCharacter();
     }
   };
 

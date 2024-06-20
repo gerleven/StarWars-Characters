@@ -28,8 +28,13 @@ export default function TopMenu() {
     handleClose();
   }, 500);
 
-  const { deleteAllFavorites, resetFavoriteList, undoDeleteFavorite, favoriteCharactersDeleted, sortFavoriteCharacters }: IMyContext =
-    useContext(MyContext);
+  const {
+    deleteAllFavorites,
+    getRandomFavoriteList,
+    undoDeleteFavorite,
+    favoriteCharactersDeleted,
+    sortFavoriteCharacters
+  }: IMyContext = useContext(MyContext);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,8 +46,8 @@ export default function TopMenu() {
     setAnchorEl(null);
   };
 
-  const handleResetList = () => {
-    resetFavoriteList();
+  const handleGetRandomList = () => {
+    getRandomFavoriteList();
     handleClose();
   };
   const handleDeleteAll = () => {
@@ -107,11 +112,11 @@ export default function TopMenu() {
         }}
       >
         <MenuList>
-          <MenuItem disabled={location.pathname != '/favorites'} onClick={handleResetList}>
+          <MenuItem disabled={location.pathname != '/favorites'} onClick={handleGetRandomList}>
             <ListItemIcon>
               <AutorenewIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText sx={{ mr: 2 }}>Reset list</ListItemText>
+            <ListItemText sx={{ mr: 2 }}>Load 10 random Favs</ListItemText>
           </MenuItem>
           <MenuItem disabled={location.pathname != '/favorites'} onClick={handleDeleteAll}>
             <ListItemIcon>

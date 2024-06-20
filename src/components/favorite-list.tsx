@@ -33,9 +33,11 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
         margin={-3}
       >
         {favoriteCharacters.length == 0 && !loading && <NoItemsToShow />}
-        {(inputFilter.length == 0 ? favoriteCharacters : filteredCharactersList).map((character: Character, index: number) => (
-          <CharacterCard key={index} character={character} isFavorite={true} />
-        ))}
+        {(inputFilter.length == 0 ? favoriteCharacters : filteredCharactersList).map(
+          (character: Character, index: number) => (
+            <CharacterCard key={index} character={character} isFavorite={true} />
+          )
+        )}
       </Stack>
       <br></br>
       <Stack sx={{ pb: '15px' }}>
@@ -50,7 +52,7 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IS
 }
 
 const NoItemsToShow = () => {
-  const { resetFavoriteList }: IMyContext = useContext(MyContext);
+  const { getRandomFavoriteList }: IMyContext = useContext(MyContext);
   return (
     <Box>
       <Paper elevation={2} sx={{ margin: '3px' }}>
@@ -61,7 +63,7 @@ const NoItemsToShow = () => {
           <Typography fontWeight={300} color={theme.palette.grey[600]}>
             Try creating a new custom character to add or do a search.
           </Typography>
-          <CustomButtonPrimary onClick={resetFavoriteList}>Load 10 random Characters</CustomButtonPrimary>
+          <CustomButtonPrimary onClick={getRandomFavoriteList}>Load 10 random Characters</CustomButtonPrimary>
         </Stack>
       </Paper>
     </Box>
