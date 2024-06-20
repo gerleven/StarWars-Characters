@@ -55,10 +55,10 @@ const NoItemsToShow = () => {
       <Paper elevation={2} sx={{ margin: '3px' }}>
         <Stack padding={2} spacing={1}>
           <Typography fontSize={20} fontWeight={500}>
-            No Items to show
+            Your favorites list is still empty
           </Typography>
           <Typography fontWeight={300} color={theme.palette.grey[600]}>
-            Try to create a new Character or reset default list.
+            Try creating a new custom character to add or do a search.
           </Typography>
           <CustomButtonPrimary onClick={resetList}>Load 10 random Characters</CustomButtonPrimary>
         </Stack>
