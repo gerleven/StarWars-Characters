@@ -28,20 +28,3 @@ export interface Character {
   edited: string;
   url: string;
 }
-
-export interface IMyContext {
-  characters: Character[];
-  loading: boolean;
-  charactersDeleted: Character[];
-  updateCharacters: (characters: Character[]) => void;
-  resetList: () => void;
-  searchCharacter: (q: string) => void;
-  charactersSearchResult: Character[];
-  addNewCharacter: (characters: Character) => void;
-  deleteCharacter: (characters: Character) => void;
-  deleteAll: () => void;
-  undoDeleteCharacter: () => void;
-  sortCharacters: () => void;
-  clearSearchCharactersList: () => void;
-  searchRandomCharacter: ()=> void;
-}

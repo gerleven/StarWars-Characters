@@ -1,24 +1,25 @@
 import { useContext, useEffect, useState } from 'react';
-import { Character, IMyContext } from '../lib/definitions.tsx';
+import { Character } from '../lib/definitions.tsx';
 import { Stack, Typography } from '@mui/material';
 import { MyContext } from './root-page.tsx';
 import { SkeletonLoader } from '../components/character-card.tsx';
 import FilterBar from '../components/filter-bar.tsx';
 import FavoriteList from '../components/favorite-list.tsx';
+import { IMyContext } from '../lib/context.tsx';
 
 const FavoritePage = () => {
   const [filteredCharactersList, setFilteredCharactersList] = useState<Character[]>([] as Character[]);
   const [inputFilter, setInputFilter] = useState<string>('');
 
-  const { characters, loading }: IMyContext = useContext(MyContext);
+  const { favoriteCharacters, loading }: IMyContext = useContext(MyContext);
 
   //Keep the filtered list of characters in sync when searching or deleting any characters
   useEffect(() => {
-    const newFilteredList = characters.filter((character: Character) =>
+    const newFilteredList = favoriteCharacters.filter((character: Character) =>
       character.name.toLowerCase().includes(inputFilter.toLowerCase())
     );
     setFilteredCharactersList(newFilteredList);
-  }, [inputFilter, characters]);
+  }, [inputFilter, favoriteCharacters]);
 
   return (
     <>

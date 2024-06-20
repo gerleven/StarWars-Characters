@@ -2,7 +2,7 @@ import { AccountCircle } from '@mui/icons-material';
 import { Grid, InputAdornment, MenuItem, Paper, Stack, TextField, Typography } from '@mui/material';
 
 import { useContext } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { CustomButtonPrimary, CustomButtonSecondary } from '../lib/utils';
 import HeightIcon from '@mui/icons-material/Height';
 import CakeIcon from '@mui/icons-material/Cake';
@@ -15,18 +15,18 @@ const NewCharacterPage = () => {
   const { register, handleSubmit } = useForm();
   // const [data, setData] = useState({});
 
-  const { addNewCharacter } = useContext(MyContext);
+  const { addNewFavoriteCharacter } = useContext(MyContext);
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (formData: FieldValues) => {
     const newCharacter = {
-      name: data.name,
-      birth_year: data.birth_year,
-      gender: data.gender,
-      height: data.height
+      name: formData.name,
+      birth_year: formData.birth_year,
+      gender: formData.gender,
+      height: formData.height
     } as Character;
-    addNewCharacter(newCharacter);
+    addNewFavoriteCharacter(newCharacter);
     navigate('/favorites');
   };
 

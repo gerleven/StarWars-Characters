@@ -1,22 +1,23 @@
 import { Paper, Stack, Typography, Card, CardActions, CardContent, Box, ButtonBase } from '@mui/material';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
-import { Character, IMyContext } from '../lib/definitions.tsx';
+import { Character } from '../lib/definitions.tsx';
 import ContentLoader from 'react-content-loader';
 import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import { IMyContext } from '../lib/context.tsx';
 
 interface ICharacterCard {
   character: Character;
-  deleteCharacter?: (character: Character) => void;
+  deleteFavoriteCharacter?: (character: Character) => void;
   addCharacter?: (character: Character) => void;
   isFavorite: boolean;
 }
 
 export default function CharacterCard({ character, isFavorite }: ICharacterCard) {
-  const { characters, deleteCharacter, addNewCharacter }: IMyContext = useContext(MyContext);
+  const { favoriteCharacters, deleteFavoriteCharacter, addNewFavoriteCharacter }: IMyContext = useContext(MyContext);
 
-  const isAdded = characters.find((c) => c.name == character.name) != undefined;
+  const isAdded = favoriteCharacters.find((c) => c.name == character.name) != undefined;
 
   return (
     <Box>
@@ -33,12 +34,12 @@ export default function CharacterCard({ character, isFavorite }: ICharacterCard)
 
           <CardActions>
             {isFavorite ? (
-              <CustomButtonPrimary onClick={() => deleteCharacter(character)}>Delete</CustomButtonPrimary>
+              <CustomButtonPrimary onClick={() => deleteFavoriteCharacter(character)}>Delete</CustomButtonPrimary>
             ) : (
               <ButtonBase
                 disableRipple
                 onClick={() => {
-                  addNewCharacter(character);
+                  addNewFavoriteCharacter(character);
                 }}
                 disabled={isAdded}
               >

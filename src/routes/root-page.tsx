@@ -2,9 +2,8 @@ import { Outlet } from 'react-router-dom';
 import '../App.css';
 import { Stack } from '@mui/material';
 import Banner from '../components/banner';
-import { IMyContext } from '../lib/definitions';
 import { createContext } from 'react';
-import useMyContext from '../lib/context';
+import useMyContext, { IMyContext } from '../lib/context';
 
 export const MyContext = createContext<IMyContext>({} as IMyContext);
 

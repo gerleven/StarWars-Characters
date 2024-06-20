@@ -1,35 +1,19 @@
 import { useState } from 'react';
-import { Character, IMyContext } from './definitions';
+import { Character } from './definitions';
 import { starwarsService } from '../api/starwars-service';
 
 const useMyContext = (): IMyContext => {
-  const [characters, setCharacters] = useState<Character[]>(
-    JSON.parse(localStorage.getItem('characters') || '[]') as Character[]
-  );
   const [charactersSearchResult, setCharactersSearchResult] = useState<Character[]>([] as Character[]);
-  const [charactersDeleted, setCharactersDeleted] = useState<Character[]>([] as Character[]);
+
+  const [favoriteCharacters, setFavoriteCharacters] = useState<Character[]>(
+    JSON.parse(localStorage.getItem('favoriteCharacters') || '[]') as Character[]
+  );
+  const [favoriteCharactersDeleted, setFavoriteCharactersDeleted] = useState<Character[]>([] as Character[]);
+
   const [loading, setLoading] = useState<boolean>(false);
-
-  const updateCharacters = (newCharacters: Character[] = characters) => {
-    setCharacters([...newCharacters]);
-    localStorage.setItem('characters', JSON.stringify(newCharacters));
-  };
-
-  const resetList = () => {
-    setLoading(true);
-    const randomPage = Math.floor(Math.random() * 9) + 1;
-    console.log(randomPage);
-    starwarsService
-      .getCharactersPaginated(randomPage)
-      .then((characterResults) => {
-        updateCharacters(characterResults);
-        setCharactersDeleted([] as Character[]);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
+  
+  //FUNCTIONS
+  //Search functions
   const searchCharacter = (q: string) => {
     setLoading(true);
     starwarsService
@@ -45,7 +29,7 @@ const useMyContext = (): IMyContext => {
     setLoading(true);
     const randomPage = Math.floor(Math.random() * 9) + 1;
     starwarsService
-    .getCharactersPaginated(randomPage)
+      .getCharactersPaginated(randomPage)
       .then((characters) => {
         setCharactersSearchResult(characters);
       })
@@ -57,48 +41,87 @@ const useMyContext = (): IMyContext => {
     setCharactersSearchResult([] as Character[]);
   };
 
-  const addNewCharacter = (character: Character) => {
-    updateCharacters([character, ...characters]);
+  //Favorites functions
+  const updateFavoriteCharacters = (newFavoriteCharacters: Character[] = favoriteCharacters) => {
+    setFavoriteCharacters([...newFavoriteCharacters]);
+    localStorage.setItem('favoriteCharacters', JSON.stringify(newFavoriteCharacters));
   };
-  const deleteCharacter = (character: Character) => {
-    setCharactersDeleted((prev) => [...prev, character]);
-    const filteredList = characters.filter((c) => c != character);
-    updateCharacters(filteredList);
+
+  const addNewFavoriteCharacter = (character: Character) => {
+    updateFavoriteCharacters([character, ...favoriteCharacters]);
   };
-  const deleteAll = () => {
-    setCharactersDeleted((prev) => [...prev, ...characters]);
-    updateCharacters([] as Character[]);
+  const deleteFavoriteCharacter = (character: Character) => {
+    setFavoriteCharactersDeleted((prev) => [...prev, character]);
+    const filteredList = favoriteCharacters.filter((c) => c != character);
+    updateFavoriteCharacters(filteredList);
   };
-  const undoDeleteCharacter = () => {
-    const index = charactersDeleted.length - 1;
+  const deleteAllFavorites = () => {
+    setFavoriteCharactersDeleted((prev) => [...prev, ...favoriteCharacters]);
+    updateFavoriteCharacters([] as Character[]);
+  };
+  const undoDeleteFavorite = () => {
+    const index = favoriteCharactersDeleted.length - 1;
     if (index == -1) return;
-    const characterToRestore: Character = charactersDeleted[index];
-    addNewCharacter(characterToRestore);
-    const newCharactersToDeleteList = charactersDeleted.slice(0, charactersDeleted.length - 1);
-    setCharactersDeleted(newCharactersToDeleteList);
+    const characterToRestore: Character = favoriteCharactersDeleted[index];
+    addNewFavoriteCharacter(characterToRestore);
+    const newCharactersToDeleteList = favoriteCharactersDeleted.slice(0, favoriteCharactersDeleted.length - 1);
+    setFavoriteCharactersDeleted(newCharactersToDeleteList);
   };
-  const sortCharacters = () => {
-    characters.sort((a, b) => a.name.localeCompare(b.name));
-    updateCharacters();
+  const sortFavoriteCharacters = () => {
+    favoriteCharacters.sort((a, b) => a.name.localeCompare(b.name));
+    updateFavoriteCharacters();
+  };
+
+  const resetFavoriteList = () => {
+    setLoading(true);
+    const randomPage = Math.floor(Math.random() * 9) + 1;
+    console.log(randomPage);
+    starwarsService
+      .getCharactersPaginated(randomPage)
+      .then((characterResults) => {
+        updateFavoriteCharacters(characterResults);
+        setFavoriteCharactersDeleted([] as Character[]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const contextDefaultValue = {
-    characters,
-    charactersSearchResult,
     loading,
-    charactersDeleted,
-    updateCharacters,
-    resetList,
+    charactersSearchResult,
+    favoriteCharacters,
+    favoriteCharactersDeleted,
+    updateFavoriteCharacters,
+    resetFavoriteList,
     searchCharacter,
-    addNewCharacter,
-    deleteCharacter,
-    deleteAll,
-    undoDeleteCharacter,
-    sortCharacters,
+    addNewFavoriteCharacter,
+    deleteFavoriteCharacter,
+    deleteAllFavorites,
+    undoDeleteFavorite,
+    sortFavoriteCharacters,
     clearSearchCharactersList,
     searchRandomCharacter
   };
+
   return contextDefaultValue;
 };
 
 export default useMyContext;
+
+export interface IMyContext {
+  loading: boolean;
+  charactersSearchResult: Character[];
+  favoriteCharacters: Character[];
+  favoriteCharactersDeleted: Character[];
+  updateFavoriteCharacters: (characters: Character[]) => void;
+  resetFavoriteList: () => void;
+  searchCharacter: (q: string) => void;
+  addNewFavoriteCharacter: (characters: Character) => void;
+  deleteFavoriteCharacter: (characters: Character) => void;
+  deleteAllFavorites: () => void;
+  undoDeleteFavorite: () => void;
+  sortFavoriteCharacters: () => void;
+  clearSearchCharactersList: () => void;
+  searchRandomCharacter: ()=> void;
+}

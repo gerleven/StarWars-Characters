@@ -10,7 +10,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import InfoIcon from '@mui/icons-material/Info';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IMyContext } from '../lib/definitions';
+import { IMyContext } from '../lib/context';
 import { MyContext } from '../routes/root-page';
 import { useContext } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
@@ -28,7 +28,7 @@ export default function TopMenu() {
     handleClose();
   }, 500);
 
-  const { deleteAll, resetList, undoDeleteCharacter, charactersDeleted, sortCharacters }: IMyContext =
+  const { deleteAllFavorites, resetFavoriteList, undoDeleteFavorite, favoriteCharactersDeleted, sortFavoriteCharacters }: IMyContext =
     useContext(MyContext);
 
   const location = useLocation();
@@ -42,15 +42,15 @@ export default function TopMenu() {
   };
 
   const handleResetList = () => {
-    resetList();
+    resetFavoriteList();
     handleClose();
   };
   const handleDeleteAll = () => {
-    deleteAll();
+    deleteAllFavorites();
     handleClose();
   };
   const handleUndoDelete = () => {
-    undoDeleteCharacter();
+    undoDeleteFavorite();
     debouncedClose();
   };
   const handleAbout = () => {
@@ -58,7 +58,7 @@ export default function TopMenu() {
     handleClose();
   };
   const handleSortList = () => {
-    sortCharacters();
+    sortFavoriteCharacters();
     handleClose();
   };
 
@@ -120,13 +120,13 @@ export default function TopMenu() {
             <ListItemText sx={{ mr: 2 }}>Delete all</ListItemText>
           </MenuItem>
           <MenuItem
-            disabled={location.pathname != '/favorites' || charactersDeleted.length == 0}
+            disabled={location.pathname != '/favorites' || favoriteCharactersDeleted.length == 0}
             onClick={handleUndoDelete}
           >
             <ListItemIcon>
               <UndoIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText sx={{ mr: 2 }}>{`Undo delete (${charactersDeleted.length})`}</ListItemText>
+            <ListItemText sx={{ mr: 2 }}>{`Undo delete (${favoriteCharactersDeleted.length})`}</ListItemText>
             {/* <Typography variant="body2" color="text.secondary">
               ⌘+Z
             </Typography> */}
