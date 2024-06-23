@@ -77,11 +77,12 @@ export default function TopMenu() {
         aria-haspopup="true"
         size="large"
         onClick={handleClick}
-        sx={{ height: '100%' }}
+        sx={{ height: '100%', p:0 }}
       >
         <MoreVertIcon
           sx={{
             maxHeight: '100%',
+            maxWidth: "80%",
             color: theme.palette.common.white
           }}
           fontSize="inherit"
