@@ -62,7 +62,7 @@ export default function Banner() {
           </ButtonBase>
         </Grid>
         <Grid container item xs={3} justifyContent={'end'} sx={{ height: '100%' }}>
-          <Grid item alignContent={'center'} sx={{ height: '100%' }}>
+          <Grid item alignContent={'center'} sx={{ height: '100%' }} xs={6}>
             {location.pathname != '/favorites' && (
               <Tooltip title="Go to Favorites" placement="bottom">
                 <IconButton sx={{ height: '100%' }} size="large" className="banner-logo" onClick={handleClickFavorites}>
@@ -77,7 +77,7 @@ export default function Banner() {
               </Tooltip>
             )}
           </Grid>
-          <Grid item alignContent={'center'} sx={{ height: '100%' }}>
+          <Grid item alignContent={'center'} sx={{ height: '100%' }} xs={6}>
             <TopMenu />
           </Grid>
         </Grid>

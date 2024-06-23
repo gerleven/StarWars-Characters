@@ -19,8 +19,17 @@
 }
 .app-wrapper {
   background-color: hsl(0, 0%, 100%) !important;
-  height: 100%;
   aspect-ratio: 1/2;
+  width: 100%;
+  max-width: 50vh;
+  max-height: 100%;
+}
+
+@media (max-width: 420px) {
+  .app-wrapper {
+    max-width: 100%;
+    max-height: calc(100vw * 2);
+  }
 }
 
 .banner {

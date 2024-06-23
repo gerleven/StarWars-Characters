@@ -12,8 +12,8 @@ const RootPage = () => {
   return (
     <>
       <MyContext.Provider value={contextDefaultValue}>
-        <Stack className="fullscreen" direction={'column'} justifyContent={'start'} alignItems={'center'}>
-          <Stack className="app-wrapper" direction={'column'} justifyContent={'start'}>
+        <Stack className="fullscreen" direction={'column'} justifyContent={'start'} alignItems={'center'} alignContent={"center"}>
+          <Stack className="app-wrapper" direction={'column'} justifyContent={'start'} alignItems={"center"} alignContent={"center"}>
             <Banner />
             <Outlet />
           </Stack>
