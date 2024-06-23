@@ -22,7 +22,7 @@
   aspect-ratio: 1/2;
   width: 100%;
   max-width: 50vh;
-  max-height: 97%;
+  max-height: 95%;
 }
 
 @media (max-width: 420px) {
