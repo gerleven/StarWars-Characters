@@ -8,6 +8,15 @@ const theme = createTheme({
     grey: { 100: '#ededed', 200: '#d9d9d9', 300: 'rgba(0, 0, 0, 0.55);' }
   },
   components: {
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: "transparent"
+          }
+        }
+      }
+    },
     MuiButtonBase: {
       defaultProps: {
         disableTouchRipple: false
