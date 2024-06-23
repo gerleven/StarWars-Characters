@@ -9,6 +9,9 @@ const theme = createTheme({
   },
   components: {
     MuiIconButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
       styleOverrides: {
         root: {
           '&:hover': {

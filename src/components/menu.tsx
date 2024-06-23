@@ -68,21 +68,23 @@ export default function TopMenu() {
   };
 
   return (
-    <Box>
+    <Box sx={{ height: '100%' }}>
       <IconButton
         aria-label="more"
         id="long-button"
         aria-controls={open ? 'long-menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
+        size="large"
         onClick={handleClick}
+        sx={{ height: '100%' }}
       >
         <MoreVertIcon
           sx={{
-            height: '32px',
-            width: '32px',
+            maxHeight: '100%',
             color: theme.palette.common.white
           }}
+          fontSize="inherit"
         />
       </IconButton>
       <Menu

@@ -3,7 +3,7 @@ import logo from '../assets/r2d2.png';
 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, ButtonBase, Grid, Stack, Tooltip, useTheme } from '@mui/material';
+import { ButtonBase, Grid, Tooltip, useTheme } from '@mui/material';
 
 import { useLocation, Form, useNavigate } from 'react-router-dom';
 import TopMenu from './menu';
@@ -28,46 +28,56 @@ export default function Banner() {
         className="banner"
         direction="row"
         alignItems={'center'}
+        alignContent={'center'}
         justifyContent={'space-between'}
         sx={{ backgroundColor: theme.palette.primary.main }}
       >
-        <Grid item xs={3}>
+        <Grid item xs={3} height={'100%'}>
           {location.pathname != '/' && (
-            <Form method="get" action={location.pathname == '/new' ? '/favorites' : '/'} replace>
+            <Form
+              method="get"
+              action={location.pathname == '/new' ? '/favorites' : '/'}
+              replace
+              style={{ height: '100%' }}
+            >
               <IconButton
+                sx={{ height: '100%' }}
+                size="large"
                 type="submit" // <-- here i'm using React Router Data API to navigate instead of using a traditional handle with a navigate("/list")
               >
                 <ArrowBackIcon
                   sx={{
-                    height: '32px',
-                    width: '32px',
+                    maxHeight: '100%',
                     color: theme.palette.common.white
                   }}
+                  fontSize="inherit"
                 />
               </IconButton>
             </Form>
           )}
         </Grid>
-        <Grid item xs={3}>
-          <Stack>
-            <ButtonBase className="banner-logo" onClick={handleClickLogo} disableRipple>
-              <img src={logo} alt="Star Wars-Logo" style={{ width: '50px' }} />
-            </ButtonBase>
-          </Stack>
+        <Grid item xs={3} height={'100%'} direction={'column'} justifyContent={'center'} display={'flex'}>
+          <ButtonBase className="banner-logo" onClick={handleClickLogo} disableRipple>
+            <img src={logo} alt="Star Wars-Logo" style={{ height: '100%' }} />
+          </ButtonBase>
         </Grid>
-        <Grid container item xs={3} justifyContent={"end"}>
-          <Grid item alignContent={'center'}>
-            <Box sx={{ width: '30px' }}>
-              {location.pathname != '/favorites' && (
-                <Tooltip title="Go to Favorites" placement="bottom">
-                  <ButtonBase className="banner-logo" onClick={handleClickFavorites} disableRipple>
-                    <StarRoundedIcon color="secondary" />
-                  </ButtonBase>
-                </Tooltip>
-              )}
-            </Box>
+        <Grid container item xs={3} justifyContent={'end'} sx={{ height: '100%' }}>
+          <Grid item alignContent={'center'} sx={{ height: '100%' }}>
+            {location.pathname != '/favorites' && (
+              <Tooltip title="Go to Favorites" placement="bottom">
+                <IconButton sx={{ height: '100%' }} size="large" className="banner-logo" onClick={handleClickFavorites}>
+                  <StarRoundedIcon
+                    color="secondary"
+                    fontSize="inherit"
+                    sx={{
+                      maxHeight: '100%'
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+            )}
           </Grid>
-          <Grid item sx={{ marginRight: 1 }}>
+          <Grid item alignContent={'center'} sx={{ height: '100%' }}>
             <TopMenu />
           </Grid>
         </Grid>
