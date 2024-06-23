@@ -12,10 +12,20 @@ const RootPage = () => {
   return (
     <>
       <MyContext.Provider value={contextDefaultValue}>
-        <Stack className="fullscreen" direction={'column'} justifyContent={'start'} alignItems={'center'} alignContent={"center"}>
-          <Stack className="app-wrapper" direction={'column'} justifyContent={'start'} alignItems={"center"} alignContent={"center"}>
+        <Stack className="fullscreen" direction={'column'} justifyContent={'start'} alignItems={'center'} alignContent={'center'}>
+          <Stack className="app-wrapper" direction={'column'} justifyContent={'start'} alignItems={'strech'} alignContent={'center'}>
             <Banner />
-            <Outlet />
+            <Stack
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="stretch"
+              spacing={1}
+              className={'overFlowYScroll'}
+              sx={{ height: '80vh' }}
+              padding={3}
+            >
+              <Outlet />
+            </Stack>
           </Stack>
         </Stack>
       </MyContext.Provider>
