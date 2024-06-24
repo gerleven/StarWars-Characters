@@ -48,6 +48,7 @@ export default function FilterBar({ setInputFilter, inputFilter }: IFilterBar) {
 }
 
 const Search = styled('div')(({ theme }) => ({
+  display: "flex",
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.4),
@@ -71,6 +72,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  flexGrow: 1,
   color: 'inherit',
   width: '80%',
   '& .MuiInputBase-input': {
