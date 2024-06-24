@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Box, Pagination, Paper, Stack, Typography } from '@mui/material';
 import { Character } from '../lib/definitions.tsx';
 import CharacterCard, { SkeletonLoader } from './character-card';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
@@ -17,23 +17,13 @@ export default function SearchResult() {
   return (
     <>
       <Stack direction={'row'} justifyContent={'space-between'} alignItems={'end'}>
-        <Box>
-          {charactersSearchResult && <Typography>{`Search results (${charactersSearchResult.length}):`}</Typography>}
-        </Box>
+        <Box>{charactersSearchResult && <Typography>{`Search results (${charactersSearchResult.length}):`}</Typography>}</Box>
       </Stack>
-      {loading ? (
-        <SkeletonLoader amount={5} />
-      ) : (
-        <>
-          <Stack
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="stretch"
-            spacing={1}
-            className={'overFlowYScroll'}
-            sx={{ height: '80vh' }}
-            margin={-3}
-          >
+      <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1} className={'overFlowYScroll shadowBox'} margin={-3}>
+        {loading ? (
+          <SkeletonLoader amount={5} />
+        ) : (
+          <>
             {charactersSearchResult.length == 0 ? (
               <NoItemsToShow />
             ) : (
@@ -43,21 +33,24 @@ export default function SearchResult() {
                 ))}
               </>
             )}
-          </Stack>
-        </>
-      )}
-      <CustomButtonPrimary onClick={handleClearSearhResult} disabled={charactersSearchResult.length == 0}>
-        Clear
-      </CustomButtonPrimary>
+          </>
+        )}
+      </Stack>
+      <Stack direction={"column"} display={"flex"} justifyContent={"space-between"} alignContent={"center"} alignItems={"center"}>
+        {charactersSearchResult.length>0 && <Pagination count={Math.ceil(charactersSearchResult.length/10)} showFirstButton showLastButton />}
+        <CustomButtonPrimary onClick={handleClearSearhResult} disabled={charactersSearchResult.length == 0} sx={{marginTop: "15px !important"}} fullWidth>
+          Clear
+        </CustomButtonPrimary>
+      </Stack>
     </>
   );
 }
 
 const NoItemsToShow = () => {
   const { searchCharacter }: IMyContext = useContext(MyContext);
-  const handleShowAllCharacters=()=>{
+  const handleShowAllCharacters = () => {
     searchCharacter();
-  }
+  };
 
   return (
     <Box>
@@ -75,4 +68,3 @@ const NoItemsToShow = () => {
     </Box>
   );
 };
-

@@ -86,3 +86,10 @@
   overflow-y: auto;
   flex-grow: 1;
 }
+
+.shadowBox{
+  border: 1px solid var(--light-grey);
+  box-shadow: 0 5px 10px -10px var(--dark-grey);
+  padding: 5px;
+  border-radius: 5px;
+}
