@@ -22,7 +22,7 @@ export default function SearchResult() {
         </Box>
       </Stack>
       {loading ? (
-        <SkeletonLoader amount={1} />
+        <SkeletonLoader amount={5} />
       ) : (
         <>
           <Stack
@@ -54,6 +54,11 @@ export default function SearchResult() {
 }
 
 const NoItemsToShow = () => {
+  const { searchCharacter }: IMyContext = useContext(MyContext);
+  const handleShowAllCharacters=()=>{
+    searchCharacter();
+  }
+
   return (
     <Box>
       <Paper elevation={2} sx={{ margin: '3px' }}>
@@ -64,8 +69,10 @@ const NoItemsToShow = () => {
           <Typography fontWeight={300} color={theme.palette.grey[600]}>
             Try to enter another input.
           </Typography>
+          <CustomButtonPrimary onClick={handleShowAllCharacters}>Show all characters</CustomButtonPrimary>
         </Stack>
       </Paper>
     </Box>
   );
 };
+

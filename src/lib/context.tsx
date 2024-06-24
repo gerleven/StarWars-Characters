@@ -15,7 +15,7 @@ const useMyContext = (): IMyContext => {
 
   //FUNCTIONS
   //Search functions
-  const searchCharacter = (q: string) => {
+  const searchCharacter = (q: string = "") => {
     setLoading(true);
     starwarsService
       .searchCharacter(q)
@@ -26,6 +26,7 @@ const useMyContext = (): IMyContext => {
         setLoading(false);
       });
   };
+
   const getCharactersPaginated = (pageNumber: number = 1) => {
     setLoading(true);
     starwarsService
