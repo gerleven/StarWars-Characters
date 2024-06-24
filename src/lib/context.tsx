@@ -119,7 +119,7 @@ export interface IMyContext {
   favoriteCharacters: Character[];
   favoriteCharactersDeleted: Character[];
   getCharactersPaginated: () => void;
-  searchCharacter: (q: string) => void;
+  searchCharacter: (q?: string) => void;
   clearSearchCharactersList: () => void;
   updateFavoriteCharacters: (characters: Character[]) => void;
   getRandomFavoriteList: () => void;
