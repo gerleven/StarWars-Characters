@@ -1,13 +1,17 @@
+import { useContext, useEffect } from 'react';
 import SearchBar from '../components/search-bar';
 import SearchResult from '../components/search-result';
-import { Typography } from '@mui/material';
+import { MyContext } from './root-page';
 
 const HomePage = () => {
+  const { searchCharacter } = useContext(MyContext);
+
+  useEffect(()=>{
+    searchCharacter("");
+  },[]);
+  
   return (
     <>
-      <Typography textAlign={'left'} fontSize={24} fontWeight={'500'}>
-        Search a Starwars character:
-      </Typography>
       <SearchBar />
       <br></br>
       <SearchResult />

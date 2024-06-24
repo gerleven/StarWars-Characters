@@ -21,9 +21,7 @@ export default function SearchBar() {
     setInputSearch('');
   };
   const handleSearchCharacter = () => {
-    if (inputSearch) {
-      searchCharacter(inputSearch);
-    }
+    searchCharacter(inputSearch);
   };
 
   return (
