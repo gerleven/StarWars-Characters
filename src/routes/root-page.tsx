@@ -21,7 +21,6 @@ const RootPage = () => {
               alignItems="stretch"
               spacing={1}
               className={'overFlowYScroll'}
-              sx={{ height: '80vh' }}
               padding={3}
             >
               <Outlet />
