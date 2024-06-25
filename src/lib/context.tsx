@@ -9,6 +9,7 @@ const useMyContext = (): IMyContext => {
   const [totalRows, setTotalRows] = useState<number>(0);
   const [nextUrl, setNextUrl] = useState<string | null>("");
   const [previousUrl, setPreviousUrl] = useState<string | null>("");
+  const [showTable, setShowTable] = useState<boolean>(true);
 
   const [favoriteCharacters, setFavoriteCharacters] = useState<Character[]>(
     JSON.parse(localStorage.getItem('favoriteCharacters') || '[]') as Character[]
@@ -95,6 +96,9 @@ const useMyContext = (): IMyContext => {
   const handleChangeCurrentPage=(pageNumber: number)=>{
     setCurrentPage(pageNumber);
   }
+  const handleShowTable=(value: boolean)=>{
+    setShowTable(value);
+  }
 
   const contextDefaultValue = {
     loading,
@@ -106,6 +110,8 @@ const useMyContext = (): IMyContext => {
     totalRows,
     nextUrl,
     previousUrl,
+    showTable,
+    handleShowTable,
     fetchCharacters,
     handleChangeCurrentPage,
     handleChangeInputSearch,
@@ -134,6 +140,8 @@ export interface IMyContext {
   currentPage: number;
   nextUrl: string | null;
   previousUrl: string | null;
+  showTable: boolean;
+  handleShowTable: (value: boolean)=>void;
   fetchCharacters: (q?: string | null, pageNumber?: number)=>void;
   handleChangeCurrentPage: (pageNumber: number)=>void;
   handleChangeInputSearch: (value: string)=>void;

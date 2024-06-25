@@ -10,7 +10,7 @@ import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
 
 export default function SearchBar() {
-  const { fetchCharacters, inputSearch, handleChangeInputSearch, handleChangeCurrentPage } = useContext(MyContext);
+  const { fetchCharacters, inputSearch, handleChangeInputSearch, handleChangeCurrentPage, handleShowTable } = useContext(MyContext);
   
 
   const updateSearchInput = (value: string): void => {
@@ -22,6 +22,7 @@ export default function SearchBar() {
   };
   const handleSearchCharacter = () => {
     handleChangeCurrentPage(1);
+    handleShowTable(false);
     fetchCharacters(inputSearch,1);
   };
 

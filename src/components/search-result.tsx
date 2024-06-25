@@ -8,10 +8,12 @@ import { MyContext } from '../routes/root-page.tsx';
 import { IMyContext } from '../lib/context.tsx';
 
 export default function SearchResult() {
-  const { charactersSearchResult, clearSearchCharactersList, loading, totalRows, inputSearch, currentPage, handleChangeCurrentPage, fetchCharacters}: IMyContext = useContext(MyContext);
+  const { charactersSearchResult, clearSearchCharactersList, loading, totalRows, inputSearch, currentPage, showTable, handleShowTable, handleChangeCurrentPage, fetchCharacters}: IMyContext = useContext(MyContext);
   
   const handleClearSearhResult = () => {
     clearSearchCharactersList();
+    handleShowTable(true);
+    fetchCharacters();
   };
   const handleChangePagination =  (event: React.ChangeEvent<unknown>, value: number) => {
     handleChangeCurrentPage(value);
@@ -22,7 +24,7 @@ export default function SearchResult() {
   return (
     <>
       <Stack direction={'row'} justifyContent={'space-between'} alignItems={'end'}>
-        <Box>{charactersSearchResult && <Typography>{`Star Wars characters List (${charactersSearchResult.length} of ${totalRows}):`}</Typography>}</Box>
+        <Typography>{showTable?`Star Wars characters List (${charactersSearchResult.length} of ${totalRows}):`:`Search Results: (${charactersSearchResult.length} of ${totalRows}):`}</Typography>
       </Stack>
       <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1} className={'overFlowYScroll shadowBox'} margin={-3}>
         {loading ? (
@@ -43,9 +45,9 @@ export default function SearchResult() {
       </Stack>
       <Stack direction={"column"} display={"flex"} justifyContent={"space-between"} alignContent={"center"} alignItems={"center"}>
         {charactersSearchResult.length>0 && <Pagination count={Math.ceil(totalRows/10)}  color="primary" variant="outlined" siblingCount={1} boundaryCount={0} showFirstButton showLastButton  page={currentPage} onChange={handleChangePagination}/>}
-        <CustomButtonPrimary onClick={handleClearSearhResult} disabled={charactersSearchResult.length == 0} sx={{marginTop: "15px !important"}} fullWidth>
-          Clear
-        </CustomButtonPrimary>
+        {(showTable==false) && <CustomButtonPrimary onClick={handleClearSearhResult} disabled={charactersSearchResult.length == 0} sx={{marginTop: "15px !important"}} fullWidth>
+          Clear Search Results
+        </CustomButtonPrimary>}
       </Stack>
     </>
   );
