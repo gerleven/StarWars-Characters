@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Character, CharactersApiResponse } from './definitions';
 import { starwarsService } from '../api/starwars-service';
 
 const useMyContext = (): IMyContext => {
   const [charactersSearchResult, setCharactersSearchResult] = useState<Character[]>([] as Character[]);
-  const [totalRows, setTotalRows] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [inputSearch, setInputSearch] = useState<string>('');
+  const [totalRows, setTotalRows] = useState<number>(0);
   const [nextUrl, setNextUrl] = useState<string | null>("");
   const [previousUrl, setPreviousUrl] = useState<string | null>("");
 
@@ -15,6 +16,10 @@ const useMyContext = (): IMyContext => {
   const [favoriteCharactersDeleted, setFavoriteCharactersDeleted] = useState<Character[]>([] as Character[]);
 
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(()=>{
+    fetchCharacters(null, undefined);
+  }, []);
 
   //FUNCTIONS
   //Search functions
@@ -27,7 +32,6 @@ const useMyContext = (): IMyContext => {
         setNextUrl(response.next);
         setPreviousUrl(response.previous)
         setCharactersSearchResult(response.results);
-        setCurrentPage(1);
       })
       .finally(() => {
         setLoading(false);
@@ -38,10 +42,6 @@ const useMyContext = (): IMyContext => {
     setCharactersSearchResult([] as Character[]);
   };
   
-  const handleChangeCurrentPage = (value: number) => {
-    setCurrentPage(value);
-  };
-
   //Favorites functions
   const updateFavoriteCharacters = (newFavoriteCharacters: Character[] = favoriteCharacters) => {
     setFavoriteCharacters([...newFavoriteCharacters]);
@@ -88,16 +88,27 @@ const useMyContext = (): IMyContext => {
       });
   };
 
+  //Others functions
+  const handleChangeInputSearch=(value: string)=>{
+    setInputSearch(value);
+  }
+  const handleChangeCurrentPage=(pageNumber: number)=>{
+    setCurrentPage(pageNumber);
+  }
+
   const contextDefaultValue = {
     loading,
     charactersSearchResult,
+    currentPage,
+    inputSearch,
     favoriteCharacters,
     favoriteCharactersDeleted,
     totalRows,
-    currentPage,
     nextUrl,
     previousUrl,
     fetchCharacters,
+    handleChangeCurrentPage,
+    handleChangeInputSearch,
     clearSearchCharactersList,
     updateFavoriteCharacters,
     getRandomFavoriteList,
@@ -105,8 +116,7 @@ const useMyContext = (): IMyContext => {
     deleteFavoriteCharacter,
     deleteAllFavorites,
     undoDeleteFavorite,
-    sortFavoriteCharacters,
-    handleChangeCurrentPage
+    sortFavoriteCharacters
   };
 
   return contextDefaultValue;
@@ -117,6 +127,7 @@ export default useMyContext;
 export interface IMyContext {
   loading: boolean;
   charactersSearchResult: Character[];
+  inputSearch: string;
   favoriteCharacters: Character[];
   favoriteCharactersDeleted: Character[];
   totalRows: number;
@@ -124,6 +135,8 @@ export interface IMyContext {
   nextUrl: string | null;
   previousUrl: string | null;
   fetchCharacters: (q?: string | null, pageNumber?: number)=>void;
+  handleChangeCurrentPage: (pageNumber: number)=>void;
+  handleChangeInputSearch: (value: string)=>void;
   clearSearchCharactersList: () => void;
   updateFavoriteCharacters: (characters: Character[]) => void;
   getRandomFavoriteList: () => void;
@@ -132,5 +145,4 @@ export interface IMyContext {
   deleteAllFavorites: () => void;
   undoDeleteFavorite: () => void;
   sortFavoriteCharacters: () => void;
-  handleChangeCurrentPage: (value: number) => void;
 }

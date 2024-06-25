@@ -6,22 +6,23 @@ import { CustomButtonPrimary } from '../lib/utils.tsx';
 import { Stack } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
 
 export default function SearchBar() {
-  const { fetchCharacters } = useContext(MyContext);
-  const [inputSearch, setInputSearch] = useState<string>('');
+  const { fetchCharacters, inputSearch, handleChangeInputSearch, handleChangeCurrentPage } = useContext(MyContext);
+  
 
   const updateSearchInput = (value: string): void => {
-    setInputSearch(value);
+    handleChangeInputSearch(value);
   };
 
   const handleClearSearchInput = () => {
-    setInputSearch('');
+    handleChangeInputSearch('');
   };
   const handleSearchCharacter = () => {
-    fetchCharacters(inputSearch);
+    handleChangeCurrentPage(1);
+    fetchCharacters(inputSearch,1);
   };
 
   return (

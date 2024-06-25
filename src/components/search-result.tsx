@@ -8,13 +8,14 @@ import { MyContext } from '../routes/root-page.tsx';
 import { IMyContext } from '../lib/context.tsx';
 
 export default function SearchResult() {
-  const { charactersSearchResult, clearSearchCharactersList, loading, totalRows, currentPage, handleChangeCurrentPage}: IMyContext = useContext(MyContext);
-
+  const { charactersSearchResult, clearSearchCharactersList, loading, totalRows, inputSearch, currentPage, handleChangeCurrentPage, fetchCharacters}: IMyContext = useContext(MyContext);
+  
   const handleClearSearhResult = () => {
     clearSearchCharactersList();
   };
   const handleChangePagination =  (event: React.ChangeEvent<unknown>, value: number) => {
     handleChangeCurrentPage(value);
+    fetchCharacters(inputSearch, value);
   };
   
 
@@ -41,7 +42,7 @@ export default function SearchResult() {
         )}
       </Stack>
       <Stack direction={"column"} display={"flex"} justifyContent={"space-between"} alignContent={"center"} alignItems={"center"}>
-        {charactersSearchResult.length>0 && <Pagination count={Math.ceil(charactersSearchResult.length/10)+9}  color="primary" variant="outlined" siblingCount={1} boundaryCount={0} showFirstButton showLastButton  page={currentPage} onChange={handleChangePagination}/>}
+        {charactersSearchResult.length>0 && <Pagination count={Math.ceil(totalRows/10)}  color="primary" variant="outlined" siblingCount={1} boundaryCount={0} showFirstButton showLastButton  page={currentPage} onChange={handleChangePagination}/>}
         <CustomButtonPrimary onClick={handleClearSearhResult} disabled={charactersSearchResult.length == 0} sx={{marginTop: "15px !important"}} fullWidth>
           Clear
         </CustomButtonPrimary>
