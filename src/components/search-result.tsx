@@ -15,7 +15,7 @@ export default function SearchResult() {
     handleShowTable(true);
     fetchCharacters();
   };
-  const handleChangePagination =  (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChangePagination =  (_event: React.ChangeEvent<unknown>, value: number) => {
     handleChangeCurrentPage(value);
     fetchCharacters(inputSearch, value);
   };
