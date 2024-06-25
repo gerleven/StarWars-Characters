@@ -1,25 +1,21 @@
-import { Character, CharactersApiResponse } from '../lib/definitions';
+import { CharactersApiResponse } from '../lib/definitions';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-const getCharactersPaginated = async (pageNumber: number = 1): Promise<Character[]> => {
+const fetchCharacters = async (q: string | null = '', pageNumber: number | undefined): Promise<CharactersApiResponse> => {
+  const params = new URLSearchParams();
+  q && params.append('search', q);
+  pageNumber && params.append('page', pageNumber.toString());
+
+  const urlParams = params.toString();
+  const url = `${baseUrl}/people/${urlParams != '' ? `?${urlParams}` : ''}`;
   try {
-    const response = await fetch(`${baseUrl}/people/?page=${pageNumber}`);
+    const response = await fetch(url);
     const fetchedCharacters: CharactersApiResponse = await response.json();
-    return fetchedCharacters.results;
+    return fetchedCharacters;
   } catch (error: unknown) {
     throw new Error(error instanceof Error ? error.message : 'Unknown error');
   }
 };
 
-const searchCharacter = async (q: string): Promise<Character[]> => {
-  try {
-    const response = await fetch(`${baseUrl}/people/?search=${q}`);
-    const fetchedCharacters: CharactersApiResponse = await response.json();
-    return fetchedCharacters.results;
-  } catch (error: unknown) {
-    throw new Error(error instanceof Error ? error.message : 'Unknown error');
-  }
-};
-
-export const starwarsService = { getCharactersPaginated, searchCharacter };
+export const starwarsService = { fetchCharacters };

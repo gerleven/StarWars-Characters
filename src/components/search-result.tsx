@@ -8,16 +8,20 @@ import { MyContext } from '../routes/root-page.tsx';
 import { IMyContext } from '../lib/context.tsx';
 
 export default function SearchResult() {
-  const { charactersSearchResult, clearSearchCharactersList, loading }: IMyContext = useContext(MyContext);
+  const { charactersSearchResult, clearSearchCharactersList, loading, totalRows, currentPage, handleChangeCurrentPage}: IMyContext = useContext(MyContext);
 
   const handleClearSearhResult = () => {
     clearSearchCharactersList();
   };
+  const handleChangePagination =  (event: React.ChangeEvent<unknown>, value: number) => {
+    handleChangeCurrentPage(value);
+  };
+  
 
   return (
     <>
       <Stack direction={'row'} justifyContent={'space-between'} alignItems={'end'}>
-        <Box>{charactersSearchResult && <Typography>{`Search results (${charactersSearchResult.length}):`}</Typography>}</Box>
+        <Box>{charactersSearchResult && <Typography>{`Star Wars characters List (${charactersSearchResult.length} of ${totalRows}):`}</Typography>}</Box>
       </Stack>
       <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1} className={'overFlowYScroll shadowBox'} margin={-3}>
         {loading ? (
@@ -37,7 +41,7 @@ export default function SearchResult() {
         )}
       </Stack>
       <Stack direction={"column"} display={"flex"} justifyContent={"space-between"} alignContent={"center"} alignItems={"center"}>
-        {charactersSearchResult.length>0 && <Pagination count={Math.ceil(charactersSearchResult.length/10)} showFirstButton showLastButton />}
+        {charactersSearchResult.length>0 && <Pagination count={Math.ceil(charactersSearchResult.length/10)+9}  color="primary" variant="outlined" siblingCount={1} boundaryCount={0} showFirstButton showLastButton  page={currentPage} onChange={handleChangePagination}/>}
         <CustomButtonPrimary onClick={handleClearSearhResult} disabled={charactersSearchResult.length == 0} sx={{marginTop: "15px !important"}} fullWidth>
           Clear
         </CustomButtonPrimary>
@@ -47,9 +51,9 @@ export default function SearchResult() {
 }
 
 const NoItemsToShow = () => {
-  const { searchCharacter }: IMyContext = useContext(MyContext);
+  const { fetchCharacters }: IMyContext = useContext(MyContext);
   const handleShowAllCharacters = () => {
-    searchCharacter();
+    fetchCharacters();
   };
 
   return (

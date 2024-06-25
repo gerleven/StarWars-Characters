@@ -1,10 +1,13 @@
 import { useState } from 'react';
-import { Character } from './definitions';
+import { Character, CharactersApiResponse } from './definitions';
 import { starwarsService } from '../api/starwars-service';
 
 const useMyContext = (): IMyContext => {
   const [charactersSearchResult, setCharactersSearchResult] = useState<Character[]>([] as Character[]);
-  const [charactersPaginated, setCharactersPaginated] = useState<Character[]>([] as Character[]);
+  const [totalRows, setTotalRows] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [nextUrl, setNextUrl] = useState<string | null>("");
+  const [previousUrl, setPreviousUrl] = useState<string | null>("");
 
   const [favoriteCharacters, setFavoriteCharacters] = useState<Character[]>(
     JSON.parse(localStorage.getItem('favoriteCharacters') || '[]') as Character[]
@@ -15,24 +18,16 @@ const useMyContext = (): IMyContext => {
 
   //FUNCTIONS
   //Search functions
-  const searchCharacter = (q: string = "") => {
+  const fetchCharacters = (q: string | null | undefined = '', pageNumber: number | undefined) => {
     setLoading(true);
     starwarsService
-      .searchCharacter(q)
-      .then((characters) => {
-        setCharactersSearchResult(characters);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
-  const getCharactersPaginated = (pageNumber: number = 1) => {
-    setLoading(true);
-    starwarsService
-      .getCharactersPaginated(pageNumber)
-      .then((characters) => {
-        setCharactersPaginated(characters);
+      .fetchCharacters(q, pageNumber)
+      .then((response: CharactersApiResponse) => {
+        setTotalRows(response.count);
+        setNextUrl(response.next);
+        setPreviousUrl(response.previous)
+        setCharactersSearchResult(response.results);
+        setCurrentPage(1);
       })
       .finally(() => {
         setLoading(false);
@@ -41,6 +36,10 @@ const useMyContext = (): IMyContext => {
 
   const clearSearchCharactersList = () => {
     setCharactersSearchResult([] as Character[]);
+  };
+  
+  const handleChangeCurrentPage = (value: number) => {
+    setCurrentPage(value);
   };
 
   //Favorites functions
@@ -79,9 +78,9 @@ const useMyContext = (): IMyContext => {
     const randomPage = Math.floor(Math.random() * 8) + 1;
     console.log(randomPage);
     starwarsService
-      .getCharactersPaginated(randomPage)
-      .then((characterResults) => {
-        updateFavoriteCharacters(characterResults);
+      .fetchCharacters(null, randomPage)
+      .then((response) => {
+        updateFavoriteCharacters(response.results);
         setFavoriteCharactersDeleted([] as Character[]);
       })
       .finally(() => {
@@ -91,12 +90,14 @@ const useMyContext = (): IMyContext => {
 
   const contextDefaultValue = {
     loading,
-    charactersPaginated,
     charactersSearchResult,
     favoriteCharacters,
     favoriteCharactersDeleted,
-    getCharactersPaginated,
-    searchCharacter,
+    totalRows,
+    currentPage,
+    nextUrl,
+    previousUrl,
+    fetchCharacters,
     clearSearchCharactersList,
     updateFavoriteCharacters,
     getRandomFavoriteList,
@@ -104,7 +105,8 @@ const useMyContext = (): IMyContext => {
     deleteFavoriteCharacter,
     deleteAllFavorites,
     undoDeleteFavorite,
-    sortFavoriteCharacters
+    sortFavoriteCharacters,
+    handleChangeCurrentPage
   };
 
   return contextDefaultValue;
@@ -114,12 +116,14 @@ export default useMyContext;
 
 export interface IMyContext {
   loading: boolean;
-  charactersPaginated: Character[];
   charactersSearchResult: Character[];
   favoriteCharacters: Character[];
   favoriteCharactersDeleted: Character[];
-  getCharactersPaginated: () => void;
-  searchCharacter: (q?: string) => void;
+  totalRows: number;
+  currentPage: number;
+  nextUrl: string | null;
+  previousUrl: string | null;
+  fetchCharacters: (q?: string | null, pageNumber?: number)=>void;
   clearSearchCharactersList: () => void;
   updateFavoriteCharacters: (characters: Character[]) => void;
   getRandomFavoriteList: () => void;
@@ -128,4 +132,5 @@ export interface IMyContext {
   deleteAllFavorites: () => void;
   undoDeleteFavorite: () => void;
   sortFavoriteCharacters: () => void;
+  handleChangeCurrentPage: (value: number) => void;
 }
