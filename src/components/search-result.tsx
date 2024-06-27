@@ -8,24 +8,39 @@ import { MyContext } from '../routes/root-page.tsx';
 import { IMyContext } from '../lib/context.tsx';
 
 export default function SearchResult() {
-  const { charactersSearchResult, clearSearchCharactersList, loading, totalRows, inputSearch, currentPage, showTable, handleShowTable, handleChangeCurrentPage, fetchCharacters}: IMyContext = useContext(MyContext);
-  
+  const {
+    charactersSearchResult,
+    clearSearchCharactersList,
+    loading,
+    totalRows,
+    inputSearch,
+    currentPage,
+    showTable,
+    handleShowTable,
+    handleChangeCurrentPage,
+    fetchCharacters
+  }: IMyContext = useContext(MyContext);
+
   const handleClearSearhResult = () => {
     clearSearchCharactersList();
     handleShowTable(true);
     fetchCharacters();
   };
-  const handleChangePagination =  (_event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChangePagination = (_event: React.ChangeEvent<unknown>, value: number) => {
     handleChangeCurrentPage(value);
     fetchCharacters(inputSearch, value);
   };
-  
 
   return (
     <>
       <Stack direction={'row'} justifyContent={'space-between'} alignItems={'end'}>
-        <Typography>{showTable?`Star Wars characters List (${charactersSearchResult.length} of ${totalRows}):`:`Search Results: (${charactersSearchResult.length} of ${totalRows}):`}</Typography>
+        <Typography>
+          {showTable
+            ? `Star Wars characters List (${charactersSearchResult.length} of ${totalRows}):`
+            : `Search Results: (${charactersSearchResult.length} of ${totalRows}):`}
+        </Typography>
       </Stack>
+
       <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1} className={'overFlowYScroll shadowBox'} margin={-3}>
         {loading ? (
           <SkeletonLoader amount={5} />
@@ -43,11 +58,30 @@ export default function SearchResult() {
           </>
         )}
       </Stack>
-      <Stack direction={"column"} display={"flex"} justifyContent={"space-between"} alignContent={"center"} alignItems={"center"}>
-        {charactersSearchResult.length>0 && <Pagination count={Math.ceil(totalRows/10)}  color="primary" variant="outlined" siblingCount={1} boundaryCount={0} showFirstButton showLastButton  page={currentPage} onChange={handleChangePagination}/>}
-        {(showTable==false) && <CustomButtonPrimary onClick={handleClearSearhResult} disabled={charactersSearchResult.length == 0} sx={{marginTop: "15px !important"}} fullWidth>
-          Clear Search Results
-        </CustomButtonPrimary>}
+      <Stack direction={'column'} display={'flex'} justifyContent={'space-between'} alignContent={'center'} alignItems={'center'}>
+        {charactersSearchResult.length > 0 && (
+          <Pagination
+            count={Math.ceil(totalRows / 10)}
+            color="primary"
+            variant="outlined"
+            siblingCount={1}
+            boundaryCount={0}
+            showFirstButton
+            showLastButton
+            page={currentPage}
+            onChange={handleChangePagination}
+          />
+        )}
+        {showTable == false && (
+          <CustomButtonPrimary
+            onClick={handleClearSearhResult}
+            disabled={charactersSearchResult.length == 0}
+            sx={{ marginTop: '15px !important' }}
+            fullWidth
+          >
+            Clear Search Results
+          </CustomButtonPrimary>
+        )}
       </Stack>
     </>
   );
