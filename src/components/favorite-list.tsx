@@ -8,12 +8,12 @@ import { MyContext } from '../routes/root-page.tsx';
 import { Form } from 'react-router-dom';
 import { IMyContext } from '../lib/context.tsx';
 
-interface ISearchResult {
+interface IFavoriteList {
   inputFilter: string;
   filteredCharactersList: Character[];
 }
 
-export default function FavoriteList({ inputFilter, filteredCharactersList }: ISearchResult) {
+export default function FavoriteList({ inputFilter, filteredCharactersList }: IFavoriteList) {
   const { favoriteCharacters, loading }: IMyContext = useContext(MyContext);
 
   return (

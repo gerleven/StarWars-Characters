@@ -12,7 +12,7 @@ const FavoritePage = () => {
 
   const { favoriteCharacters }: IMyContext = useContext(MyContext);
 
-  //Keep the filtered list of characters in sync when searching or deleting any characters
+  //Keep the filtered list of favorites in sync when searching or deleting any characters
   useEffect(() => {
     const newFilteredList = favoriteCharacters.filter((character: Character) => character.name.toLowerCase().includes(inputFilter.toLowerCase()));
     setFilteredCharactersList(newFilteredList);
