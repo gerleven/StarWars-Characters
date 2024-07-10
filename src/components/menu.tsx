@@ -10,7 +10,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import InfoIcon from '@mui/icons-material/Info';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IMyContext } from '../lib/context';
+import { IMyContext } from '../context/context';
 import { MyContext } from '../routes/root-page';
 import { useContext } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
@@ -28,13 +28,8 @@ export default function TopMenu() {
     handleClose();
   }, 500);
 
-  const {
-    deleteAllFavorites,
-    getRandomFavoriteList,
-    undoDeleteFavorite,
-    favoriteCharactersDeleted,
-    sortFavoriteCharacters
-  }: IMyContext = useContext(MyContext);
+  const { deleteAllFavorites, getRandomFavoriteList, undoDeleteFavorite, favoriteCharactersDeleted, sortFavoriteCharacters }: IMyContext =
+    useContext(MyContext);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -77,12 +72,12 @@ export default function TopMenu() {
         aria-haspopup="true"
         size="large"
         onClick={handleClick}
-        sx={{ height: '100%', p:0 }}
+        sx={{ height: '100%', p: 0 }}
       >
         <MoreVertIcon
           sx={{
             maxHeight: '100%',
-            maxWidth: "80%",
+            maxWidth: '80%',
             color: theme.palette.common.white
           }}
           fontSize="inherit"
@@ -127,10 +122,7 @@ export default function TopMenu() {
             </ListItemIcon>
             <ListItemText sx={{ mr: 2 }}>Delete all</ListItemText>
           </MenuItem>
-          <MenuItem
-            disabled={location.pathname != '/favorites' || favoriteCharactersDeleted.length == 0}
-            onClick={handleUndoDelete}
-          >
+          <MenuItem disabled={location.pathname != '/favorites' || favoriteCharactersDeleted.length == 0} onClick={handleUndoDelete}>
             <ListItemIcon>
               <UndoIcon fontSize="small" />
             </ListItemIcon>

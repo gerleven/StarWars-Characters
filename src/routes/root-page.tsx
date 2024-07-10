@@ -3,7 +3,7 @@ import '../App.css';
 import { Stack } from '@mui/material';
 import Banner from '../components/banner';
 import { createContext } from 'react';
-import useMyContext, { IMyContext } from '../lib/context';
+import useMyContext, { IMyContext } from '../context/context';
 
 export const MyContext = createContext<IMyContext>({} as IMyContext);
 
@@ -15,14 +15,7 @@ const RootPage = () => {
         <Stack className="fullscreen" direction={'column'} justifyContent={'start'} alignItems={'center'} alignContent={'center'}>
           <Stack className="app-wrapper" direction={'column'} justifyContent={'start'} alignItems={'strech'} alignContent={'center'}>
             <Banner />
-            <Stack
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              spacing={1}
-              className={'overFlowYScroll'}
-              padding={3}
-            >
+            <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1} className={'overFlowYScroll'} padding={3}>
               <Outlet />
             </Stack>
           </Stack>

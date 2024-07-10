@@ -6,7 +6,7 @@ import theme from '../theme/custom-theme.tsx';
 import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
 import { Form } from 'react-router-dom';
-import { IMyContext } from '../lib/context.tsx';
+import { IMyContext } from '../context/context.tsx';
 
 interface IFavoriteList {
   inputFilter: string;
@@ -48,7 +48,6 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IF
             )}
           </>
         )}
-
       </Stack>
       <br></br>
       <Stack sx={{ pb: '15px' }}>

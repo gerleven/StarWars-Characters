@@ -5,7 +5,7 @@ import { CustomButtonPrimary } from '../lib/utils.tsx';
 import theme from '../theme/custom-theme.tsx';
 import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
-import { IMyContext } from '../lib/context.tsx';
+import { IMyContext } from '../context/context.tsx';
 
 export default function SearchResult() {
   const {

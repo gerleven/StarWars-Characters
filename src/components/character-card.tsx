@@ -5,7 +5,7 @@ import ContentLoader from 'react-content-loader';
 import { useContext } from 'react';
 import { MyContext } from '../routes/root-page.tsx';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
-import { IMyContext } from '../lib/context.tsx';
+import { IMyContext } from '../context/context.tsx';
 
 interface ICharacterCard {
   character: Character;
@@ -77,14 +77,7 @@ export const SkeletonLoader = ({ amount = 5 }: { amount?: number }) => {
   );
 
   return (
-    <Stack
-      direction="column"
-      justifyContent="flex-start"
-      alignItems="stretch"
-      spacing={1}
-      padding={1}
-      className={'overFlowYScroll'}
-    >
+    <Stack direction="column" justifyContent="flex-start" alignItems="stretch" spacing={1} padding={1} className={'overFlowYScroll'}>
       {Array.from({ length: amount }, (_, index) => (
         <Skeleton key={index} />
       ))}
