@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 import { MyContext } from './root-page.tsx';
 import FilterBar from '../components/filter-bar.tsx';
 import FavoriteList from '../components/favorite-list.tsx';
-import { IMyContext } from '../lib/context.tsx';
+import { IMyContext } from '../context/context.tsx';
 
 const FavoritePage = () => {
   const [filteredCharactersList, setFilteredCharactersList] = useState<Character[]>([] as Character[]);

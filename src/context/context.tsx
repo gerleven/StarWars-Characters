@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Character, CharactersApiResponse } from './definitions';
+import { Character, CharactersApiResponse } from '../lib/definitions';
 import { starwarsService } from '../api/starwars-service';
 
 const useMyContext = (): IMyContext => {
@@ -7,8 +7,8 @@ const useMyContext = (): IMyContext => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [inputSearch, setInputSearch] = useState<string>('');
   const [totalRows, setTotalRows] = useState<number>(0);
-  const [nextUrl, setNextUrl] = useState<string | null>("");
-  const [previousUrl, setPreviousUrl] = useState<string | null>("");
+  const [nextUrl, setNextUrl] = useState<string | null>('');
+  const [previousUrl, setPreviousUrl] = useState<string | null>('');
   const [showTable, setShowTable] = useState<boolean>(true);
 
   const [favoriteCharacters, setFavoriteCharacters] = useState<Character[]>(
@@ -18,7 +18,7 @@ const useMyContext = (): IMyContext => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchCharacters(null, undefined);
   }, []);
 
@@ -31,7 +31,7 @@ const useMyContext = (): IMyContext => {
       .then((response: CharactersApiResponse) => {
         setTotalRows(response.count);
         setNextUrl(response.next);
-        setPreviousUrl(response.previous)
+        setPreviousUrl(response.previous);
         setCharactersSearchResult(response.results);
       })
       .finally(() => {
@@ -42,7 +42,7 @@ const useMyContext = (): IMyContext => {
   const clearSearchCharactersList = () => {
     setCharactersSearchResult([] as Character[]);
   };
-  
+
   //Favorites functions
   const updateFavoriteCharacters = (newFavoriteCharacters: Character[] = favoriteCharacters) => {
     setFavoriteCharacters([...newFavoriteCharacters]);
@@ -90,15 +90,15 @@ const useMyContext = (): IMyContext => {
   };
 
   //Others functions
-  const handleChangeInputSearch=(value: string)=>{
+  const handleChangeInputSearch = (value: string) => {
     setInputSearch(value);
-  }
-  const handleChangeCurrentPage=(pageNumber: number)=>{
+  };
+  const handleChangeCurrentPage = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-  }
-  const handleShowTable=(value: boolean)=>{
+  };
+  const handleShowTable = (value: boolean) => {
     setShowTable(value);
-  }
+  };
 
   const contextDefaultValue = {
     loading,
@@ -141,10 +141,10 @@ export interface IMyContext {
   nextUrl: string | null;
   previousUrl: string | null;
   showTable: boolean;
-  handleShowTable: (value: boolean)=>void;
-  fetchCharacters: (q?: string | null, pageNumber?: number)=>void;
-  handleChangeCurrentPage: (pageNumber: number)=>void;
-  handleChangeInputSearch: (value: string)=>void;
+  handleShowTable: (value: boolean) => void;
+  fetchCharacters: (q?: string | null, pageNumber?: number) => void;
+  handleChangeCurrentPage: (pageNumber: number) => void;
+  handleChangeInputSearch: (value: string) => void;
   clearSearchCharactersList: () => void;
   updateFavoriteCharacters: (characters: Character[]) => void;
   getRandomFavoriteList: () => void;
