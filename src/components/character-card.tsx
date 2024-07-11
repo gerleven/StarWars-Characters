@@ -2,10 +2,8 @@ import { Paper, Stack, Typography, Card, CardActions, CardContent, Box, ButtonBa
 import { CustomButtonPrimary } from '../lib/utils.tsx';
 import { Character } from '../lib/definitions.tsx';
 import ContentLoader from 'react-content-loader';
-import { useContext } from 'react';
-import { MyContext } from '../routes/root-page.tsx';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
-import { IMyContext } from '../context/context.tsx';
+import { IMyContext, useMyContext } from '../context/context.tsx';
 
 interface ICharacterCard {
   character: Character;
@@ -15,7 +13,7 @@ interface ICharacterCard {
 }
 
 export default function CharacterCard({ character, isFavorite }: ICharacterCard) {
-  const { favoriteCharacters, deleteFavoriteCharacter, addNewFavoriteCharacter }: IMyContext = useContext(MyContext);
+  const { favoriteCharacters, deleteFavoriteCharacter, addNewFavoriteCharacter }: IMyContext = useMyContext();
 
   const isAdded = favoriteCharacters.find((c) => c.name == character.name) != undefined;
 

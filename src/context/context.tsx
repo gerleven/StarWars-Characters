@@ -1,8 +1,35 @@
-import { useEffect, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { Character, CharactersApiResponse } from '../lib/definitions';
 import { starwarsService } from '../api/starwars-service';
 
-const useMyContext = (): IMyContext => {
+export interface IMyContext {
+  loading: boolean;
+  charactersSearchResult: Character[];
+  inputSearch: string;
+  favoriteCharacters: Character[];
+  favoriteCharactersDeleted: Character[];
+  totalRows: number;
+  currentPage: number;
+  nextUrl: string | null;
+  previousUrl: string | null;
+  showTable: boolean;
+  handleShowTable: (value: boolean) => void;
+  fetchCharacters: (q?: string | null, pageNumber?: number) => void;
+  handleChangeCurrentPage: (pageNumber: number) => void;
+  handleChangeInputSearch: (value: string) => void;
+  clearSearchCharactersList: () => void;
+  updateFavoriteCharacters: (characters: Character[]) => void;
+  getRandomFavoriteList: () => void;
+  addNewFavoriteCharacter: (characters: Character) => void;
+  deleteFavoriteCharacter: (characters: Character) => void;
+  deleteAllFavorites: () => void;
+  undoDeleteFavorite: () => void;
+  sortFavoriteCharacters: () => void;
+}
+
+const MyContext = createContext<IMyContext>({} as IMyContext);
+
+export const MyContextProvider = ({ children }: { children: ReactNode }) => {
   const [charactersSearchResult, setCharactersSearchResult] = useState<Character[]>([] as Character[]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [inputSearch, setInputSearch] = useState<string>('');
@@ -125,32 +152,13 @@ const useMyContext = (): IMyContext => {
     sortFavoriteCharacters
   };
 
-  return contextDefaultValue;
+  return <MyContext.Provider value={contextDefaultValue as IMyContext}>{children}</MyContext.Provider>;
 };
 
-export default useMyContext;
-
-export interface IMyContext {
-  loading: boolean;
-  charactersSearchResult: Character[];
-  inputSearch: string;
-  favoriteCharacters: Character[];
-  favoriteCharactersDeleted: Character[];
-  totalRows: number;
-  currentPage: number;
-  nextUrl: string | null;
-  previousUrl: string | null;
-  showTable: boolean;
-  handleShowTable: (value: boolean) => void;
-  fetchCharacters: (q?: string | null, pageNumber?: number) => void;
-  handleChangeCurrentPage: (pageNumber: number) => void;
-  handleChangeInputSearch: (value: string) => void;
-  clearSearchCharactersList: () => void;
-  updateFavoriteCharacters: (characters: Character[]) => void;
-  getRandomFavoriteList: () => void;
-  addNewFavoriteCharacter: (characters: Character) => void;
-  deleteFavoriteCharacter: (characters: Character) => void;
-  deleteAllFavorites: () => void;
-  undoDeleteFavorite: () => void;
-  sortFavoriteCharacters: () => void;
-}
+export const useMyContext = (): IMyContext => {
+  const context = useContext(MyContext);
+  if (context === undefined) {
+    throw new Error('MyContext must be used within an MyContextProvider');
+  }
+  return context;
+};

@@ -3,10 +3,8 @@ import { Character } from '../lib/definitions.tsx';
 import CharacterCard, { SkeletonLoader } from './character-card.tsx';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
 import theme from '../theme/custom-theme.tsx';
-import { useContext } from 'react';
-import { MyContext } from '../routes/root-page.tsx';
 import { Form } from 'react-router-dom';
-import { IMyContext } from '../context/context.tsx';
+import { IMyContext, useMyContext } from '../context/context.tsx';
 
 interface IFavoriteList {
   inputFilter: string;
@@ -14,7 +12,7 @@ interface IFavoriteList {
 }
 
 export default function FavoriteList({ inputFilter, filteredCharactersList }: IFavoriteList) {
-  const { favoriteCharacters, loading }: IMyContext = useContext(MyContext);
+  const { favoriteCharacters, loading }: IMyContext = useMyContext();
 
   return (
     <>
@@ -62,7 +60,7 @@ export default function FavoriteList({ inputFilter, filteredCharactersList }: IF
 }
 
 const NoItemsToShow = () => {
-  const { getRandomFavoriteList }: IMyContext = useContext(MyContext);
+  const { getRandomFavoriteList }: IMyContext = useMyContext();
   return (
     <Box>
       <Paper elevation={2} sx={{ margin: '3px' }}>

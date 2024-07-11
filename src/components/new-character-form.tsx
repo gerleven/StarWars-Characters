@@ -1,21 +1,18 @@
 import { AccountCircle } from '@mui/icons-material';
 import { Grid, InputAdornment, MenuItem, TextField } from '@mui/material';
-
-import { useContext } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { CustomButtonPrimary, CustomButtonSecondary } from '../lib/utils';
 import HeightIcon from '@mui/icons-material/Height';
 import CakeIcon from '@mui/icons-material/Cake';
 import WcIcon from '@mui/icons-material/Wc';
-import { MyContext } from '../routes/root-page';
 import { useNavigate } from 'react-router-dom';
 import { Character } from '../lib/definitions';
-
+import { useMyContext } from '../context/context';
 
 const NewCharacterForm = () => {
   const { register, handleSubmit } = useForm();
 
-  const { addNewFavoriteCharacter } = useContext(MyContext);
+  const { addNewFavoriteCharacter } = useMyContext();
 
   const navigate = useNavigate();
 

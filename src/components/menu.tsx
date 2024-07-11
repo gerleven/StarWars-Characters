@@ -10,9 +10,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import InfoIcon from '@mui/icons-material/Info';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IMyContext } from '../context/context';
-import { MyContext } from '../routes/root-page';
-import { useContext } from 'react';
+import { IMyContext, useMyContext } from '../context/context';
 import { useDebouncedCallback } from 'use-debounce';
 import SortIcon from '@mui/icons-material/Sort';
 
@@ -29,7 +27,7 @@ export default function TopMenu() {
   }, 500);
 
   const { deleteAllFavorites, getRandomFavoriteList, undoDeleteFavorite, favoriteCharactersDeleted, sortFavoriteCharacters }: IMyContext =
-    useContext(MyContext);
+    useMyContext();
 
   const location = useLocation();
   const navigate = useNavigate();

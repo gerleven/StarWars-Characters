@@ -3,9 +3,7 @@ import { Character } from '../lib/definitions.tsx';
 import CharacterCard, { SkeletonLoader } from './character-card';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
 import theme from '../theme/custom-theme.tsx';
-import { useContext } from 'react';
-import { MyContext } from '../routes/root-page.tsx';
-import { IMyContext } from '../context/context.tsx';
+import { IMyContext, useMyContext } from '../context/context.tsx';
 
 export default function SearchResult() {
   const {
@@ -19,7 +17,7 @@ export default function SearchResult() {
     handleShowTable,
     handleChangeCurrentPage,
     fetchCharacters
-  }: IMyContext = useContext(MyContext);
+  }: IMyContext = useMyContext();
 
   const handleClearSearhResult = () => {
     clearSearchCharactersList();
@@ -88,7 +86,7 @@ export default function SearchResult() {
 }
 
 const NoItemsToShow = () => {
-  const { fetchCharacters }: IMyContext = useContext(MyContext);
+  const { fetchCharacters }: IMyContext = useMyContext();
   const handleShowAllCharacters = () => {
     fetchCharacters();
   };

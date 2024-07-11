@@ -1,16 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Character } from '../lib/definitions.tsx';
 import { Typography } from '@mui/material';
-import { MyContext } from './root-page.tsx';
 import FilterBar from '../components/filter-bar.tsx';
 import FavoriteList from '../components/favorite-list.tsx';
-import { IMyContext } from '../context/context.tsx';
+import { IMyContext, useMyContext } from '../context/context.tsx';
 
 const FavoritePage = () => {
   const [filteredCharactersList, setFilteredCharactersList] = useState<Character[]>([] as Character[]);
   const [inputFilter, setInputFilter] = useState<string>('');
 
-  const { favoriteCharacters }: IMyContext = useContext(MyContext);
+  const { favoriteCharacters }: IMyContext = useMyContext();
 
   //Keep the filtered list of favorites in sync when searching or deleting any characters
   useEffect(() => {
