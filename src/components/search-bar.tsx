@@ -6,12 +6,10 @@ import { CustomButtonPrimary } from '../lib/utils.tsx';
 import { Stack } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
-import { useContext } from 'react';
-import { MyContext } from '../routes/root-page.tsx';
+import { IMyContext, useMyContext } from '../context/context.tsx';
 
 export default function SearchBar() {
-  const { fetchCharacters, inputSearch, handleChangeInputSearch, handleChangeCurrentPage, handleShowTable } = useContext(MyContext);
-  
+  const { fetchCharacters, inputSearch, handleChangeInputSearch, handleChangeCurrentPage, handleShowTable }: IMyContext = useMyContext();
 
   const updateSearchInput = (value: string): void => {
     handleChangeInputSearch(value);
@@ -23,7 +21,7 @@ export default function SearchBar() {
   const handleSearchCharacter = () => {
     handleChangeCurrentPage(1);
     handleShowTable(false);
-    fetchCharacters(inputSearch,1);
+    fetchCharacters(inputSearch, 1);
   };
 
   return (
@@ -37,7 +35,10 @@ export default function SearchBar() {
             placeholder="Search for a Star Wars character…"
             inputProps={{ 'aria-label': 'search' }}
             value={inputSearch}
-            onKeyDown={(key)=>{(key.code == "Enter") && handleSearchCharacter(); (key.code == "Escape") && handleClearSearchInput()}}
+            onKeyDown={(key) => {
+              key.code == 'Enter' && handleSearchCharacter();
+              key.code == 'Escape' && handleClearSearchInput();
+            }}
             onChange={(term) => {
               updateSearchInput(term.target.value);
             }}
@@ -57,7 +58,7 @@ export default function SearchBar() {
 }
 
 const Search = styled('div')(({ theme }) => ({
-  display: "flex",
+  display: 'flex',
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.4),
@@ -67,7 +68,7 @@ const Search = styled('div')(({ theme }) => ({
   width: '100%',
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.7)
-  },
+  }
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
