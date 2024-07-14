@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { Character } from '../lib/definitions';
 import { useMyContext } from '../context/context';
 
-const NewCharacterForm = () => {
+const NewCharacterForm = ({mockFn}: {mockFn?: (newCharacter: Character)=>void} ) => {
   const { register, handleSubmit } = useForm();
 
   const { addNewFavoriteCharacter } = useMyContext();
@@ -23,8 +23,12 @@ const NewCharacterForm = () => {
       gender: formData.gender,
       height: formData.height
     } as Character;
-    addNewFavoriteCharacter(newCharacter);
-    navigate('/favorites');
+    if(mockFn==undefined){
+      addNewFavoriteCharacter(newCharacter);
+      navigate('/favorites');
+    } else{
+      mockFn(newCharacter);
+    }
   };
 
   const genderOptions = [
@@ -100,7 +104,6 @@ const NewCharacterForm = () => {
         <Grid item>
           <TextField
             {...register('gender')}
-            defaultValue={''}
             fullWidth
             id="Gender-input"
             select
