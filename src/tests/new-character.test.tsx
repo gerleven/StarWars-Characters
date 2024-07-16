@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import NewCharacterForm from '../components/new-character-form';
 import { MemoryRouter } from 'react-router-dom';
@@ -10,6 +10,10 @@ describe('New character Form', () => {
   
   const mockFn = vi.fn();
   
+  let nameInput: HTMLElement;
+  let heightInput: HTMLElement;
+  let ageInput: HTMLElement;
+  let submitButton: HTMLElement;
 
   beforeEach(() => {
     render(
@@ -17,34 +21,32 @@ describe('New character Form', () => {
         <NewCharacterForm mockFn={mockFn}/>
       </MemoryRouter>
     );
+
+    nameInput = screen.getByLabelText(/name/i);
+    heightInput = screen.getByLabelText(/height/i);
+    ageInput = screen.getByLabelText(/birth year/i);
+    submitButton = screen.getByRole("button");
+
   });
 
-  it('Name input', () => {
-    const nameInput = screen.getByLabelText(/Name/i);
+
+  it('Form rendered correctly', () => {
     expect(nameInput).toBeInTheDocument();
-  });
+    expect(heightInput).toBeInTheDocument();
+    expect(ageInput).toBeInTheDocument();
 
-  it('Submit button', () => {
-    const button = screen.queryByRole('button');
-    expect(button).toBeInTheDocument();
-    expect(button).toBeEnabled();
-    expect(button).toHaveTextContent(/add to favorites/i);
+    expect(submitButton).toBeInTheDocument();
+    expect(submitButton).toHaveTextContent(/add to favorites/i);
+    expect(submitButton).toBeEnabled();
   });
 
   it("form sent correctly", async ()=>{
     const newCharacter = {name: "German", height: "177", birth_year: "02/08/1988", gender: ""} as Character;
     const user = userEvent.setup();
 
-    const nameInput = screen.getByLabelText(/name/i);
-    const heightInput = screen.getByLabelText(/height/i);
-    const ageInput = screen.getByLabelText(/birth year/i);
-    
-    const submitButton = screen.getByRole("button");
-
     await user.type(nameInput, newCharacter.name);
     await user.type(heightInput, newCharacter.height);
     await user.type(ageInput, newCharacter.birth_year);
-    
     
     await user.click(submitButton);
 
