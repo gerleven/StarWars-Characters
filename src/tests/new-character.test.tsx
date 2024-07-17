@@ -40,7 +40,7 @@ describe('New character Form', () => {
     expect(submitButton).toBeEnabled();
   });
 
-  it("form sent correctly", async ()=>{
+  it("Form sent correctly", async ()=>{
     const newCharacter = {name: "German", height: "177", birth_year: "02/08/1988", gender: ""} as Character;
     const user = userEvent.setup();
 
