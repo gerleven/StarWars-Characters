@@ -85,6 +85,8 @@
 .overFlowYScroll {
   overflow-y: auto;
   flex-grow: 1;
+  scrollbar-width: thin;
+  scrollbar-color: var(--light-grey) var(--white);
 }
 
 .shadowBox{
