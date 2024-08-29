@@ -47,6 +47,10 @@ describe('New character Form', () => {
     await user.type(nameInput, newCharacter.name);
     await user.type(heightInput, newCharacter.height);
     await user.type(ageInput, newCharacter.birth_year);
+
+    expect(nameInput).toHaveValue(newCharacter.name);
+    expect(heightInput).toHaveValue(Number(newCharacter.height));
+    expect(ageInput).toHaveValue(newCharacter.birth_year);
     
     await user.click(submitButton);
 
