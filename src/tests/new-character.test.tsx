@@ -8,7 +8,9 @@ import { Character } from '../lib/definitions';
 
 describe('New character Form', () => {
   
-  const mockFn = vi.fn();
+  const mockFn = vi.fn(
+    (newCharacter)=>{console.log(newCharacter)}
+  );
   
   let nameInput: HTMLElement;
   let heightInput: HTMLElement;
