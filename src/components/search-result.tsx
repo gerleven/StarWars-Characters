@@ -4,6 +4,7 @@ import CharacterCard, { SkeletonLoader } from './character-card';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
 import theme from '../theme/custom-theme.tsx';
 import { IMyContext, useMyContext } from '../context/context.tsx';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default function SearchResult() {
   const {
@@ -77,7 +78,13 @@ export default function SearchResult() {
             sx={{ marginTop: '15px !important' }}
             fullWidth
           >
-            Clear Search Results
+            <ArrowBackIcon
+              sx={{
+                color: theme.palette.common.white,
+                mr: 1
+              }}
+            />
+            Back to full List
           </CustomButtonPrimary>
         )}
       </Stack>

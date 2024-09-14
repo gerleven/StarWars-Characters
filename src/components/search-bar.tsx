@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
-import { Stack } from '@mui/material';
+import { Stack, Tooltip } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 import { IMyContext, useMyContext } from '../context/context.tsx';
@@ -19,9 +19,11 @@ export default function SearchBar() {
     handleChangeInputSearch('');
   };
   const handleSearchCharacter = () => {
-    handleChangeCurrentPage(1);
-    handleShowTable(false);
-    fetchCharacters(inputSearch, 1);
+    if(inputSearch!=""){ 
+      handleChangeCurrentPage(1);
+      handleShowTable(false);
+      fetchCharacters(inputSearch, 1);
+    }
   };
 
   return (
@@ -49,9 +51,11 @@ export default function SearchBar() {
             </IconButton>
           )}
         </Search>
-        <CustomButtonPrimary sx={{ paddingX: 2 }} onClick={handleSearchCharacter}>
-          Search
-        </CustomButtonPrimary>
+        <Tooltip title={inputSearch==""?"enter an input first":""}>
+          <CustomButtonPrimary sx={{ paddingX: 2 }} onClick={handleSearchCharacter}>
+            Search
+          </CustomButtonPrimary>
+        </Tooltip>
       </Stack>
     </Box>
   );
