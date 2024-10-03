@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Box, Link, Paper, Stack, Typography } from '@mui/material';
 import { Form } from 'react-router-dom';
 import { CustomButtonPrimary } from '../lib/utils.tsx';
 import LinkedinLink from '../components/linkedin-link.tsx';
@@ -10,21 +10,25 @@ export default function AboutPage() {
         <Stack direction="column" alignItems={'center'} justifyContent={'center'}>
           <Box className="detailsPanel">
             <Stack direction="column" alignItems={'center'} justifyContent={'center'}>
-              <Typography  fontSize={'35px'} noWrap textOverflow="ellipsis" >
-                About me
+              <Typography fontSize={'35px'} noWrap textOverflow="ellipsis">
+                About me:
               </Typography>
-              <Typography textAlign={"left"}>
-                Hi! I'm Germán Levental and I'm a <span style={{fontFamily: "monospace", color: "#dd9d00"}}><i>Semi Senior (Advanced) React Frontend Developer</i></span> with <b>4+</b> years of experience and <b>B2+</b> English proficiency.
-                <br/>
-                <br/>
-                Check out my LinkedIn clicking the "Ver Perfil" button!
-                <br/>
-                <br/>
+              <LinkedinLink dataTheme="light" dataSize="large" dataType="HORIZONTAL" />
+              <br />
+              <Typography textAlign={'left'}>Check out my LinkedIn clicking the "Ver Perfil" button!</Typography>
+              <br />
+              <br />
+              
+
+              <Typography textAlign={'left'}>
+                Repository: <Link href="https://github.com/gerleven/StarWars-Characters">github.com/gerleven/StarWars-Characters</Link>
               </Typography>
-              
-              <LinkedinLink dataTheme='dark'/>
-              
-              <br/>
+              <br />
+              <Typography textAlign={'left'}>
+                Deployed Site: <Link href="https://gerleven.github.io/StarWars-Characters">gerleven.github.io/StarWars-Characters</Link>
+              </Typography>
+              <br />
+
               <Form method="get" action="/" replace>
                 <CustomButtonPrimary type="submit">Came Back</CustomButtonPrimary>
               </Form>
