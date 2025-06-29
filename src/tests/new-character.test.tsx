@@ -42,6 +42,26 @@ describe('New character Form', () => {
     expect(submitButton).toBeEnabled();
   });
 
+  it("Select works correctly ", async ()=>{
+    const myCombobox = screen.getByRole("combobox", {name: /gender/i}); //const myCombobox2 = screen.getByLabelText(/gender/i);
+    expect(myCombobox).toBeInTheDocument();
+    expect(myCombobox).toHaveAttribute("aria-expanded", "false");
+    await userEvent.click(myCombobox);
+    expect(myCombobox).toHaveAttribute("aria-expanded", "true");
+    
+    const myLlistbox = await screen.findByRole("listbox", {name: "Gender"}, {}); //Equivalente a hacer este waitFor:
+    // await waitFor(()=>{
+    // expect(screen.getByRole("listbox", {name: "Gender"})).toBeInTheDocument();
+    //   });
+    // const myLlistbox = screen.getByRole("listbox", {name: "Gender"});
+    
+    expect(myLlistbox).toBeInTheDocument();
+    const optionToClickTo = screen.getByText(/^male$/i);
+    await userEvent.click(optionToClickTo);
+    expect(myCombobox).toHaveAttribute("aria-expanded", "false");
+    expect(myCombobox).toHaveTextContent(/^male$/i);
+  });
+
   it("Form sent correctly", async ()=>{
     const newCharacter = {name: "German", height: "177", birth_year: "02/08/1988", gender: ""} as Character;
     const user = userEvent.setup();
